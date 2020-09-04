@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 390374453028482927}
   - component: {fileID: 2513894136791882920}
   - component: {fileID: 2326575957622519536}
-  - component: {fileID: 4183821518093759162}
   m_Layer: 0
   m_Name: Corner Square
   m_TagString: Untagged
@@ -94,15 +93,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4183821518093759162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283687418470956882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8bce50c511dfbc4dbdf1d5350508e8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

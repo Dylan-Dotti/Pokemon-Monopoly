@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class BoardSpawner : MonoBehaviour
 {
-    [Header("Square Prefabs")]
-    [SerializeField] private BoardSquare cornerSquarePrefab;
-    [SerializeField] private BoardSquare propertySquarePrefab;
+    [Header("Square Factory")]
+    [SerializeField] private BoardSquareFactory factory;
 
     [Header("Square Spacing")]
     [SerializeField] private float squareSpacing = 0.05f;
 
-    private float BoardSize => (2 * cornerSquarePrefab.Width) +
-        (9 * propertySquarePrefab.Width) + (10 * squareSpacing);
-    private float CenterToRowMiddleDist => BoardSize / 2 - cornerSquarePrefab.Height / 2;
+    private float BoardSize => (2 * factory.CornerSquareSize) +
+        (9 * factory.StreetSquareWidth) + (10 * squareSpacing);
+    private float CenterToRowMiddleDist => BoardSize / 2 - factory.CornerSquareSize / 2;
 
     public IReadOnlyList<BoardSquare> SpawnBoard()
     {
@@ -30,14 +29,19 @@ public class BoardSpawner : MonoBehaviour
 
     public IReadOnlyList<BoardSquare> SpawnRow(int rowIndex)
     {
+        int startIndex = 10 * rowIndex;
         List<BoardSquare> rowSquares = new List<BoardSquare>();
         List<Vector2> rowCoords = GetRowCoords(rowIndex);
         Vector2 cornerCoords = rowCoords[0];
-        IEnumerable<Vector2> propertyCoords = rowCoords.GetRange(1, rowCoords.Count - 1);
-        rowSquares.Add(Instantiate(cornerSquarePrefab, cornerCoords, GetSpawnRotation(rowIndex), transform));
-        foreach (Vector2 pCoords in propertyCoords)
+        List<Vector2> propertyCoords = rowCoords.GetRange(1, rowCoords.Count - 1);
+        Debug.Log("Spawning square: " + startIndex);
+        rowSquares.Add(factory.SpawnSquare(
+            startIndex, cornerCoords, GetSpawnRotation(rowIndex), transform));
+        for (int i = 0; i < propertyCoords.Count; i++)
         {
-            rowSquares.Add(Instantiate(propertySquarePrefab, pCoords, GetSpawnRotation(rowIndex), transform));
+            Debug.Log("Spawning square: " + (startIndex + i));
+            rowSquares.Add(factory.SpawnSquare(
+                startIndex + i + 1, propertyCoords[i], GetSpawnRotation(rowIndex), transform));
         }
         return rowSquares;
     }
@@ -46,9 +50,9 @@ public class BoardSpawner : MonoBehaviour
     {
         Vector2 cornerCoords;
         IEnumerable<Vector2> propertyCoords;
-        float cornerCenterToPropertyCenterDist = (cornerSquarePrefab.Width / 2) + 
-            squareSpacing + (propertySquarePrefab.Width / 2);
-        float distBetweenProperties = squareSpacing + propertySquarePrefab.Width;
+        float cornerCenterToPropertyCenterDist = (factory.CornerSquareSize / 2) + 
+            squareSpacing + (factory.StreetSquareWidth / 2);
+        float distBetweenProperties = squareSpacing + factory.StreetSquareWidth;
         IEnumerable<float> propertyDistScalars = Enumerable.Range(0, 9).Select(
             i => cornerCenterToPropertyCenterDist + i * distBetweenProperties);
         switch (rowIndex)

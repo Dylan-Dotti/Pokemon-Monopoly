@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 2137914395}
   - component: {fileID: 2137914397}
   - component: {fileID: 2137914396}
+  - component: {fileID: 2137914398}
   m_Layer: 0
   m_Name: Monopoly Board
   m_TagString: Untagged
@@ -247,10 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d5c77148beb1545ab04b39313a35f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cornerSquarePrefab: {fileID: 4183821518093759162, guid: f5795fbbcfa9c664ea9925172ae77f59,
-    type: 3}
-  propertySquarePrefab: {fileID: 4541912977169284797, guid: e638205682204844daf1454125d38d37,
-    type: 3}
+  factory: {fileID: 2137914398}
   squareSpacing: 0.1
 --- !u!114 &2137914397
 MonoBehaviour:
@@ -264,3 +262,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9943ad273d54bf49b3cbc02b7903cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2137914398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137914394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4aa8fc4a5164b44a786a0501925523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornerSquare: {fileID: 1283687418470956882, guid: f5795fbbcfa9c664ea9925172ae77f59,
+    type: 3}
+  streetSquare: {fileID: 3173814632203758346, guid: e638205682204844daf1454125d38d37,
+    type: 3}
+  goSquare: {fileID: 5590782440907663049, guid: 01dbe72c24c2b7346a8c9c2004cb0197,
+    type: 3}
+  trainerBattleSquare: {fileID: 7279069110041275552, guid: efb8235e3cb08c247aae78a10e65ff21,
+    type: 3}
+  professorOakSquare: {fileID: -1564416043144015434, guid: 6e0ca77e84167134da0e961fd03308e0,
+    type: 3}
+  geodudeSquare: {fileID: 0}
