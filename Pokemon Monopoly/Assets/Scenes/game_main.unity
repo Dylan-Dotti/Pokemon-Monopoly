@@ -120,6 +120,111 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &401235098
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 125, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_Name
+      value: Photon Network Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 602, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 368d54718fa1f9149a67580aa42628df, type: 3}
+--- !u!1 &685286634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 685286636}
+  - component: {fileID: 685286635}
+  m_Layer: 0
+  m_Name: Player Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &685286635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685286634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a06e330bf4ae8459b91873bf2049ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  board: {fileID: 2137914397}
+--- !u!4 &685286636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685286634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1297684044
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,10 +383,60 @@ MonoBehaviour:
     type: 3}
   streetSquare: {fileID: 3173814632203758346, guid: e638205682204844daf1454125d38d37,
     type: 3}
+  pokeBallSquare: {fileID: 8609036025407840671, guid: 34843bd11b3481a40871b871b701a19d,
+    type: 3}
+  greatBallSquare: {fileID: 7151323209430191491, guid: 2c978bf0e4527c341a1d89dc6091934c,
+    type: 3}
+  ultraBallSquare: {fileID: 6399101357011003551, guid: 666942e764b8eeb49be917bc325d80d9,
+    type: 3}
+  masterBallSquare: {fileID: 7679651942542854667, guid: fefc1ba405e9d3449ab16f7aa086df32,
+    type: 3}
   goSquare: {fileID: 5590782440907663049, guid: 01dbe72c24c2b7346a8c9c2004cb0197,
+    type: 3}
+  jailSquare: {fileID: -8943426643938797075, guid: 37cd902ac3805d246b71c3e7d6f7d3b4,
+    type: 3}
+  freeParkingSquare: {fileID: 6039746303708895212, guid: a916baa3d08855e45afbe868ef1244ee,
+    type: 3}
+  goToJailSquare: {fileID: 5692594577752958073, guid: fdab502f1cc195e468a6ecd8b3abe569,
     type: 3}
   trainerBattleSquare: {fileID: 7279069110041275552, guid: efb8235e3cb08c247aae78a10e65ff21,
     type: 3}
   professorOakSquare: {fileID: -1564416043144015434, guid: 6e0ca77e84167134da0e961fd03308e0,
     type: 3}
-  geodudeSquare: {fileID: 0}
+  rivalAttacksSquare: {fileID: -2559239463915159209, guid: e8bbdb90e2653224bbf7766ee4c74b4c,
+    type: 3}
+  rocketAttacksSquare: {fileID: 8012116859859044525, guid: 6b632f679fc3c6b41a05cddf3cc16b82,
+    type: 3}
+  legendarySquares:
+  - {fileID: -1035055938350972555, guid: 82e3afbf2438a0043b96ee22c572db5b, type: 3}
+  - {fileID: -4671421912321042102, guid: 23458d8f962ae4e489dd38f4c4e4afa2, type: 3}
+  gym1Squares:
+  - {fileID: 4287866067678420518, guid: 247360c91346b184e88c836a8115c57d, type: 3}
+  - {fileID: 4287866067678420518, guid: b3a08b84e3fcd65449810f108cbd6dea, type: 3}
+  gym2Squares:
+  - {fileID: 769635651139945128, guid: 94fc0ec93159707459a17a61ab2d9b44, type: 3}
+  - {fileID: 769635651139945128, guid: 6b01bf7898b891340a1312c654d0ee50, type: 3}
+  - {fileID: 769635651139945128, guid: 45581f776cb242147862973000ad5033, type: 3}
+  gym3Squares:
+  - {fileID: 2107396416261726026, guid: f791bf428ee888340a3636971f91a397, type: 3}
+  - {fileID: 2107396416261726026, guid: 838235d09df558d46819de4e556e64f5, type: 3}
+  - {fileID: 2107396416261726026, guid: b9bece93f9acc554b940e542e84c8f4c, type: 3}
+  gym4Squares:
+  - {fileID: 4542723552121286151, guid: e0cfabef94dc67841b257fbefdf9d0c7, type: 3}
+  - {fileID: 4542723552121286151, guid: 91375a3d0eff50e4683d97028ab907aa, type: 3}
+  - {fileID: 4542723552121286151, guid: 0b3e53dc6db8a584e8fd9dbe86db3042, type: 3}
+  gym5Squares:
+  - {fileID: 280227448288527067, guid: 2df98836b0ec5094b806afdc0bd2d546, type: 3}
+  - {fileID: 280227448288527067, guid: 157f573cfd0075a418e2fd66b91d77a3, type: 3}
+  - {fileID: 280227448288527067, guid: 64a2b1459e10e134386a80d6df7a3003, type: 3}
+  gym6Squares:
+  - {fileID: 621105546798488835, guid: d4480056621506e4aa74f3caf5dac4ac, type: 3}
+  - {fileID: 621105546798488835, guid: b6fcf333f4c7f634c9e12ad8b7315b9e, type: 3}
+  - {fileID: 621105546798488835, guid: 47a3083e3f859804b8ef7a8cdfef93fd, type: 3}
+  gym7Squares:
+  - {fileID: 3176861392645403770, guid: 769ee9ef9b4653342bb285c5b730ec37, type: 3}
+  - {fileID: 3176861392645403770, guid: 04be0b19b66b36e48b56d6187e1c43da, type: 3}
+  - {fileID: 3176861392645403770, guid: 4ef3d11de3a4c2140af8e142295dde17, type: 3}
+  gym8Squares:
+  - {fileID: 7328120830232828503, guid: 86387018fc5edb24ba6c6a77cde3ec5c, type: 3}
+  - {fileID: 7328120830232828503, guid: bb7f50b6d74b5b041aee552d03e0827c, type: 3}

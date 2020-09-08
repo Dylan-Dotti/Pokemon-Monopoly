@@ -34,12 +34,10 @@ public class BoardSpawner : MonoBehaviour
         List<Vector2> rowCoords = GetRowCoords(rowIndex);
         Vector2 cornerCoords = rowCoords[0];
         List<Vector2> propertyCoords = rowCoords.GetRange(1, rowCoords.Count - 1);
-        Debug.Log("Spawning square: " + startIndex);
         rowSquares.Add(factory.SpawnSquare(
             startIndex, cornerCoords, GetSpawnRotation(rowIndex), transform));
         for (int i = 0; i < propertyCoords.Count; i++)
         {
-            Debug.Log("Spawning square: " + (startIndex + i));
             rowSquares.Add(factory.SpawnSquare(
                 startIndex + i + 1, propertyCoords[i], GetSpawnRotation(rowIndex), transform));
         }

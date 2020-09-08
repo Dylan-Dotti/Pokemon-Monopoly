@@ -7,26 +7,26 @@ public abstract class BoardSquare : MonoBehaviour
     public float Width => transform.lossyScale.x;
     public float Height => transform.lossyScale.y;
 
-    public HashSet<MonopolyPlayer> Occupants { get; private set; }
+    public HashSet<PlayerAvatar> Occupants { get; private set; }
 
     protected virtual void Awake()
     {
-        Occupants = new HashSet<MonopolyPlayer>();
+        Occupants = new HashSet<PlayerAvatar>();
     }
 
-    public abstract void OnPlayerEntered(MonopolyPlayer player, bool isLastMove);
+    public abstract void OnPlayerEntered(PlayerAvatar player, bool isLastMove);
 
-    public virtual Vector3 GetPlayerMovePosition(MonopolyPlayer player, float hoverHeight = 0.5f)
+    public virtual Vector3 GetPlayerMovePosition(PlayerAvatar player, float hoverHeight = 0.5f)
     {
         return transform.position + Vector3.back * hoverHeight;
     }
 
-    public void AddOccupant(MonopolyPlayer newOccupant)
+    public void AddOccupant(PlayerAvatar newOccupant)
     {
         Occupants.Add(newOccupant);
     }
 
-    public void RemoveOccupant(MonopolyPlayer occupant)
+    public void RemoveOccupant(PlayerAvatar occupant)
     {
         Occupants.Remove(occupant);
     }

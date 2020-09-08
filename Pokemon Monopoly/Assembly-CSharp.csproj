@@ -73,14 +73,21 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\BallSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\BoardSpawner.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\BoardSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\BoardSquareFactory.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\CardSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\FreeParkingSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\GoSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\GoToJailSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\Gym Squares\GymSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\JailSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\LegendarySquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\MonopolyBoard.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\ProfessorOakSquare.cs" />
-    <Compile Include="Assets\Resources\Scripts\Board\PropertySquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\RivalBattleSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\RocketBattleSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\TrainerBattleSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Cards\Card.cs" />
     <Compile Include="Assets\Resources\Scripts\MonopolyPlayer.cs" />
@@ -90,6 +97,9 @@
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonLobby.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonRoom.cs" />
+    <Compile Include="Assets\Resources\Scripts\PlayerAvatar.cs" />
+    <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
@@ -114,37 +124,37 @@
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -324,16 +334,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>D:/Github/Pokemon-Monopoly/Pokemon Monopoly/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.15f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.15f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+      <HintPath>C:/Users/h4dottd/Documents/GitHub/Pokemon-Monopoly/Pokemon Monopoly/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.15f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
