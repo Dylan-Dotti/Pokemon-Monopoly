@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e593fe473822344697bceee42bb71d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPlayers: 1
+  minPlayers: 2
 --- !u!1 &746558771
 GameObject:
   m_ObjectHideFlags: 0

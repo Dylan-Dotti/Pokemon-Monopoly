@@ -1,48 +1,43 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PhotonView))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private MonopolyBoard board;
+    [SerializeField] private DiceRoller roller;
 
     private MonopolyPlayer friendlyPlayer;
+    private PhotonView pView;
+
+    private PlayerAvatar FriendlyAvatar => friendlyPlayer.Avatar;
 
     private void Awake()
     {
+        pView = GetComponent<PhotonView>();
         MonopolyPlayer.Spawned += OnPlayerSpawned;
+        roller.RollComplete += OnRollComplete;
     }
 
-    public void MovePlayerTo(BoardSquare square)
+    public void RollDice()
     {
-        friendlyPlayer.Avatar.MoveToSquare(square);
-    }
-
-    public void MoveAvatarForward(int numSquares)
-    {
-        IReadOnlyList<BoardSquare> nextSquares =
-            board.GetNextSquares(
-                friendlyPlayer.Avatar, numSquares);
-        foreach (BoardSquare square in nextSquares)
-        {
-            MovePlayerTo(square);
-        }
+        roller.RollDice(friendlyPlayer.PlayerName);
     }
 
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
         friendlyPlayer = player;
-        StartCoroutine(TestMoves());
+        friendlyPlayer.Avatar.SpawnAtSquare(
+            board.GetSpawnSquare());
     }
 
-    private IEnumerator TestMoves()
+    private void OnRollComplete(DiceRoller roller)
     {
-        friendlyPlayer.Avatar.SpawnAtSquare(board.GetSpawnSquare());
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("Moving avatar forward");
-            MoveAvatarForward(1);
-        }
+        IReadOnlyList<BoardSquare> nextSquares = 
+            board.GetNextSquares(
+                friendlyPlayer.Avatar, roller.LastRollTotal);
+        friendlyPlayer.MoveAvatarSequential(nextSquares);
     }
 }

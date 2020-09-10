@@ -90,6 +90,7 @@
     <Compile Include="Assets\Resources\Scripts\Board\RocketBattleSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\TrainerBattleSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Cards\Card.cs" />
+    <Compile Include="Assets\Resources\Scripts\DiceRoller.cs" />
     <Compile Include="Assets\Resources\Scripts\MonopolyPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\CountdownTimer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\MultiplayerInitController.cs" />
@@ -99,7 +100,10 @@
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonRoom.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerAvatar.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\DiceRollPanel.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\SixSidedDie.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
