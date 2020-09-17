@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6c66fc42673524c9375f603ed88f06, type: 3}
+  m_Name: Ultra Ball Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Ultra Ball
+  propertySprite: {fileID: 21300000, guid: 1921ae09b01c54743813fb7ba1403501, type: 3}
+  purchaseCost: 200
+  baseRent: 25
+  propCollection: {fileID: 11400000, guid: e6f6400ce5d19c8418b2d08815991274, type: 2}

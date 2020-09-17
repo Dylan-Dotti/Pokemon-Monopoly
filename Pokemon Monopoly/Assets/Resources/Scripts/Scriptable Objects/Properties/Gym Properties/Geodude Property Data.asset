@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac6a6d132344964585ff069f4baf37f, type: 3}
+  m_Name: Geodude Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Geodude
+  propertySprite: {fileID: 21300000, guid: 55b35c762f187b843b3d27d1b6389fde, type: 3}
+  purchaseCost: 60
+  baseRent: 2
+  propCollection: {fileID: 11400000, guid: 2e0e99ca43cc6e44ea4a5041473259bb, type: 2}
+  upgradeCost: 50
+  rentWithMarts: 0a0000001e0000005a000000a0000000
+  rentWithCenter: 250
+  gymData: {fileID: 11400000, guid: 4c92d4553792b7c4fbe149ba3d75f32e, type: 2}

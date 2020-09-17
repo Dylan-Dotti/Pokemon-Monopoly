@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1910699481734019332, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_Name
+      value: Gym3 Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236593868583218593, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a47648a74c452e48a302962112a9eb3, type: 2}
     - target: {fileID: 3791649522833199286, guid: a2902ea53125e1e47bc0428fedd1424f,
         type: 3}
       propertyPath: m_text
@@ -96,6 +106,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_text
+      value: Lt Surge's Gym
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2902ea53125e1e47bc0428fedd1424f, type: 3}

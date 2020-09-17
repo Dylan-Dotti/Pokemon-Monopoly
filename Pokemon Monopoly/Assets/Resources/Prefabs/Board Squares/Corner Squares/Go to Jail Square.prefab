@@ -29,6 +29,61 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_text
+      value: Go to Jail
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6330903067272678453, guid: f5795fbbcfa9c664ea9925172ae77f59,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -83,6 +138,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849832588738340737, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849832588738340737, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7560305952517796704, guid: f5795fbbcfa9c664ea9925172ae77f59,
         type: 3}

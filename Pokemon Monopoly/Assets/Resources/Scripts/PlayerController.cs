@@ -6,38 +6,33 @@ using UnityEngine;
 [RequireComponent(typeof(PhotonView))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private MonopolyBoard board;
     [SerializeField] private DiceRoller roller;
 
     private MonopolyPlayer friendlyPlayer;
     private PhotonView pView;
 
-    private PlayerAvatar FriendlyAvatar => friendlyPlayer.Avatar;
+    private PlayerAvatar FriendlyAvatar => friendlyPlayer.PlayerToken;
 
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
         MonopolyPlayer.Spawned += OnPlayerSpawned;
-        roller.RollComplete += OnRollComplete;
     }
 
     public void RollDice()
     {
+        roller.RollComplete += OnRollComplete;
         roller.RollDice(friendlyPlayer.PlayerName);
     }
 
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
-        friendlyPlayer = player;
-        friendlyPlayer.Avatar.SpawnAtSquare(
-            board.GetSpawnSquare());
+        if (player.IsLocalPlayer) friendlyPlayer = player;
     }
 
     private void OnRollComplete(DiceRoller roller)
     {
-        IReadOnlyList<BoardSquare> nextSquares = 
-            board.GetNextSquares(
-                friendlyPlayer.Avatar, roller.LastRollTotal);
-        friendlyPlayer.MoveAvatarSequential(nextSquares);
+        roller.RollComplete -= OnRollComplete;
+        friendlyPlayer.MoveAvatarSequential(roller.LastRollTotal);
     }
 }

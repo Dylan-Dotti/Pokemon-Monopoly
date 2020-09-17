@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac6a6d132344964585ff069f4baf37f, type: 3}
+  m_Name: Rapidash Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Rapidash
+  propertySprite: {fileID: 21300000, guid: b0e386d65f796fb41ba32efd886ab513, type: 3}
+  purchaseCost: 320
+  baseRent: 28
+  propCollection: {fileID: 11400000, guid: fd23f3f271c45944c9eb35505a6e2429, type: 2}
+  upgradeCost: 200
+  rentWithMarts: 96000000c2010000e8030000b0040000
+  rentWithCenter: 1400
+  gymData: {fileID: 11400000, guid: 44d0853846d2a3c4c9b1a08c69acd312, type: 2}

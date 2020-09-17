@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac6a6d132344964585ff069f4baf37f, type: 3}
+  m_Name: Horsea Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Horsea
+  propertySprite: {fileID: 21300000, guid: 5ff7bbc570fc03540855f2a37afff431, type: 3}
+  purchaseCost: 120
+  baseRent: 8
+  propCollection: {fileID: 11400000, guid: dcf42453c7e7c2543bc6c5a3a2fb2507, type: 2}
+  upgradeCost: 50
+  rentWithMarts: 28000000640000002c010000c2010000
+  rentWithCenter: 600
+  gymData: {fileID: 11400000, guid: 10cef07af5fb88e4c8a25499af008b9a, type: 2}

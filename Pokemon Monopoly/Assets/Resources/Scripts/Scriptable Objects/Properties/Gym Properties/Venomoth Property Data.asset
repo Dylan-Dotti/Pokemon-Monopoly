@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac6a6d132344964585ff069f4baf37f, type: 3}
+  m_Name: Venomoth Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Venomoth
+  propertySprite: {fileID: 21300000, guid: e9c724a14f01fea40b6a29d542a8fa61, type: 3}
+  purchaseCost: 240
+  baseRent: 20
+  propCollection: {fileID: 11400000, guid: 946dc5a58238e244d905c1a02ea666df, type: 2}
+  upgradeCost: 150
+  rentWithMarts: 640000002c010000ee0200009d030000
+  rentWithCenter: 1100
+  gymData: {fileID: 11400000, guid: cf4560555af38f64a90b4f87d9ae6411, type: 2}

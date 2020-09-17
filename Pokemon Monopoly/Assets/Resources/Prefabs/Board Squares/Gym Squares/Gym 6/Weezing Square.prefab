@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447048445651544898, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_text
+      value: Weezing
+      objectReference: {fileID: 0}
+    - target: {fileID: 447048445651544898, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_text
+      value: "\xA5280\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5767827194616657928, guid: 0152b88c227321a4699aca75d31dc6da,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,10 +87,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5777027261928797902, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: eff50aafdc434ae44bdbf55961457fc0, type: 3}
     - target: {fileID: 6896804351585044255, guid: 0152b88c227321a4699aca75d31dc6da,
         type: 3}
       propertyPath: m_Name
       value: Gym6
       objectReference: {fileID: 0}
+    - target: {fileID: 8340095399279291619, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: m_Name
+      value: Weezing Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512207520682645376, guid: 0152b88c227321a4699aca75d31dc6da,
+        type: 3}
+      propertyPath: propertyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 75684753d0a5969409455ba5a8bc6a93,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0152b88c227321a4699aca75d31dc6da, type: 3}

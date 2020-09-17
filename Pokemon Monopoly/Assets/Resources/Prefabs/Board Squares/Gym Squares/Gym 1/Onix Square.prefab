@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447048445651544898, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_text
+      value: Onix
+      objectReference: {fileID: 0}
+    - target: {fileID: 447048445651544898, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_text
+      value: "\xA560"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5767827194616657928, guid: 295c280e8a6bede428b01915d8edaa9c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,5 +92,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gym1 Square
       objectReference: {fileID: 0}
+    - target: {fileID: 7665625523259754659, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: a8a289a8b47e6544bb453a421bab2809, type: 3}
+    - target: {fileID: 8340095399279291619, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: m_Name
+      value: Onix Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512207520682645376, guid: 295c280e8a6bede428b01915d8edaa9c,
+        type: 3}
+      propertyPath: propertyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e986c298ab6d414bbc0957233cc2e0c,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 295c280e8a6bede428b01915d8edaa9c, type: 3}

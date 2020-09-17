@@ -12,17 +12,24 @@ public class MonopolyPlayer : MonoBehaviour
 
     [SerializeField] private PlayerAvatar avatarPrefab;
 
+    private PhotonView pView;
+    private MonopolyBoard board;
+
     public string PlayerName { get; set; } = "Unknown";
-    public PlayerAvatar Avatar { get; set; }
+    public PlayerAvatar PlayerToken { get; set; }
+    public int Money { get; set; } = 1500;
+
+    public IReadOnlyCollection<GymPropertyData> GymProperties { get; private set; }
+    public IReadOnlyCollection<BallPropertyData> BallProperties { get; private set; }
+    public IReadOnlyCollection<LegendaryPropertyData> LegendaryProperties { get; private set; }
 
     public bool IsLocalPlayer => pView.IsMine;
-
-    private PhotonView pView;
 
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
-        Avatar = Instantiate(avatarPrefab);
+        board = GameObject.FindGameObjectWithTag("Board")
+            .GetComponent<MonopolyBoard>();
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
@@ -30,32 +37,40 @@ public class MonopolyPlayer : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SpawnAvatar();
+    }
+
     private void OnDestroy()
     {
         Despawned?.Invoke(this);
     }
 
-    public void MoveAvatarTo(BoardSquare square)
+    public void SpawnAvatar()
     {
-        Avatar.MoveToSquare(square);
+        Debug.Log("Spawning avatar");
+        PlayerToken = Instantiate(avatarPrefab);
+        PlayerToken.Owner = this;
+        PlayerToken.SpawnAtSquare(board.GetSpawnSquare());
     }
 
-    public Coroutine MoveAvatarSequential(
-        IReadOnlyList<BoardSquare> squareSequence)
+    public void MoveAvatarSequential(int numSquares)
     {
-        return StartCoroutine(MoveAvatarCR(squareSequence, 0.5f));
+        pView.RPC("RPC_MoveAvatar", RpcTarget.AllBuffered, numSquares);
     }
 
     private IEnumerator MoveAvatarCR(
-    IReadOnlyList<BoardSquare> squareSequence, float interval)
+        IReadOnlyList<BoardSquare> squareSequence, float interval)
     {
         for (int i = 0; i < squareSequence.Count - 1; i++)
         {
-            Avatar.MoveToSquare(squareSequence[i]);
+            PlayerToken.MoveToSquare(squareSequence[i]);
             yield return new WaitForSeconds(interval);
         }
-        Avatar.MoveToSquare(
-            squareSequence[squareSequence.Count - 1]);
+        PlayerToken.MoveToSquare(
+            squareSequence[squareSequence.Count - 1],
+            isLastMove: true);
     }
 
     [PunRPC]
@@ -63,5 +78,13 @@ public class MonopolyPlayer : MonoBehaviour
     {
         PlayerName = name;
         Spawned?.Invoke(this);
+    }
+
+    [PunRPC]
+    private void RPC_MoveAvatar(int numSquares)
+    {
+        IReadOnlyList<BoardSquare> squareSequence =
+            board.GetNextSquares(PlayerToken, numSquares);
+        StartCoroutine(MoveAvatarCR(squareSequence, 0.5f));
     }
 }

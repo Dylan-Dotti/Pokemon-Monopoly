@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class BoardSpawner : MonoBehaviour
 {
+    [Header("Board Assets")]
+    [SerializeField] private GameObject boardBackground;
+    [SerializeField] private GameObject boardCenter;
+
     [Header("Square Factory")]
     [SerializeField] private BoardSquareFactory factory;
 
-    [Header("Square Spacing")]
-    [SerializeField] private float squareSpacing = 0.05f;
+    [Header("Spacing")]
+    [SerializeField] private float squareSpacing = 0.1f;
+    [SerializeField] private float backgroundSpacing = 0.15f;
+    [SerializeField] private float centerSpacing = 0.1f;
 
     private float BoardSize => (2 * factory.CornerSquareSize) +
         (9 * factory.StreetSquareWidth) + (10 * squareSpacing);
-    private float CenterToRowMiddleDist => BoardSize / 2 - factory.CornerSquareSize / 2;
+    private float BoardBackgroundSize => BoardSize + 2 * backgroundSpacing;
+    private float BoardCenterSize => BoardSize -
+        (2 * factory.CornerSquareSize) - (2 * centerSpacing);
+    private float CenterToRowMiddleDist => BoardSize / 2 - 
+        factory.CornerSquareSize / 2;
 
     public IReadOnlyList<BoardSquare> SpawnBoard()
     {
         Debug.Log("Spawning board");
-        Debug.Log($"Board size: ({BoardSize} * {BoardSize})");
-
+        // spawn background
+        GameObject background = Instantiate(boardBackground);
+        background.transform.localScale = new Vector3(
+            BoardBackgroundSize, BoardBackgroundSize, 1);
+        background.transform.parent = transform;
+        // spawn center
+        GameObject center = Instantiate(boardCenter);
+        center.transform.localScale = new Vector3(
+            BoardCenterSize, BoardCenterSize, 1);
+        center.transform.parent = transform;
+        // spawn board squares
         List<BoardSquare> squares = new List<BoardSquare>();
         for (int i = 0; i < 4; i++)
         {

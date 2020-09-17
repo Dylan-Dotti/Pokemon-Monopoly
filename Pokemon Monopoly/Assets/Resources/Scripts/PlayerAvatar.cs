@@ -10,6 +10,7 @@ public class PlayerAvatar : MonoBehaviour
 
     private PositionLerper lerper;
 
+    public MonopolyPlayer Owner { get; set; }
     public BoardSquare OccupiedSquare { get; private set; }
 
     private void Awake()

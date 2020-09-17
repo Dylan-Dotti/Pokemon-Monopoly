@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447048445651544898, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_text
+      value: Starmie
+      objectReference: {fileID: 0}
+    - target: {fileID: 447048445651544898, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_text
+      value: "\xA5100"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180921109438103780, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5767827194616657928, guid: c172baf4bcf734c419fb3f8dab0b5513,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,10 +87,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5777027261928797902, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: a457e31765aeca7458825f6871af30e1, type: 3}
     - target: {fileID: 6896804351585044255, guid: c172baf4bcf734c419fb3f8dab0b5513,
         type: 3}
       propertyPath: m_Name
       value: Gym2 Square
       objectReference: {fileID: 0}
+    - target: {fileID: 7665625523259754659, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: a457e31765aeca7458825f6871af30e1, type: 3}
+    - target: {fileID: 8340095399279291619, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: m_Name
+      value: Starmie Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512207520682645376, guid: c172baf4bcf734c419fb3f8dab0b5513,
+        type: 3}
+      propertyPath: propertyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 389c5e029c5132545a80af4c1f93022f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c172baf4bcf734c419fb3f8dab0b5513, type: 3}

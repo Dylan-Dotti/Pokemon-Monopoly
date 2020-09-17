@@ -6,6 +6,6 @@ public class GoSquare : BoardSquare
 {
     public override void OnPlayerEntered(PlayerAvatar player, bool isLastMove)
     {
-        // give player 200
+        player.Owner.Money += 200;
     }
 }

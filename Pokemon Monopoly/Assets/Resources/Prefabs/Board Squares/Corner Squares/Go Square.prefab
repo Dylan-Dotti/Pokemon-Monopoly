@@ -29,6 +29,41 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3423537176355045275, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_text
+      value: GO
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256451992896500887, guid: f5795fbbcfa9c664ea9925172ae77f59,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 6330903067272678453, guid: f5795fbbcfa9c664ea9925172ae77f59,
         type: 3}
       propertyPath: m_LocalPosition.x

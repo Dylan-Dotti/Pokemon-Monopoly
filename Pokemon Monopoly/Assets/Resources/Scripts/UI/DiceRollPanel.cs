@@ -5,23 +5,12 @@ using UnityEngine.UI;
 
 public class DiceRollPanel : MonoBehaviour
 {
-    private GameObject background;
-    private SixSidedDie[] dice;
-    private Text playerIsRolling;
-    private Text playerRolled;
+    [SerializeField] private Text playerIsRolling;
+    [SerializeField] Text playerRolled;
+    [SerializeField] private SixSidedDie[] dice;
 
     private Coroutine rollingCR;
     private string rollingPlayerName = "Player";
-
-    private void Awake()
-    {
-        background = transform.Find("Background").gameObject;
-        dice = GetComponentsInChildren<SixSidedDie>();
-        playerIsRolling = transform.Find("Player is rolling")
-            .GetComponent<Text>();
-        playerRolled = transform.Find("Player rolled")
-            .GetComponent<Text>();
-    }
 
     public void Activate()
     {
@@ -45,6 +34,8 @@ public class DiceRollPanel : MonoBehaviour
     {
         if (rollingCR != null)
             throw new System.Exception("Already rolling");
+        playerIsRolling.gameObject.SetActive(true);
+        playerRolled.gameObject.SetActive(false);
         rollingPlayerName = playerName;
         playerIsRolling.text = $"{playerName} is rolling...";
         rollingCR = StartCoroutine(RollDiceCR(changeInterval));

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44459083e91de7843944d66858098d8e, type: 3}
+  m_Name: Articuno Property Data
+  m_EditorClassIdentifier: 
+  propertyName: Articuno
+  propertySprite: {fileID: 21300000, guid: e6dfcaf9e148dbb468f334c56d30fb12, type: 3}
+  purchaseCost: 150
+  baseRent: 4
+  propCollection: {fileID: 11400000, guid: 4727416225313b346bc516843c0637e2, type: 2}
+  rentWithBothLegendaries: 10

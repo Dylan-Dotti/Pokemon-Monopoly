@@ -19,6 +19,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1301862782162562084, guid: 22df5cc99888e7144a969600fac42d1b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ebbaaaebf803264bbc9c95aecb97176,
+        type: 3}
+    - target: {fileID: 1301862782162562084, guid: 22df5cc99888e7144a969600fac42d1b,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336175976546367462, guid: 22df5cc99888e7144a969600fac42d1b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b63449b8ef28804eb6869694d260d44, type: 2}
     - target: {fileID: 5025333461933360061, guid: 22df5cc99888e7144a969600fac42d1b,
         type: 3}
       propertyPath: m_text
@@ -118,6 +134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634536830281138624, guid: 22df5cc99888e7144a969600fac42d1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8321194423364469051, guid: 22df5cc99888e7144a969600fac42d1b,
         type: 3}

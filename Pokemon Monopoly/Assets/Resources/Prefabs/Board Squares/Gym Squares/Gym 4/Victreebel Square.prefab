@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447048445651544898, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: m_text
+      value: Victreebel
+      objectReference: {fileID: 0}
+    - target: {fileID: 447048445651544898, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5767827194616657928, guid: 153a40ca45d2a7141a26ee118e962b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,10 +72,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5777027261928797902, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: afb2545c60650d74b967b64dbd75c121, type: 3}
     - target: {fileID: 6896804351585044255, guid: 153a40ca45d2a7141a26ee118e962b22,
         type: 3}
       propertyPath: m_Name
       value: Gym4
       objectReference: {fileID: 0}
+    - target: {fileID: 7665625523259754659, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: afb2545c60650d74b967b64dbd75c121, type: 3}
+    - target: {fileID: 8340095399279291619, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: m_Name
+      value: Victreebel Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512207520682645376, guid: 153a40ca45d2a7141a26ee118e962b22,
+        type: 3}
+      propertyPath: propertyData
+      value: 
+      objectReference: {fileID: 11400000, guid: ffbc025435390454aa8235722e321938,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 153a40ca45d2a7141a26ee118e962b22, type: 3}

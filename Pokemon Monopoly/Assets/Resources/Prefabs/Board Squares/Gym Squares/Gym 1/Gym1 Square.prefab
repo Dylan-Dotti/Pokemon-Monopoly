@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1910699481734019332, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_Name
+      value: Gym1 Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236593868583218593, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9bccb0c2b32325c43a66dfed1ca67589, type: 2}
     - target: {fileID: 3791649522833199286, guid: a2902ea53125e1e47bc0428fedd1424f,
         type: 3}
       propertyPath: m_text
@@ -101,6 +111,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_text
+      value: Brock's Gym
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446169513871914114, guid: a2902ea53125e1e47bc0428fedd1424f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2902ea53125e1e47bc0428fedd1424f, type: 3}

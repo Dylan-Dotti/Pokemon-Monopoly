@@ -144,4 +144,9 @@ public class BoardSquareFactory : MonoBehaviour
                 return Instantiate(trainerBattleSquare, spawnPos, rotation, parent);
         }
     }
+
+    private BoardSquare GetBoardSquare(BoardSquare squarePrefab, string propertyName)
+    {
+        return null;
+    }
 }

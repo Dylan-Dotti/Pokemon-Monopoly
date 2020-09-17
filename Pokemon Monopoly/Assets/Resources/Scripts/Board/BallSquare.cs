@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallSquare : BoardSquare
+public class BallSquare : PropertySquare
 {
-    public override void OnPlayerEntered(PlayerAvatar player, bool isLastMove)
-    {
-
-    }
+    public override PropertyData Property { get; set; }
 }

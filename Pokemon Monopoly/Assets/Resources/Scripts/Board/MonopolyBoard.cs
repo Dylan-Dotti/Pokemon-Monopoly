@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoardSpawner))]
 public class MonopolyBoard : MonoBehaviour
 {
+    public event UnityAction<MonopolyBoard> BoardSpawned;
     private IReadOnlyList<BoardSquare> boardSquares;
     private BoardSpawner spawner;
 
@@ -18,6 +20,7 @@ public class MonopolyBoard : MonoBehaviour
     public void SpawnBoard()
     {
         boardSquares = spawner.SpawnBoard();
+        BoardSpawned?.Invoke(this);
     }
 
     public BoardSquare GetSpawnSquare()
