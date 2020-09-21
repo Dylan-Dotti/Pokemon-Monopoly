@@ -2,7 +2,7 @@
 
 public abstract class PropertySquare : BoardSquare, IPurchasable
 {
-    public abstract PropertyData Property { get; set; }
+    public PropertyData Property { get; set; }
     public MonopolyPlayer Owner { get; set; }
     public virtual bool Purchasable => Owner == null;
 
@@ -13,8 +13,15 @@ public abstract class PropertySquare : BoardSquare, IPurchasable
         Owner.Money -= Property.PurchaseCost;
     }
 
-    public override void OnPlayerEntered(PlayerAvatar player, bool isLastMove)
+    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {
-        if (isLastMove) Purchase(player.Owner);
+        if (isLastMove)
+        {
+            if (player != Owner)
+            {
+                if (Purchasable) player.PurchaseProperty(Property);
+                else player.Money -= 0;
+            }
+        }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class GoSquare : BoardSquare
 {
-    public override void OnPlayerEntered(PlayerAvatar player, bool isLastMove)
+    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {
-        player.Owner.Money += 200;
+        player.Money += 200;
     }
 }

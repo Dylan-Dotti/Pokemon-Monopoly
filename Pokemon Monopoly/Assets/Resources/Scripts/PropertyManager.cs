@@ -16,9 +16,6 @@ public class PropertyManager : MonoBehaviour
             properties = new List<PropertyData>();
             properties.AddRange(Resources.LoadAll<PropertyData>(
                 "Scripts/Scriptable Objects/Properties"));
-            Debug.Log("Properties count: " + properties.Count);
-            Debug.Log(GetPropertyByName("Articuno").PropertyName);
-            Debug.Log(GetPropertyByName("Zapdos").PurchaseCost);
         }
     }
 

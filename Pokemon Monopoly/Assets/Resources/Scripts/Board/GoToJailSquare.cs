@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoToJailSquare : BoardSquare
 {
-    public override void OnPlayerEntered(PlayerAvatar player, bool isLastMove)
+    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {
 
     }

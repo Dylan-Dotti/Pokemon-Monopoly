@@ -12,7 +12,7 @@ public class MultiplayerMessageLog : MonoBehaviour
     [SerializeField] private Scrollbar vScrollbar;
 
     [SerializeField] private PlayerManager pManager;
-    [SerializeField] private Transform textContainer;
+    [SerializeField] private RectTransform textContainer;
     [SerializeField] private Text textPrefab;
 
     private bool enterEnabled;
@@ -28,6 +28,8 @@ public class MultiplayerMessageLog : MonoBehaviour
         pView = GetComponent<PhotonView>();
         inputPlaceholder = inputField.transform
             .Find("Placeholder").gameObject;
+        textContainer.offsetMin = new Vector2(0, textContainer.offsetMin.y);
+        textContainer.offsetMax = new Vector2(-30, textContainer.offsetMax.y);
     }
 
     private void Update()

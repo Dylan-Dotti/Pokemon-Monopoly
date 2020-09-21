@@ -12,14 +12,16 @@ public class PlayerManager : MonoBehaviour
     public event UnityAction<MonopolyPlayer> ActivePlayerChanged;
 
     private HashSet<MonopolyPlayer> players;
-    private Queue<MonopolyPlayer> defaultPlayerSequence;
+    private List<MonopolyPlayer> defaultPlayerSequence;
     private Queue<MonopolyPlayer> playerTurnQueue;
     private PhotonView pView;
 
     public IEnumerable<MonopolyPlayer> PlayerTurnSequence => defaultPlayerSequence;
     public MonopolyPlayer ActivePlayer { get; private set; }
-    public MonopolyPlayer LocalPlayer => players.Where(
-        p => p.IsLocalPlayer).FirstOrDefault();
+    public MonopolyPlayer LocalPlayer => 
+        players.Where(p => p.IsLocalPlayer).FirstOrDefault();
+    public IEnumerable<MonopolyPlayer> RemotePlayers => 
+        defaultPlayerSequence.Where(p => !p.IsLocalPlayer);
 
     private void Awake()
     {
@@ -78,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         playerTurnQueue = new Queue<MonopolyPlayer>();
         nameSequence.ToList().ForEach(
             n => playerTurnQueue.Enqueue(GetPlayerByName(n)));
-        defaultPlayerSequence = new Queue<MonopolyPlayer>(playerTurnQueue);
+        defaultPlayerSequence = new List<MonopolyPlayer>(playerTurnQueue);
         foreach (MonopolyPlayer player in playerTurnQueue)
         {
             Debug.Log(player.PlayerName);

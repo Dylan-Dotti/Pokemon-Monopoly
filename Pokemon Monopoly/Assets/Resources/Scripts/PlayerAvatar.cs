@@ -32,7 +32,7 @@ public class PlayerAvatar : MonoBehaviour
         if (triggerEvents)
         {
             if (isLastMove) FinishedMove?.Invoke(this);
-            square.OnPlayerEntered(this, isLastMove);
+            square.OnPlayerEntered(Owner, isLastMove);
         }
     }
 

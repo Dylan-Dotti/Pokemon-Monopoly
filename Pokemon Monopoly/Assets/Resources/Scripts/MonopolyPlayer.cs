@@ -14,14 +14,13 @@ public class MonopolyPlayer : MonoBehaviour
 
     private PhotonView pView;
     private MonopolyBoard board;
+    private HashSet<PropertyData> properties;
 
-    public string PlayerName { get; set; } = "Unknown";
+    public string PlayerName { get; private set; } = "Unknown";
+    public string AvatarImageName { get; private set; }
     public PlayerAvatar PlayerToken { get; set; }
     public int Money { get; set; } = 1500;
-
-    public IReadOnlyCollection<GymPropertyData> GymProperties { get; private set; }
-    public IReadOnlyCollection<BallPropertyData> BallProperties { get; private set; }
-    public IReadOnlyCollection<LegendaryPropertyData> LegendaryProperties { get; private set; }
+    public IReadOnlyCollection<PropertyData> Properties => properties;
 
     public bool IsLocalPlayer => pView.IsMine;
 
@@ -33,7 +32,8 @@ public class MonopolyPlayer : MonoBehaviour
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
-                PhotonNetwork.LocalPlayer.NickName);
+                PhotonNetwork.LocalPlayer.NickName,
+                MultiplayerSettings.Instance.AvatarImageName);
         }
     }
 
@@ -55,9 +55,16 @@ public class MonopolyPlayer : MonoBehaviour
         PlayerToken.SpawnAtSquare(board.GetSpawnSquare());
     }
 
-    public void MoveAvatarSequential(int numSquares)
+    public void MoveAvatarSequential(int numSquares, MoveDirection direction)
     {
         pView.RPC("RPC_MoveAvatar", RpcTarget.AllBuffered, numSquares);
+    }
+
+    public void PurchaseProperty(PropertyData property)
+    {
+        Debug.Log("Purchasing property: " + property.PropertyName);
+        property.Owner = this;
+        Money -= property.PurchaseCost;
     }
 
     private IEnumerator MoveAvatarCR(
@@ -74,9 +81,10 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_SpawnInit(string name)
+    private void RPC_SpawnInit(string name, string avatarImageName)
     {
         PlayerName = name;
+        AvatarImageName = avatarImageName;
         Spawned?.Invoke(this);
     }
 

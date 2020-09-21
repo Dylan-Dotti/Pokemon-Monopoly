@@ -36,5 +36,9 @@ MonoBehaviour:
   - RPC_LoadedGameScene
   - RPC_RollDice
   - RPC_SpawnInit
+  - RPC_AssignTurns
+  - RPC_LogMessage
+  - RPC_MoveAvatar
+  - RPC_SetPlayerAvatar
   DisableAutoOpenWizard: 1
   ShowSettings: 0

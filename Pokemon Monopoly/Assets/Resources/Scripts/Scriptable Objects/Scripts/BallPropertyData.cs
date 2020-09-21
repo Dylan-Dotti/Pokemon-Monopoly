@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
+
 
 [CreateAssetMenu(fileName = "BallPropertyData", menuName = "Scriptable Objects/Ball Property Data")]
 public class BallPropertyData : PropertyData
@@ -8,7 +10,10 @@ public class BallPropertyData : PropertyData
         get
         {
             if (Owner == null) return 0;
-            return RentWithMultipleBalls(Owner.BallProperties.Count);
+            int numOwnerBallProps = Owner.Properties.Where(
+                p => p.CollectionData.CollectionName == SpecialCharacters.POKEBALL_STRING + "s")
+                .Count();
+            return RentWithMultipleBalls(numOwnerBallProps);
         }
     }
 

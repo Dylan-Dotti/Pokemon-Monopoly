@@ -8,6 +8,7 @@ public abstract class PropertyData : ScriptableObject
     public int BaseRent => baseRent;
     public int MortgageValue => PurchaseCost / 2;
     public PropertyCollection CollectionData => propCollection;
+    public string CollectionName => CollectionData.CollectionName;
 
     public MonopolyPlayer Owner { get; set; }
     public abstract int CurrentRent { get; }

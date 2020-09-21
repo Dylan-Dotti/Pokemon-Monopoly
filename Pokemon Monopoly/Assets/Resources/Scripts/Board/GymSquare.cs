@@ -1,8 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GymSquare : PropertySquare
+﻿
+public class GymSquare : PropertySquare, IUpgradable
 {
-    public override PropertyData Property { get; set; }
+    public bool Upgradable => true;
+    public bool Downgradable => true;
+
+    public void Upgrade()
+    {
+
+    }
+
+    public void Downgrade()
+    {
+
+    }
 }

@@ -33,6 +33,6 @@ public class PlayerController : MonoBehaviour
     private void OnRollComplete(DiceRoller roller)
     {
         roller.RollComplete -= OnRollComplete;
-        friendlyPlayer.MoveAvatarSequential(roller.LastRollTotal);
+        friendlyPlayer.MoveAvatarSequential(roller.LastRollTotal, MoveDirection.Forward);
     }
 }

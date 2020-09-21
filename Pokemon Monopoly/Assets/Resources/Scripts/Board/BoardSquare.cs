@@ -14,7 +14,7 @@ public abstract class BoardSquare : MonoBehaviour
         Occupants = new HashSet<PlayerAvatar>();
     }
 
-    public abstract void OnPlayerEntered(PlayerAvatar player, bool isLastMove);
+    public abstract void OnPlayerEntered(MonopolyPlayer player, bool isLastMove);
 
     public virtual Vector3 GetPlayerMovePosition(PlayerAvatar player, float hoverHeight = 0.5f)
     {
