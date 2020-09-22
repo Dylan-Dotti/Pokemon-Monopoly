@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Misty's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Misty's Gym
+  collectionMaterial: {fileID: 2100000, guid: f81bcf1487f072d41a601d68d0e373a1, type: 2}

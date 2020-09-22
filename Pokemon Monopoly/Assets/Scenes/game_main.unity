@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 229315085}
   - component: {fileID: 229315084}
   - component: {fileID: 229315083}
+  - component: {fileID: 229315086}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -593,6 +594,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229315081}
   m_CullTransparentMesh: 0
+--- !u!114 &229315086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229315081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383d2ee38a1751d469f59805b3a28688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &232361395
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,6 +2849,7 @@ GameObject:
   - component: {fileID: 1333893933}
   - component: {fileID: 1333893932}
   - component: {fileID: 1333893931}
+  - component: {fileID: 1333893934}
   m_Layer: 5
   m_Name: Roll Button
   m_TagString: Untagged
@@ -2953,6 +2967,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333893929}
   m_CullTransparentMesh: 0
+--- !u!114 &1333893934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333893929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383d2ee38a1751d469f59805b3a28688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1378020747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4232,6 +4258,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083713034}
   m_CullTransparentMesh: 0
+--- !u!1 &2123437694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2123437695}
+  m_Layer: 0
+  m_Name: Popup Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2123437695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123437694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 757.91406, y: 594.66406, z: -16.630806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2125767512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4453,7 +4509,7 @@ MonoBehaviour:
     type: 3}
   streetSquare: {fileID: 3173814632203758346, guid: e638205682204844daf1454125d38d37,
     type: 3}
-  pokeBallSquare: {fileID: 6281112120878864908, guid: 34843bd11b3481a40871b871b701a19d,
+  pokeBallSquare: {fileID: 8609036025407840671, guid: 34843bd11b3481a40871b871b701a19d,
     type: 3}
   greatBallSquare: {fileID: 7151323209430191491, guid: 2c978bf0e4527c341a1d89dc6091934c,
     type: 3}
@@ -4497,7 +4553,7 @@ MonoBehaviour:
   - {fileID: 4542723552121286151, guid: 0b3e53dc6db8a584e8fd9dbe86db3042, type: 3}
   gym5Squares:
   - {fileID: 280227448288527067, guid: 2df98836b0ec5094b806afdc0bd2d546, type: 3}
-  - {fileID: 8485624760640724582, guid: 157f573cfd0075a418e2fd66b91d77a3, type: 3}
+  - {fileID: 280227448288527067, guid: 157f573cfd0075a418e2fd66b91d77a3, type: 3}
   - {fileID: 280227448288527067, guid: 64a2b1459e10e134386a80d6df7a3003, type: 3}
   gym6Squares:
   - {fileID: 621105546798488835, guid: d4480056621506e4aa74f3caf5dac4ac, type: 3}

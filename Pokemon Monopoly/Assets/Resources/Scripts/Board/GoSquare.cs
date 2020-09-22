@@ -1,5 +1,5 @@
 ﻿
-public class GoSquare : BoardSquare
+public class GoSquare : CornerSquare
 {
     public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {

@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - BallSquare
     - BoardSpawner
     - BoardSquareFactory
+    - BoardSquareMovePositions
     - CameraController
     - CountdownTimer
     - DiceRollPanel
@@ -45,6 +46,7 @@ ScriptsOnlyBuild:
     - SixSidedDie
     - TrainerBattleSquare
     - UIMouseEventEmitter
+    - UnselectableUIObject
     PhotonUnityNetworking.Editor.dll:
     - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
@@ -168,45 +170,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11106}
     - Class: 114
-      Script: {instanceID: 11256}
+      Script: {instanceID: 11166}
     - Class: 114
-      Script: {instanceID: 11290}
+      Script: {instanceID: 11258}
     - Class: 114
-      Script: {instanceID: 11328}
+      Script: {instanceID: 11292}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 11330}
     - Class: 114
-      Script: {instanceID: 11370}
+      Script: {instanceID: 11348}
     - Class: 114
-      Script: {instanceID: 11400}
+      Script: {instanceID: 11372}
     - Class: 114
-      Script: {instanceID: 11418}
+      Script: {instanceID: 11402}
     - Class: 114
-      Script: {instanceID: 11440}
+      Script: {instanceID: 11420}
     - Class: 114
-      Script: {instanceID: 11492}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 11512}
+      Script: {instanceID: 11494}
     - Class: 114
-      Script: {instanceID: 11524}
+      Script: {instanceID: 11514}
     - Class: 114
-      Script: {instanceID: 11532}
+      Script: {instanceID: 11526}
     - Class: 114
-      Script: {instanceID: 11580}
+      Script: {instanceID: 11534}
     - Class: 114
-      Script: {instanceID: 11662}
+      Script: {instanceID: 11582}
     - Class: 114
-      Script: {instanceID: 11710}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11760}
+      Script: {instanceID: 11712}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11762}
     - Class: 114
-      Script: {instanceID: 11830}
+      Script: {instanceID: 11814}
     - Class: 114
-      Script: {instanceID: 11886}
+      Script: {instanceID: 11832}
     - Class: 114
-      Script: {instanceID: 15038}
+      Script: {instanceID: 11888}
+    - Class: 114
+      Script: {instanceID: 20950}
+    - Class: 114
+      Script: {instanceID: 34348}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -315,41 +321,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11120}
     - Class: 114
-      Script: {instanceID: 11198}
+      Script: {instanceID: 11200}
     - Class: 114
-      Script: {instanceID: 11256}
+      Script: {instanceID: 11258}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 11288}
     - Class: 114
-      Script: {instanceID: 11328}
+      Script: {instanceID: 11330}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 11348}
     - Class: 114
-      Script: {instanceID: 11400}
+      Script: {instanceID: 11402}
     - Class: 114
-      Script: {instanceID: 11418}
+      Script: {instanceID: 11420}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11492}
     - Class: 114
-      Script: {instanceID: 11512}
+      Script: {instanceID: 11514}
     - Class: 114
-      Script: {instanceID: 11532}
+      Script: {instanceID: 11534}
     - Class: 114
-      Script: {instanceID: 11600}
+      Script: {instanceID: 11602}
     - Class: 114
-      Script: {instanceID: 11662}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11694}
+      Script: {instanceID: 11696}
     - Class: 114
-      Script: {instanceID: 11710}
+      Script: {instanceID: 11712}
     - Class: 114
-      Script: {instanceID: 11732}
+      Script: {instanceID: 11734}
     - Class: 114
-      Script: {instanceID: 11760}
+      Script: {instanceID: 11762}
     - Class: 114
-      Script: {instanceID: 11830}
+      Script: {instanceID: 11832}
     - Class: 114
-      Script: {instanceID: 11886}
+      Script: {instanceID: 11888}
+    - Class: 114
+      Script: {instanceID: 34348}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1025,6 +1033,12 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: eb4de4f666ffd0d9bfced8d0fffcbcdf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AvatarImageFactory
+  - hash:
+      serializedVersion: 2
       Hash: ae1347d9113eee8b83c5c8047dcf31a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1361,10 +1375,22 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: eb4de4f666ffd0d9bfced8d0fffcbcdf
+      Hash: 5f1752ed2092162f016c19510c28a8b9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: AvatarImageFactory
+    className: RollButton
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UnselectableUIObject
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BoardSquareMovePositions
   platform: 5
   scenePathNames:
   - Assets/Scenes/main_menu.unity

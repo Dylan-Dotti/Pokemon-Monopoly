@@ -1,11 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class AvatarImageFactory : MonoBehaviour
 {
     [SerializeField] private GameObject[] avatarImagePrefabs;
+
+    public static AvatarImageFactory Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     public GameObject GetAvatarImage(string imageName, Transform parent = null,
         Vector3? scale = null)

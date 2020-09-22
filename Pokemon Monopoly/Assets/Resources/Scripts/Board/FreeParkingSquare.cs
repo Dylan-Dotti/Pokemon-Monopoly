@@ -1,5 +1,5 @@
 ﻿
-public class FreeParkingSquare : BoardSquare
+public class FreeParkingSquare : CornerSquare
 {
     public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {

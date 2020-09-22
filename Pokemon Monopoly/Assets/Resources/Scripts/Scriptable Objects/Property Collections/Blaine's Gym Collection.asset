@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Blaine's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Blaine's Gym
+  collectionMaterial: {fileID: 2100000, guid: 14e2f106eb3d5454bb112595e978f2b4, type: 2}

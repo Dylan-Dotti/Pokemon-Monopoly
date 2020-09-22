@@ -59,6 +59,6 @@ public class PlayerAvatarPanelManager : MonoBehaviour
 
     private void OnPlayerDespawned(MonopolyPlayer player)
     {
-        RemoveRemotePlayerPanel(player);
+        if (!player.IsLocalPlayer) RemoveRemotePlayerPanel(player);
     }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Erika's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Erika's Gym
+  collectionMaterial: {fileID: 2100000, guid: b611680f4b19c6144bdfb5ff03d5826d, type: 2}

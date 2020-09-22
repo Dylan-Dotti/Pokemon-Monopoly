@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Surge's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Lt Surge's Gym
+  collectionMaterial: {fileID: 2100000, guid: 7a47648a74c452e48a302962112a9eb3, type: 2}

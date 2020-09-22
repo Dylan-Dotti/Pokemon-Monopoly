@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Legendaries Collection
   m_EditorClassIdentifier: 
   collectionName: Legendaries
+  collectionMaterial: {fileID: 2100000, guid: 6399360918927124ab952d3c0ddfb491, type: 2}

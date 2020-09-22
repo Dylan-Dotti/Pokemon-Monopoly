@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoToJailSquare : BoardSquare
+public class GoToJailSquare : CornerSquare
 {
     public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {

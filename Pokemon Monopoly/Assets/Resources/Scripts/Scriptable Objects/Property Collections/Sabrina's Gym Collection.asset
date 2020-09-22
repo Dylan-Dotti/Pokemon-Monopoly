@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Sabrina's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Sabrina's Gym
+  collectionMaterial: {fileID: 2100000, guid: 11f158daa7127ce45a65bef0f79a5a7a, type: 2}

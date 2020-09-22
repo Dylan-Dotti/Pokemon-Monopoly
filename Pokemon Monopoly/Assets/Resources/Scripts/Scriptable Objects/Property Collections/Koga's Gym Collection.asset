@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Koga's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Koga's Gym
+  collectionMaterial: {fileID: 2100000, guid: 8c13887474a24cf419c9643ac6519c9e, type: 2}

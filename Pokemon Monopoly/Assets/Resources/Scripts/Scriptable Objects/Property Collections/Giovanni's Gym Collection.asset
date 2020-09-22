@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Giovanni's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Giovanni's Gym
+  collectionMaterial: {fileID: 2100000, guid: 69d997101f286f44fb9d8f52ed7c1164, type: 2}

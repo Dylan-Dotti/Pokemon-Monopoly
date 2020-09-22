@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: "Pok\xE9balls Collection"
   m_EditorClassIdentifier: 
   collectionName: "Pok\xE9balls"
+  collectionMaterial: {fileID: 2100000, guid: 145093f8b5e98ba40bf743d712d6675b, type: 2}

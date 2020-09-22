@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public void RollDice()
     {
         roller.RollComplete += OnRollComplete;
-        roller.RollDice(friendlyPlayer.PlayerName);
+        roller.RollDice(friendlyPlayer == null ? "Player" : friendlyPlayer.PlayerName);
     }
 
     private void OnPlayerSpawned(MonopolyPlayer player)
@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     private void OnRollComplete(DiceRoller roller)
     {
         roller.RollComplete -= OnRollComplete;
-        friendlyPlayer.MoveAvatarSequential(roller.LastRollTotal, MoveDirection.Forward);
+        if (friendlyPlayer != null)
+        {
+            friendlyPlayer.MoveAvatarSequential(
+                roller.LastRollTotal, MoveDirection.Forward);
+        }
     }
 }

@@ -78,7 +78,9 @@
     <Compile Include="Assets\Resources\Scripts\Board\BoardSpawner.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\BoardSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\BoardSquareFactory.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\BoardSquareMovePositions.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\CardSquare.cs" />
+    <Compile Include="Assets\Resources\Scripts\Board\CornerSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\FreeParkingSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\GoSquare.cs" />
     <Compile Include="Assets\Resources\Scripts\Board\GoToJailSquare.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />
     <Compile Include="Assets\Resources\Scripts\PropertyManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\ReadOnlyListExtensions.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Scripts\BallPropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Scripts\GymData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Scripts\GymPropertyData.cs" />
@@ -129,8 +132,11 @@
     <Compile Include="Assets\Resources\Scripts\UI\PlayerMoneyText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerNameText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueText.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Popup Manager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\RollButton.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\SixSidedDie.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\UIMouseEventEmitter.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\UnselectableUIObject.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />

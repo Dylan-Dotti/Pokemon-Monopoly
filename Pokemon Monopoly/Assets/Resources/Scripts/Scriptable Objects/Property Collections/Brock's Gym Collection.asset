@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Brock's Gym Collection
   m_EditorClassIdentifier: 
   collectionName: Brock's Gym
+  collectionMaterial: {fileID: 2100000, guid: 9bccb0c2b32325c43a66dfed1ca67589, type: 2}
