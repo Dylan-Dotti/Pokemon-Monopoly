@@ -13,6 +13,7 @@ public abstract class BoardSquare : MonoBehaviour
     public float Height => transform.lossyScale.y;
 
     public IReadOnlyList<PlayerAvatar> Occupants => occupants;
+    public MonopolyBoard ParentBoard { get; set; }
 
     protected virtual void Awake()
     {

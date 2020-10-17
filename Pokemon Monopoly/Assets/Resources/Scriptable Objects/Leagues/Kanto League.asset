@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8787ebb1aed9741aa9f58f4f008dda, type: 3}
+  m_Name: Kanto League
+  m_EditorClassIdentifier: 
+  leagueName: Kanto League
+  collections:
+  - {fileID: 11400000, guid: 2e0e99ca43cc6e44ea4a5041473259bb, type: 2}
+  - {fileID: 11400000, guid: dcf42453c7e7c2543bc6c5a3a2fb2507, type: 2}
+  - {fileID: 11400000, guid: 99a592eaf797af84fba777d9b74caed2, type: 2}
+  - {fileID: 11400000, guid: e3bb860f585968b4397ba84fffd70416, type: 2}
+  - {fileID: 11400000, guid: 946dc5a58238e244d905c1a02ea666df, type: 2}
+  - {fileID: 11400000, guid: 7e98ff665f8dccd48ab28bd7526e5746, type: 2}
+  - {fileID: 11400000, guid: fd23f3f271c45944c9eb35505a6e2429, type: 2}
+  - {fileID: 11400000, guid: 5d706377cf400ee4da608a3518e68bf0, type: 2}
+  - {fileID: 11400000, guid: 4727416225313b346bc516843c0637e2, type: 2}
+  - {fileID: 11400000, guid: e6f6400ce5d19c8418b2d08815991274, type: 2}

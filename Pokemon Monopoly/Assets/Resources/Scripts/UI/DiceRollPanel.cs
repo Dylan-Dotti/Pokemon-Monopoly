@@ -3,41 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiceRollPanel : MonoBehaviour
+public class DiceRollPanel : Popup
 {
     [SerializeField] private Text playerIsRolling;
     [SerializeField] Text playerRolled;
     [SerializeField] private SixSidedDie[] dice;
+    [SerializeField] private float changeInterval = 0.05f;
 
     private Coroutine rollingCR;
-    private string rollingPlayerName = "Player";
+    public string RollingPlayerName { get; set; } = "Player";
 
-    public void Activate()
+    public override void Open()
     {
-        gameObject.SetActive(true);
+        base.Open();
+        StartRolling();
     }
 
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
-
-    public void ActivateAndStartRoll(
-        string playerName, float changeInterval = 0.05f)
-    {
-        Activate();
-        StartRolling(playerName, changeInterval);
-    }
-
-    public void StartRolling(
-        string playerName, float changeInterval = 0.05f)
+    public void StartRolling()
     {
         if (rollingCR != null)
             throw new System.Exception("Already rolling");
         playerIsRolling.gameObject.SetActive(true);
         playerRolled.gameObject.SetActive(false);
-        rollingPlayerName = playerName;
-        playerIsRolling.text = $"{playerName} is rolling...";
+        playerIsRolling.text = $"{RollingPlayerName} is rolling...";
         rollingCR = StartCoroutine(RollDiceCR(changeInterval));
     }
 
@@ -48,8 +36,8 @@ public class DiceRollPanel : MonoBehaviour
         dice[0].DisplaySide(result1);
         dice[1].DisplaySide(result2);
         int total = result1 + result2;
-        playerRolled.text = $"{rollingPlayerName} rolled {total}";
-        rollingPlayerName = "Player";
+        playerRolled.text = $"{RollingPlayerName} rolled {total}";
+        RollingPlayerName = "Player";
         playerIsRolling.gameObject.SetActive(false);
         playerRolled.gameObject.SetActive(true);
     }

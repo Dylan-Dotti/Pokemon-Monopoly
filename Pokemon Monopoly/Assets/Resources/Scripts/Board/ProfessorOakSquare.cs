@@ -1,8 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class ProfessorOakSquare : CardSquare
 {
-
+    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
+    {
+        if (isLastMove)
+        {
+            Card tbCard = ParentBoard.DrawProfessorCard(player);
+            EventLogger.Instance.LogEventLocal(tbCard.Description);
+        }
+    }
 }

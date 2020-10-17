@@ -16,6 +16,8 @@ public class BoardSpawner : MonoBehaviour
     [SerializeField] private float backgroundSpacing = 0.15f;
     [SerializeField] private float centerSpacing = 0.1f;
 
+    private Transform squareHolder;
+
     private float BoardSize => (2 * factory.CornerSquareSize) +
         (9 * factory.StreetSquareWidth) + (10 * squareSpacing);
     private float BoardBackgroundSize => BoardSize + 2 * backgroundSpacing;
@@ -23,6 +25,11 @@ public class BoardSpawner : MonoBehaviour
         (2 * factory.CornerSquareSize) - (2 * centerSpacing);
     private float CenterToRowMiddleDist => BoardSize / 2 - 
         factory.CornerSquareSize / 2;
+
+    private void Awake()
+    {
+        squareHolder = transform.Find("Squares");
+    }
 
     public IReadOnlyList<BoardSquare> SpawnBoard()
     {
@@ -54,11 +61,11 @@ public class BoardSpawner : MonoBehaviour
         Vector2 cornerCoords = rowCoords[0];
         List<Vector2> propertyCoords = rowCoords.GetRange(1, rowCoords.Count - 1);
         rowSquares.Add(factory.SpawnSquare(
-            startIndex, cornerCoords, GetSpawnRotation(rowIndex), transform));
+            startIndex, cornerCoords, GetSpawnRotation(rowIndex), squareHolder));
         for (int i = 0; i < propertyCoords.Count; i++)
         {
             rowSquares.Add(factory.SpawnSquare(
-                startIndex + i + 1, propertyCoords[i], GetSpawnRotation(rowIndex), transform));
+                startIndex + i + 1, propertyCoords[i], GetSpawnRotation(rowIndex), squareHolder));
         }
         return rowSquares;
     }

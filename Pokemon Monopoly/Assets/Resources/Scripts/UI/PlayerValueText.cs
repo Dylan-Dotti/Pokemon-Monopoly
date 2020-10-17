@@ -19,9 +19,8 @@ public abstract class PlayerValueText : MonoBehaviour
 
     private void Awake()
     {
-        //MonopolyPlayer.Spawned += OnPlayerSpawned;
+        MonopolyPlayer.Spawned += OnPlayerSpawned;
         text = GetComponent<Text>();
-        enabled = false;
     }
 
     protected abstract string GetValueText(MonopolyPlayer player);
@@ -37,6 +36,9 @@ public abstract class PlayerValueText : MonoBehaviour
 
     private void Update()
     {
-        text.text = GetValueText(player);
+        if (LinkedPlayer != null)
+        {
+            text.text = GetValueText(player);
+        }
     }
 }

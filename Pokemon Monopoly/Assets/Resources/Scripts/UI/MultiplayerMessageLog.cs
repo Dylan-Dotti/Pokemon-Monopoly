@@ -26,8 +26,7 @@ public class MultiplayerMessageLog : MonoBehaviour
     {
         textItems = new List<Text>();
         pView = GetComponent<PhotonView>();
-        inputPlaceholder = inputField.transform
-            .Find("Placeholder").gameObject;
+        inputPlaceholder = inputField.transform.Find("Placeholder").gameObject;
         textContainer.offsetMin = new Vector2(0, textContainer.offsetMin.y);
         textContainer.offsetMax = new Vector2(-30, textContainer.offsetMax.y);
     }
@@ -57,6 +56,19 @@ public class MultiplayerMessageLog : MonoBehaviour
         }
     }
 
+    public void LogEventLocal(string message)
+    {
+        CreateAndAddText(message);
+    }
+
+    public void LogEventOthers(string message)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            pView.RPC("RPC_LogEvent", RpcTarget.OthersBuffered, message);
+        }
+    }
+
     public void LogMessageAllClients(string message)
     {
         if (PhotonNetwork.IsConnected)
@@ -66,11 +78,35 @@ public class MultiplayerMessageLog : MonoBehaviour
         }
         else
         {
-            CreateAndAddText("Player", message);
+            CreateAndAddText($"Player says: {message}");
         }
     }
 
-    private void CreateAndAddText(string playerName, string message)
+    public void LogEventAllClients(string eventMessage)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            pView.RPC("RPC_LogEvent", RpcTarget.AllBuffered, eventMessage);
+        }
+        else
+        {
+            LogEventLocal(eventMessage);
+        }
+    }
+
+    public void ClearLog()
+    {
+        textItems.ForEach(t => Destroy(t.gameObject));
+        textItems.Clear();
+    }
+
+    public void ClearLogAllClients()
+    {
+        if (PhotonNetwork.IsConnected) pView.RPC("RPC_ClearLog", RpcTarget.AllBuffered);
+        else ClearLog();
+    }
+
+    private void CreateAndAddText(string message)
     {
         clampScrollbar = true;
         Text newMessage = Instantiate(textPrefab, textContainer);
@@ -79,7 +115,7 @@ public class MultiplayerMessageLog : MonoBehaviour
             "0" + currTime.Hour.ToString() : currTime.Hour.ToString();
         string minString = currTime.Minute < 10 ?
             "0" + currTime.Minute.ToString() : currTime.Minute.ToString();
-        newMessage.text = $"[{hourString}:{minString}] {playerName} says: {message}";
+        newMessage.text = $"[{hourString}:{minString}] {message}";
         textItems.Add(newMessage);
     }
 
@@ -97,6 +133,19 @@ public class MultiplayerMessageLog : MonoBehaviour
     [PunRPC]
     private void RPC_LogMessage(string playerName, string message)
     {
-        CreateAndAddText(playerName, message);
+        message = $"{playerName} says: {message}";
+        CreateAndAddText(message);
+    }
+
+    [PunRPC]
+    private void RPC_LogEvent(string message)
+    {
+        CreateAndAddText(message);
+    }
+
+    [PunRPC]
+    private void RPC_ClearLog()
+    {
+        ClearLog();
     }
 }

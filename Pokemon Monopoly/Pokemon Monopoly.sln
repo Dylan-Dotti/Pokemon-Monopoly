@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities", "PhotonUnityNetworking.Utilities.csproj", "{758651A2-C392-8CC8-F645-198A8D499217}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{FE6B1F35-47C8-0DCE-1D2D-9920F79FD98E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities", "PhotonUnityNetworking.Utilities.csproj", "{758651A2-C392-8CC8-F645-198A8D499217}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonChat", "PhotonChat.csproj", "{730C21A5-6713-75D2-625F-7218293CC858}"
 EndProject
@@ -25,14 +25,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{758651A2-C392-8CC8-F645-198A8D499217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{758651A2-C392-8CC8-F645-198A8D499217}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{758651A2-C392-8CC8-F645-198A8D499217}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{758651A2-C392-8CC8-F645-198A8D499217}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE6B1F35-47C8-0DCE-1D2D-9920F79FD98E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE6B1F35-47C8-0DCE-1D2D-9920F79FD98E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE6B1F35-47C8-0DCE-1D2D-9920F79FD98E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE6B1F35-47C8-0DCE-1D2D-9920F79FD98E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758651A2-C392-8CC8-F645-198A8D499217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758651A2-C392-8CC8-F645-198A8D499217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758651A2-C392-8CC8-F645-198A8D499217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758651A2-C392-8CC8-F645-198A8D499217}.Release|Any CPU.Build.0 = Release|Any CPU
 		{730C21A5-6713-75D2-625F-7218293CC858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{730C21A5-6713-75D2-625F-7218293CC858}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{730C21A5-6713-75D2-625F-7218293CC858}.Release|Any CPU.ActiveCfg = Release|Any CPU

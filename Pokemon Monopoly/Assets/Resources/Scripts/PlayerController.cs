@@ -25,6 +25,14 @@ public class PlayerController : MonoBehaviour
         roller.RollDice(friendlyPlayer == null ? "Player" : friendlyPlayer.PlayerName);
     }
 
+    public void RollDice(int result1, int result2)
+    {
+        roller.RollComplete += OnRollComplete;
+        roller.RollDice(friendlyPlayer == null ? 
+            "Player" : friendlyPlayer.PlayerName,
+            result1, result2);
+    }
+
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
         if (player.IsLocalPlayer) friendlyPlayer = player;
@@ -35,7 +43,7 @@ public class PlayerController : MonoBehaviour
         roller.RollComplete -= OnRollComplete;
         if (friendlyPlayer != null)
         {
-            friendlyPlayer.MoveAvatarSequential(
+            friendlyPlayer.MoveAvatarAllClients(
                 roller.LastRollTotal, MoveDirection.Forward);
         }
     }

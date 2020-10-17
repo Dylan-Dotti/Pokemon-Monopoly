@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c59ad677ccb4f4aa80119c0c50e882, type: 3}
+  m_Name: Blaine's Gym Collection
+  m_EditorClassIdentifier: 
+  collectionName: Blaine's Gym
+  collectionMaterial: {fileID: 2100000, guid: 14e2f106eb3d5454bb112595e978f2b4, type: 2}
+  collectionUIMaterial: {fileID: 2100000, guid: d65a188234617e149b9a36f8e86d483b,
+    type: 2}
+  properties:
+  - {fileID: 11400000, guid: f0fe5bc5eff8f5a4395fce0643c2be90, type: 2}
+  - {fileID: 11400000, guid: 83db529c20e1e944e9d58eed108788f8, type: 2}
+  - {fileID: 11400000, guid: 2622d8e428f70ca41ad7bf5f6f0f53ea, type: 2}
+  league: {fileID: 11400000, guid: a46f7a9dd15d88348ace6d901faf64b9, type: 2}

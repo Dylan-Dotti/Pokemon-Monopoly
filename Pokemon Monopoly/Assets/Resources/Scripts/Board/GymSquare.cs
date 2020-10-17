@@ -1,16 +1,36 @@
-﻿
-public class GymSquare : PropertySquare, IUpgradable
+﻿using UnityEngine;
+
+[RequireComponent(typeof(GymSquareUpgradesManager))]
+public class GymSquare : PropertySquare
 {
-    public bool Upgradable => true;
-    public bool Downgradable => true;
+    private GymSquareUpgradesManager upgradesManager;
+    private GymPropertyData gymData;
 
-    public void Upgrade()
+    public override PropertyData Property
     {
-
+        get => base.Property;
+        set
+        {
+            if (gymData != null)
+            {
+                gymData.Upgraded -= OnUpgradeLevelChanged;
+                gymData.Downgraded -= OnUpgradeLevelChanged;
+            }
+            base.Property = value;
+            gymData = (GymPropertyData)value;
+            gymData.Upgraded += OnUpgradeLevelChanged;
+            gymData.Downgraded += OnUpgradeLevelChanged;
+        }
     }
 
-    public void Downgrade()
+    protected override void Awake()
     {
+        base.Awake();
+        upgradesManager = GetComponent<GymSquareUpgradesManager>();
+    }
 
+    private void OnUpgradeLevelChanged()
+    {
+        upgradesManager.UpgradeLevel = gymData.UpgradeLevel;
     }
 }

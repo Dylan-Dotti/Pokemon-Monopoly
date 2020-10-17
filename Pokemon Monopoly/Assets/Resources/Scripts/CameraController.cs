@@ -31,6 +31,13 @@ public class CameraController : MonoBehaviour
         if (RotationEnabled) RotateCamera();
     }
 
+    public void SetAllControlsEnabled(bool enabled)
+    {
+        MovementEnabled = enabled;
+        ZoomEnabled = enabled;
+        RotationEnabled = enabled;
+    }
+
     private void PanCamera()
     {
         float verticalMod = Input.GetAxisRaw("Vertical");

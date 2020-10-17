@@ -7,6 +7,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PhotonView))]
 public class DiceRoller : MonoBehaviour
 {
+    public static DiceRoller Instance { get; private set; }
+
     public event UnityAction<DiceRoller> RollComplete;
 
     [SerializeField] private DiceRollPanel dicePanel;
@@ -18,14 +20,22 @@ public class DiceRoller : MonoBehaviour
 
     private void Awake()
     {
-        pView = GetComponent<PhotonView>();
+        if (Instance == null)
+        {
+            Instance = this;
+            pView = GetComponent<PhotonView>();
+        }
     }
 
     public void RollDice(string playerName)
     {
         int roll1 = Random.Range(1, 7);
         int roll2 = Random.Range(1, 7);
-        LastRoll = (roll1, roll2);
+        RollDice(playerName, roll1, roll2);
+    }
+
+    public void RollDice(string playerName, int roll1, int roll2)
+    {
         if (PhotonNetwork.IsConnectedAndReady)
         {
             pView.RPC("RPC_RollDice", RpcTarget.AllBuffered,
@@ -40,11 +50,13 @@ public class DiceRoller : MonoBehaviour
     private IEnumerator RollDiceCR(
         string playerName, int roll1, int roll2)
     {
-        dicePanel.ActivateAndStartRoll(playerName);
+        dicePanel.RollingPlayerName = playerName;
+        dicePanel.Open();
         yield return new WaitForSeconds(2);
         dicePanel.StopRolling(roll1, roll2);
+        LastRoll = (roll1, roll2);
         yield return new WaitForSeconds(2);
-        dicePanel.Deactivate();
+        dicePanel.Close();
         RollComplete?.Invoke(this);
     }
 

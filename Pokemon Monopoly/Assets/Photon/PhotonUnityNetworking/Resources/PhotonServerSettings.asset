@@ -18,7 +18,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: us
     Server: 
     Port: 0
     Protocol: 0
@@ -40,5 +40,26 @@ MonoBehaviour:
   - RPC_LogMessage
   - RPC_MoveAvatar
   - RPC_SetPlayerAvatar
+  - RPC_MortgageProperty
+  - RPC_PurchaseProperty
+  - RPC_InitPlayerId
+  - RPC_PayRent
+  - RPC_InitPlayers
+  - RPC_Text
+  - RPC_Test
+  - RPC_UpgradeProperty
+  - RPC_UnmortgageProperty
+  - RPC_DowngradeProperty
+  - RPC_LogEvent
+  - RPC_OnBidAccepted
+  - RPC_OnBidRejected
+  - RPC_SubmitBid
+  - RPC_AcceptBid
+  - RPC_RejectBid
+  - RPC_PlayerWithdrew
+  - RPC_AuctionComplete
+  - RPC_ClearLog
+  - RejectBid
+  - RPC_ShuffleDeck
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1

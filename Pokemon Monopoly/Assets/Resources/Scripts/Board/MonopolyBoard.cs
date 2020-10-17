@@ -8,37 +8,86 @@ using UnityEngine.Events;
 public class MonopolyBoard : MonoBehaviour
 {
     public event UnityAction<MonopolyBoard> BoardSpawned;
+
     private IReadOnlyList<BoardSquare> boardSquares;
+    private DecksManager deckManager;
     private BoardSpawner spawner;
 
     private void Awake()
     {
         spawner = GetComponent<BoardSpawner>();
+        deckManager = GetComponentInChildren<DecksManager>(true);
         SpawnBoard();
+        deckManager.SpawnDecks();
     }
 
     public void SpawnBoard()
     {
         boardSquares = spawner.SpawnBoard();
+        boardSquares.ForEach(s => s.ParentBoard = this);
         BoardSpawned?.Invoke(this);
     }
 
-    public BoardSquare GetSpawnSquare()
+    public BoardSquare GetGoSquare()
     {
-        return boardSquares[0];
+        return GetSquareAt(0);
+    }
+
+    public BoardSquare GetJailSquare()
+    {
+        return GetSquareAt(10);
+    }
+
+    public BoardSquare GetSquareAt(int index)
+    {
+        return boardSquares[index];
+    }
+
+    public int IndexOf(BoardSquare square)
+    {
+        return boardSquares.IndexOf(square);
+    }
+
+    public IReadOnlyList<BoardSquare> GetPathTo(
+            BoardSquare startSquare, BoardSquare targetSquare, bool backwards = false)
+    {
+        List<BoardSquare> pathSquares = new List<BoardSquare>();
+        for (int i = 0, currentIndex = IndexOf(startSquare); i < boardSquares.Count; i++)
+        {
+            currentIndex = GetNextSquareIndex(currentIndex, backwards);
+            BoardSquare nextSquare = boardSquares[currentIndex];
+            pathSquares.Add(nextSquare);
+            if (nextSquare == targetSquare) break;
+        }
+        return pathSquares;
     }
 
     public IReadOnlyList<BoardSquare> GetNextSquares(
-        PlayerAvatar avatar, int numSquares)
+        BoardSquare startSquare, int numSquares, bool backwards = false)
     {
         List<BoardSquare> nextSquares = new List<BoardSquare>();
-        int startIndex = boardSquares.ToList().IndexOf(
-            avatar.OccupiedSquare) + 1;
-        for (int i = 0; i < numSquares; i++)
+        for (int i = 0, currentIndex = IndexOf(startSquare); i < numSquares; i++)
         {
-            nextSquares.Add(boardSquares[
-                (startIndex + i) % boardSquares.Count]);
+            currentIndex = GetNextSquareIndex(currentIndex, backwards);
+            nextSquares.Add(boardSquares[currentIndex]);
         }
         return nextSquares;
+    }
+
+    private int GetNextSquareIndex(int startIndex, bool backwards = false)
+    {
+        int index = startIndex + (backwards ? -1 : 1);
+        index = index >= 0 ? index : boardSquares.Count - 1;
+        return index % boardSquares.Count;
+    }
+
+    public Card DrawProfessorCard(MonopolyPlayer drawingPlayer)
+    {
+        return deckManager.DrawProfessorCard(drawingPlayer);
+    }
+
+    public Card DrawTrainerBattleCard(MonopolyPlayer drawingPlayer)
+    {
+        return deckManager.DrawTrainerBattleCard(drawingPlayer);
     }
 }

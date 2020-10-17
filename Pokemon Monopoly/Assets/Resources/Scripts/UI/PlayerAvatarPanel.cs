@@ -5,7 +5,6 @@ public class PlayerAvatarPanel : MonoBehaviour
     private PlayerNameText pNameText;
     private PlayerMoneyText pMoneyText;
     private Transform imageHolder;
-    private AvatarImageFactory imageFactory;
 
     public MonopolyPlayer LinkedPlayer
     {
@@ -23,18 +22,14 @@ public class PlayerAvatarPanel : MonoBehaviour
         pNameText = GetComponentInChildren<PlayerNameText>();
         pMoneyText = GetComponentInChildren<PlayerMoneyText>();
         imageHolder = transform.Find("Avatar Image Holder");
-        imageFactory = GameObject.Find("Avatar Image Factory")
-            .GetComponent<AvatarImageFactory>();
     }
 
     private void SetAvatarImage()
     {
-        GameObject avatarImagePrefab = imageFactory
-            .GetAvatarImage(LinkedPlayer.AvatarImageName, transform);
         if (imageHolder.transform.childCount > 0)
         {
             Destroy(imageHolder.transform.GetChild(0).gameObject);
         }
-        Instantiate(avatarImagePrefab, imageHolder);
+        LinkedPlayer.GetNewAvatarImage(parent: imageHolder);
     }
 }

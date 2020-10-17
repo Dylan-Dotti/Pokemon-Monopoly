@@ -1,8 +1,8 @@
 ﻿
-public class PlayerMoneyText : PlayerValueText
+public class PlayerMoneyText : PlayerValueTextPrefixed
 {
     protected override string GetValueText(MonopolyPlayer player)
     {
-        return SpecialCharacters.POKEMONEY_SYMBOL + player.Money.ToString();
+        return base.GetValueText(player) + player.Money.ToPokeMoneyString();
     }
 }

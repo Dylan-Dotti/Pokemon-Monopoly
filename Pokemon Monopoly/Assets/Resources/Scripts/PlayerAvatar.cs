@@ -63,8 +63,7 @@ public class PlayerAvatar : MonoBehaviour
         {
             Destroy(canvas.GetChild(1).gameObject);
         }
-        Instantiate(AvatarImageFactory.Instance.GetAvatarImage(
-            Owner.AvatarImageName, canvas, new Vector3(.005f, .005f, 1)));
+        Owner.GetNewAvatarImage(canvas, new Vector3(.005f, .005f, 1));
     }
 
     private void AddToSquare(BoardSquare square)

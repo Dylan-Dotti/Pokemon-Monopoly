@@ -70,7 +70,6 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnCancelButtonClicked()
     {
-        Debug.Log("Leaving room: " + PhotonNetwork.CurrentRoom.Name);
         cancelButton.gameObject.SetActive(false);
         connectButton.gameObject.SetActive(true);
         PhotonNetwork.LeaveRoom();

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c59ad677ccb4f4aa80119c0c50e882, type: 3}
+  m_Name: Misty's Gym Collection
+  m_EditorClassIdentifier: 
+  collectionName: Misty's Gym
+  collectionMaterial: {fileID: 2100000, guid: f81bcf1487f072d41a601d68d0e373a1, type: 2}
+  collectionUIMaterial: {fileID: 2100000, guid: cd8515a5fa7924c4c8b98134d17f10b5,
+    type: 2}
+  properties:
+  - {fileID: 11400000, guid: 93f0a1d05a5967544bb63a1b69087975, type: 2}
+  - {fileID: 11400000, guid: 389c5e029c5132545a80af4c1f93022f, type: 2}
+  - {fileID: 11400000, guid: 84dec8e9232903d40868eb0940eda436, type: 2}
+  league: {fileID: 11400000, guid: a46f7a9dd15d88348ace6d901faf64b9, type: 2}

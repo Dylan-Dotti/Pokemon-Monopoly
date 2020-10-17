@@ -1,26 +1,29 @@
-﻿using UnityEngine;
-
-public abstract class PropertySquare : BoardSquare, IPurchasable
+﻿
+public abstract class PropertySquare : BoardSquare
 {
-    public PropertyData Property { get; set; }
-    public MonopolyPlayer Owner { get; set; }
-    public virtual bool Purchasable => Owner == null;
+    public virtual PropertyData Property { get; set; }
 
-    public virtual void Purchase(MonopolyPlayer purchaser)
+    private PopupManager popupManager;
+
+    protected override void Awake()
     {
-        Debug.Log("Purchasing property: " + Property.PropertyName);
-        Owner = purchaser;
-        Owner.Money -= Property.PurchaseCost;
+        base.Awake();
+        popupManager = PopupManager.Instance;
     }
 
     public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
     {
-        if (isLastMove)
+        if (isLastMove && player.IsLocalPlayer && Property != null)
         {
-            if (player != Owner)
+            if (Property.Owner == null)
             {
-                if (Purchasable) player.PurchaseProperty(Property);
-                else player.Money -= 0;
+                popupManager.QueuePopup(
+                    popupManager.Factory.GetPropertyPurchasePrompt(player, Property),
+                    PopupOpenOptions.Queue, true);
+            }
+            else if (Property.Owner != player && !Property.IsMortgaged)
+            {
+                player.PayRent(Property);
             }
         }
     }

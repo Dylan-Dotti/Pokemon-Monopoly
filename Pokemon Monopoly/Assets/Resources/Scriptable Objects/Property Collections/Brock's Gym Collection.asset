@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c59ad677ccb4f4aa80119c0c50e882, type: 3}
+  m_Name: Brock's Gym Collection
+  m_EditorClassIdentifier: 
+  collectionName: Brock's Gym
+  collectionMaterial: {fileID: 2100000, guid: 9bccb0c2b32325c43a66dfed1ca67589, type: 2}
+  collectionUIMaterial: {fileID: 2100000, guid: cd41338afd76bc946a5079e346f8a162,
+    type: 2}
+  properties:
+  - {fileID: 11400000, guid: baafce566d566ad4b9189b89d4d0f58f, type: 2}
+  - {fileID: 11400000, guid: 6e986c298ab6d414bbc0957233cc2e0c, type: 2}
+  league: {fileID: 11400000, guid: a46f7a9dd15d88348ace6d901faf64b9, type: 2}

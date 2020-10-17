@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c59ad677ccb4f4aa80119c0c50e882, type: 3}
+  m_Name: Giovanni's Gym Collection
+  m_EditorClassIdentifier: 
+  collectionName: Giovanni's Gym
+  collectionMaterial: {fileID: 2100000, guid: 69d997101f286f44fb9d8f52ed7c1164, type: 2}
+  collectionUIMaterial: {fileID: 2100000, guid: 103f3877129bc5a45800c427c9ed4bfd,
+    type: 2}
+  properties:
+  - {fileID: 11400000, guid: 6473e3321847ded43b29f2e2e27880d6, type: 2}
+  - {fileID: 11400000, guid: 17b7d0b282a7c664e9e45fd66135dd1c, type: 2}
+  league: {fileID: 11400000, guid: a46f7a9dd15d88348ace6d901faf64b9, type: 2}

@@ -8,6 +8,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PhotonView))]
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager Instance { get; private set; }
+
     public event UnityAction PlayersReady;
     public event UnityAction<MonopolyPlayer> ActivePlayerChanged;
 
@@ -20,25 +22,28 @@ public class PlayerManager : MonoBehaviour
     public MonopolyPlayer ActivePlayer { get; private set; }
     public MonopolyPlayer LocalPlayer => 
         players.Where(p => p.IsLocalPlayer).FirstOrDefault();
-    public IEnumerable<MonopolyPlayer> RemotePlayers => 
-        defaultPlayerSequence.Where(p => !p.IsLocalPlayer);
+    public IReadOnlyList<MonopolyPlayer> RemotePlayers => 
+        defaultPlayerSequence.Where(p => !p.IsLocalPlayer).ToList();
 
     private void Awake()
     {
-        pView = GetComponent<PhotonView>();
-        players = new HashSet<MonopolyPlayer>();
-        MonopolyPlayer.Spawned += OnPlayerSpawned;
+        if (Instance == null)
+        {
+            Instance = this;
+            pView = GetComponent<PhotonView>();
+            players = new HashSet<MonopolyPlayer>();
+            MonopolyPlayer.Spawned += OnPlayerSpawned;
+        }
     }
 
-    public MonopolyPlayer GetPlayerByName(string playerName)
+    public MonopolyPlayer GetPlayerByID(int id)
     {
-        return players.Where(p => p.PlayerName == playerName)
-            .FirstOrDefault();
+        return players.Single(p => p.PlayerID == id);
     }
 
-    public IReadOnlyCollection<MonopolyPlayer> GetOpponents(string playerName)
+    public IReadOnlyCollection<MonopolyPlayer> GetOpponents(MonopolyPlayer player)
     {
-        return players.Where(p => p.PlayerName != playerName).ToList();
+        return players.Where(p => p.PlayerID != player.PlayerID).ToList();
     }
 
     public void SwitchNextActivePlayer()
@@ -50,54 +55,37 @@ public class PlayerManager : MonoBehaviour
         ActivePlayerChanged?.Invoke(ActivePlayer);
     }
 
-    private void AssignPlayerTurns()
+    private IReadOnlyList<int> GenerateRandomPlayerIDSequence()
     {
-        List<string> playerNames = players.ToList()
-            .Select(p => p.PlayerName).ToList();
-        List<string> nameSequence = new List<string>();
-        while (nameSequence.Count < players.Count)
-        {
-            int randIndex = Random.Range(0, playerNames.Count);
-            if (!nameSequence.Contains(playerNames[randIndex]))
-            {
-                nameSequence.Add(playerNames[randIndex]);
-            }
-        }
-        if (players.Count == 1)
-        {
-            AssignTurnsFromSequence(nameSequence);
-        }
-        else
-        {
-            pView.RPC("RPC_AssignTurns", RpcTarget.AllBuffered,
-                nameSequence.ToArray());
-        }
+        return players.Select(p => p.PlayerID).Randomized();
     }
 
-    private void AssignTurnsFromSequence(IEnumerable<string> nameSequence)
+    private void AssignTurnsFromSequence(IEnumerable<int> idSequence)
     {
-        Debug.Log("Player sequence:");
         playerTurnQueue = new Queue<MonopolyPlayer>();
-        nameSequence.ToList().ForEach(
-            n => playerTurnQueue.Enqueue(GetPlayerByName(n)));
+        idSequence.ToList().ForEach(
+            n => playerTurnQueue.Enqueue(GetPlayerByID(n)));
         defaultPlayerSequence = new List<MonopolyPlayer>(playerTurnQueue);
-        foreach (MonopolyPlayer player in playerTurnQueue)
-        {
-            Debug.Log(player.PlayerName);
-        }
-        PlayersReady?.Invoke();
     }
 
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
         if (players.Add(player))
         {
+            player.Manager = this;
             player.Despawned += OnPlayerDespawned;
-            if (players.Count == PhotonNetwork.CurrentRoom.PlayerCount
-                && PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
-                AssignPlayerTurns();
+                player.PlayerID = players.Count == 1 ?
+                    1 : players.Select(p => p.PlayerID).Max() + 1;
+                if (players.Count == PhotonNetwork.CurrentRoom.PlayerCount)
+                {
+                    // when all players have spawned, initialize and signal ready
+                    pView.RPC("RPC_InitPlayers", RpcTarget.AllBuffered,
+                        GenerateRandomPlayerIDSequence().ToArray());
+                }
             }
+            player.SpawnAvatar();
         }
     }
 
@@ -107,8 +95,9 @@ public class PlayerManager : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_AssignTurns(string[] playerNameSequence)
+    private void RPC_InitPlayers(int[] playerIdSequence)
     {
-        AssignTurnsFromSequence(playerNameSequence);
+        AssignTurnsFromSequence(playerIdSequence);
+        PlayersReady?.Invoke();
     }
 }
