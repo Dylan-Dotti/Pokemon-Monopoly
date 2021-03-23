@@ -11,6 +11,7 @@ public class MonopolyPlayer : MonoBehaviour
     public static event UnityAction<MonopolyPlayer> Spawned;
     public event UnityAction<MonopolyPlayer> Despawned;
 
+    // move to factory?
     [SerializeField] private PlayerAvatar avatarPrefab;
 
     private PhotonView pView;
@@ -24,11 +25,12 @@ public class MonopolyPlayer : MonoBehaviour
     private EventLogger logger;
 
     public string PlayerName { get; private set; } = "Unknown";
+    public bool InJail { get; private set; }
     public int Money { get; set; } = 1500;
-    public bool InJail { get; set; }
-    public IReadOnlyCollection<PropertyData> Properties => properties;
-    public PlayerAvatar PlayerToken { get; set; }
+
+    public PlayerAvatar PlayerToken { get; private set; }
     public PlayerManager Manager { get; set; }
+    public IReadOnlyCollection<PropertyData> Properties => properties;
 
     public int PlayerID
     {
@@ -53,9 +55,9 @@ public class MonopolyPlayer : MonoBehaviour
 
     private void Start()
     {
-        popupManager = PopupManager.Instance;
         Debug.Log("Player start");
         logger = EventLogger.Instance;
+        popupManager = PopupManager.Instance;
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
@@ -86,24 +88,41 @@ public class MonopolyPlayer : MonoBehaviour
         PlayerToken.SpawnAtSquare(board.GetGoSquare());
     }
 
-    public void MoveAvatarLocal(int numSquares, MoveDirection direction)
+    public Coroutine MoveAvatarSequentialLocal(int numSquares, MoveDirection direction)
     {
         IReadOnlyList<BoardSquare> squareSequence = board.GetNextSquares(
             PlayerToken.OccupiedSquare, numSquares, 
             direction == MoveDirection.Backward);
-        StartCoroutine(MoveAvatarCR(squareSequence, 0.5f));
+        return PlayerToken.MoveSequential(squareSequence, 0.5f);
     }
 
-    public void MoveAvatarAllClients(int numSquares, MoveDirection direction)
+    public void MoveAvatarSequentialAllClients(int numSquares, MoveDirection direction)
     {
         pView.RPC("RPC_MoveAvatar", RpcTarget.AllBufferedViaServer,
             numSquares, direction);
     }
 
-    public void GoToJail(BoardSquare jailSquare)
+    public void GoToJailLocal()
     {
-        InJail = true;
-        PlayerToken.MoveToSquare(jailSquare, true);
+        if (!InJail)
+        {
+            InJail = true;
+            PlayerToken.MoveToSquare(board.GetJailSquare(), true);
+        }
+    }
+
+    public void LeaveJailLocal()
+    {
+        if (InJail)
+        {
+            InJail = false;
+            PlayerToken.MoveToSquare(PlayerToken.OccupiedSquare, true);
+        }
+    }
+
+    public void LeaveJailAllClients()
+    {
+        pView.RPC("RPC_LeaveJail", RpcTarget.AllBuffered);
     }
 
     public void PurchaseProperty(PropertyData property)
@@ -118,7 +137,7 @@ public class MonopolyPlayer : MonoBehaviour
             RpcTarget.AllBuffered, PlayerName, property.PropertyName, bid);
     }
 
-    public void MortgageProperty(PropertyData property)
+    public void MortgagePropertyAllClients(PropertyData property)
     {
         if (property.Owner != this)
             throw new System.Exception("Can't mortgage an unowned property");
@@ -126,7 +145,7 @@ public class MonopolyPlayer : MonoBehaviour
             RpcTarget.AllBuffered, PlayerName, property.PropertyName);
     }
 
-    public void UnmortgageProperty(PropertyData property)
+    public void UnmortgagePropertyAllClients(PropertyData property)
     {
         if (property.Owner != this)
             throw new System.Exception("Can't mortgage an unowned property");
@@ -136,35 +155,22 @@ public class MonopolyPlayer : MonoBehaviour
             RpcTarget.AllBuffered, PlayerName, property.PropertyName);
     }
 
-    public void PayRent(PropertyData property)
+    public void PayRentAllClients(PropertyData property)
     {
         pView.RPC("RPC_PayRent", RpcTarget.AllBuffered,
             property.Owner.PlayerID, property.PropertyName);
     }
 
-    public void UpgradeProperty(GymPropertyData gymProperty)
+    public void UpgradePropertyAllClients(GymPropertyData gymProperty)
     {
         pView.RPC("RPC_UpgradeProperty", RpcTarget.AllBuffered,
             gymProperty.PropertyName);
     }
 
-    public void DowngradeProperty(GymPropertyData gymProperty)
+    public void DowngradePropertyAllClients(GymPropertyData gymProperty)
     {
         pView.RPC("RPC_DowngradeProperty", RpcTarget.AllBuffered,
             gymProperty.PropertyName);
-    }
-
-    private IEnumerator MoveAvatarCR(
-        IReadOnlyList<BoardSquare> squareSequence, float interval)
-    {
-        for (int i = 0; i < squareSequence.Count - 1; i++)
-        {
-            yield return new WaitForSeconds(interval);
-            PlayerToken.MoveToSquare(squareSequence[i]);
-        }
-        yield return new WaitForSeconds(interval);
-        PlayerToken.MoveToSquare(
-            squareSequence[squareSequence.Count - 1], isLastMove: true);
     }
 
     [PunRPC]
@@ -185,7 +191,13 @@ public class MonopolyPlayer : MonoBehaviour
     [PunRPC]
     private void RPC_MoveAvatar(int numSquares, MoveDirection direction)
     {
-        MoveAvatarLocal(numSquares, direction);
+        MoveAvatarSequentialLocal(numSquares, direction);
+    }
+
+    [PunRPC]
+    private void RPC_LeaveJail()
+    {
+        LeaveJailLocal();
     }
 
     [PunRPC]

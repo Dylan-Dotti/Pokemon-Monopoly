@@ -1,22 +1,14 @@
-﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(PhotonView))]
-public class PlayerController : MonoBehaviour
+public class PlayerRollController : MonoBehaviour
 {
     [SerializeField] private DiceRoller roller;
 
     private MonopolyPlayer friendlyPlayer;
-    private PhotonView pView;
-
-    private PlayerAvatar FriendlyAvatar => friendlyPlayer.PlayerToken;
 
     private void Awake()
     {
-        pView = GetComponent<PhotonView>();
-        MonopolyPlayer.Spawned += OnPlayerSpawned;
+        MonopolyPlayer.Spawned += OnPlayerSpawned; 
     }
 
     public void RollDice()
@@ -43,7 +35,7 @@ public class PlayerController : MonoBehaviour
         roller.RollComplete -= OnRollComplete;
         if (friendlyPlayer != null)
         {
-            friendlyPlayer.MoveAvatarAllClients(
+            friendlyPlayer.MoveAvatarSequentialAllClients(
                 roller.LastRollTotal, MoveDirection.Forward);
         }
     }

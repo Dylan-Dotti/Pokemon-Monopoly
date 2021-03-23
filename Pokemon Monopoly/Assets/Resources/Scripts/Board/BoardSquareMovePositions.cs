@@ -8,11 +8,10 @@ public class BoardSquareMovePositions : MonoBehaviour
 
     private void Awake()
     {
-        Transform positionsHolder = transform.Find("Player Positions Holder");
-        playerMovePositions = new Vector3[positionsHolder.childCount][];
-        for (int i = 0; i < positionsHolder.childCount; i++)
+        playerMovePositions = new Vector3[transform.childCount][];
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Transform positionsParent = positionsHolder.GetChild(i);
+            Transform positionsParent = transform.GetChild(i);
             playerMovePositions[i] = new Vector3[positionsParent.childCount];
             for (int j = 0; j < positionsParent.childCount; j++)
             {
@@ -21,14 +20,14 @@ public class BoardSquareMovePositions : MonoBehaviour
         }
     }
 
-    public IReadOnlyList<Vector3> GetMovePositions(
-        IReadOnlyList<MonoBehaviour> players)
+    public IReadOnlyDictionary<PlayerAvatar, Vector3> GetMovePositions(
+        IReadOnlyList<PlayerAvatar> players)
     {
-        return players.Select(p => GetMovePosition(players, p)).ToList();
+        return players.ToDictionary(p => p, p => GetMovePosition(players, p));
     }
 
-    public Vector3 GetMovePosition(IReadOnlyList<MonoBehaviour> currentPlayers,
-        MonoBehaviour movingPlayer)
+    public Vector3 GetMovePosition(IReadOnlyList<PlayerAvatar> currentPlayers,
+        PlayerAvatar movingPlayer)
     {
         if (currentPlayers.Contains(movingPlayer))
         {

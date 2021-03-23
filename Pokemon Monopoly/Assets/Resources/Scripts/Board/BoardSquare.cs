@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(BoardSquareMovePositions))]
 public abstract class BoardSquare : MonoBehaviour
 {
     private List<PlayerAvatar> occupants;
-    private BoardSquareMovePositions movePositions;
 
     public float Width => transform.lossyScale.x;
     public float Height => transform.lossyScale.y;
 
-    public IReadOnlyList<PlayerAvatar> Occupants => occupants;
     public MonopolyBoard ParentBoard { get; set; }
+    public IReadOnlyList<PlayerAvatar> Occupants => occupants;
+    protected BoardSquareMovePositions MovePositions { get; private set; }
 
     protected virtual void Awake()
     {
         occupants = new List<PlayerAvatar>();
-        movePositions = GetComponent<BoardSquareMovePositions>();
+        MovePositions = transform.Find("Player Positions Holder")
+            .GetComponent<BoardSquareMovePositions>();
     }
 
     public abstract void OnPlayerEntered(MonopolyPlayer player, bool isLastMove);
 
-    public virtual Vector3 GetPlayerMovePosition(PlayerAvatar player, float hoverHeight = 0.5f)
+    public virtual Vector3 GetAvatarMovePosition(PlayerAvatar player, float hoverHeight = 0.5f)
     {
-        return movePositions.GetMovePosition(Occupants, player);
+        return MovePositions.GetMovePosition(Occupants, player);
     }
 
-    public virtual Quaternion GetPlayerMoveRotation()
+    public virtual Quaternion GetAvatarMoveRotation()
     {
         return transform.rotation;
     }
@@ -38,18 +38,22 @@ public abstract class BoardSquare : MonoBehaviour
         if (!occupants.Contains(newOccupant))
         {
             occupants.Add(newOccupant);
-            foreach (var o in Occupants.Where(o => o != newOccupant))
-            {
-                o.transform.position = movePositions.GetMovePosition(
-                    Occupants, o);
-            }
+            PositionOccupants();
         }
     }
 
     public void RemoveOccupant(PlayerAvatar occupant)
     {
         occupants.Remove(occupant);
-        occupants.ForEach(o => o.transform.position = 
-            movePositions.GetMovePosition(occupants, o));
+        PositionOccupants();
+    }
+
+    protected virtual void PositionOccupants()
+    {
+        foreach (PlayerAvatar o in Occupants)
+        {
+            o.transform.position = MovePositions
+                .GetMovePosition(Occupants, o);
+        }
     }
 }

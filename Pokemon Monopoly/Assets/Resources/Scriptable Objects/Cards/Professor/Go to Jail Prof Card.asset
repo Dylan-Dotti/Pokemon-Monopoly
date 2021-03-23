@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff163f9dec2beb4c95564dccf0913db, type: 3}
   m_Name: Go to Jail Prof Card
   m_EditorClassIdentifier: 
-  description: 
+  description: Go directly to jail.

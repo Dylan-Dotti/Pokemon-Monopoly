@@ -23,7 +23,7 @@ public abstract class PropertySquare : BoardSquare
             }
             else if (Property.Owner != player && !Property.IsMortgaged)
             {
-                player.PayRent(Property);
+                player.PayRentAllClients(Property);
             }
         }
     }

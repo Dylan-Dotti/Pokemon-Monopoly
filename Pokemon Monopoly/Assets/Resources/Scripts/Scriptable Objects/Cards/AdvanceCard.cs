@@ -13,6 +13,6 @@ public class AdvanceCard : Card
         var paths = targetSquareIndexes.Select(
             i => board.GetPathTo(startSquare, board.GetSquareAt(i)));
         var shortestPath = paths.OrderBy(p => p.Count).First();
-        drawingPlayer.MoveAvatarLocal(shortestPath.Count, MoveDirection.Forward);
+        drawingPlayer.MoveAvatarSequentialLocal(shortestPath.Count, MoveDirection.Forward);
     }
 }

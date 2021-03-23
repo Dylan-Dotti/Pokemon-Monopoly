@@ -18,13 +18,13 @@ public class MonopolyBoard : MonoBehaviour
         spawner = GetComponent<BoardSpawner>();
         deckManager = GetComponentInChildren<DecksManager>(true);
         SpawnBoard();
-        deckManager.SpawnDecks();
     }
 
     public void SpawnBoard()
     {
         boardSquares = spawner.SpawnBoard();
         boardSquares.ForEach(s => s.ParentBoard = this);
+        deckManager.SpawnDecks();
         BoardSpawned?.Invoke(this);
     }
 

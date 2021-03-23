@@ -51,7 +51,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
         {
             upgradeButton.onClick.RemoveAllListeners();
             upgradeButton.onClick.AddListener(
-                () => localPlayer.UpgradeProperty(gymData));
+                () => localPlayer.UpgradePropertyAllClients(gymData));
         }
         downgradeButton.interactable = localPlayer != null &&
             gymData.Owner == localPlayer && gymData.Downgradable;
@@ -59,7 +59,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
         {
             downgradeButton.onClick.RemoveAllListeners();
             downgradeButton.onClick.AddListener(
-                () => localPlayer.DowngradeProperty(gymData));
+                () => localPlayer.DowngradePropertyAllClients(gymData));
         }
     }
 
@@ -90,7 +90,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
             {
                 mortgageButton.onClick.RemoveAllListeners();
                 mortgageButton.onClick.AddListener(
-                    () => localPlayer.UnmortgageProperty(property));
+                    () => localPlayer.UnmortgagePropertyAllClients(property));
             }
         }
         else
@@ -102,7 +102,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
             {
                 mortgageButton.onClick.RemoveAllListeners();
                 mortgageButton.onClick.AddListener(
-                    () => localPlayer.MortgageProperty(property));
+                    () => localPlayer.MortgagePropertyAllClients(property));
             }
         }
     }

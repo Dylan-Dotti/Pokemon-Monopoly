@@ -6,7 +6,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PositionLerper))]
 public class PlayerAvatar : MonoBehaviour
 {
-    public event UnityAction<PlayerAvatar> FinishedMove;
+    public event UnityAction<PlayerAvatar> StartedSequentialMove;
+    public event UnityAction<PlayerAvatar> FinishedSequentialMove;
+    public event UnityAction<PlayerAvatar, BoardSquare> MovedToSquare;
 
     private MonopolyPlayer owner;
     private PositionLerper lerper;
@@ -39,13 +41,19 @@ public class PlayerAvatar : MonoBehaviour
         bool isLastMove = false, bool triggerEvents = true)
     {
         AddToSquare(square);
-        transform.position = square.GetPlayerMovePosition(this);
-        transform.rotation = square.GetPlayerMoveRotation();
+        transform.position = square.GetAvatarMovePosition(this);
+        transform.rotation = square.GetAvatarMoveRotation();
+        if (isLastMove) MovedToSquare?.Invoke(this, square);
         if (triggerEvents)
         {
-            if (isLastMove) FinishedMove?.Invoke(this);
             square.OnPlayerEntered(Owner, isLastMove);
         }
+    }
+
+    public Coroutine MoveSequential(IReadOnlyList<BoardSquare> squareSequence,
+        float interval, bool triggerEvents = true)
+    {
+        return StartCoroutine(MoveSequentialCR(squareSequence, 0.5f));
     }
 
     public Coroutine LerpToSquare(BoardSquare square,
@@ -82,11 +90,27 @@ public class PlayerAvatar : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveSequentialCR(
+        IReadOnlyList<BoardSquare> squares, float interval, bool triggerEvents = true)
+    {
+        StartedSequentialMove?.Invoke(this);
+        for (int i = 0; i < squares.Count - 1; i++)
+        {
+            yield return new WaitForSeconds(interval);
+            MoveToSquare(squares[i]);
+        }
+        yield return new WaitForSeconds(interval);
+        MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: false);
+        // Invoke event before triggering square events in case of multiple sequential moves
+        FinishedSequentialMove?.Invoke(this);
+        MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);
+    }
+
     private IEnumerator LerpToSquareCR(BoardSquare square,
         float speed, bool isLastMove, bool triggerEvents)
     {
         yield return lerper.SpeedLerp(
-            square.GetPlayerMovePosition(this), speed);
+            square.GetAvatarMovePosition(this), speed);
         MoveToSquare(square);
     }
 }

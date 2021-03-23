@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PhotonView))]
 public class DiceRoller : MonoBehaviour
@@ -12,6 +13,7 @@ public class DiceRoller : MonoBehaviour
     public event UnityAction<DiceRoller> RollComplete;
 
     [SerializeField] private DiceRollPanel dicePanel;
+    [SerializeField] private Button rollAndMoveButton;
 
     private PhotonView pView;
 
@@ -50,6 +52,7 @@ public class DiceRoller : MonoBehaviour
     private IEnumerator RollDiceCR(
         string playerName, int roll1, int roll2)
     {
+        rollAndMoveButton.interactable = false;
         dicePanel.RollingPlayerName = playerName;
         dicePanel.Open();
         yield return new WaitForSeconds(2);
@@ -57,6 +60,7 @@ public class DiceRoller : MonoBehaviour
         LastRoll = (roll1, roll2);
         yield return new WaitForSeconds(2);
         dicePanel.Close();
+        rollAndMoveButton.interactable = true;
         RollComplete?.Invoke(this);
     }
 

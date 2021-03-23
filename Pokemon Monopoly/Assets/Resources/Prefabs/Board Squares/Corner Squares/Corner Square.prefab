@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 390374453028482927}
   - component: {fileID: 2513894136791882920}
   - component: {fileID: 924912557017376715}
-  - component: {fileID: 3928807674381449725}
   m_Layer: 0
   m_Name: Corner Square
   m_TagString: Untagged
@@ -139,18 +138,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3928807674381449725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283687418470956882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6f4f91edd2b7843a13963a8cc21c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1910643062613588134
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +551,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5009592851918406241}
+  - component: {fileID: 1534611166880481402}
   m_Layer: 0
   m_Name: Player Positions Holder
   m_TagString: Untagged
@@ -587,3 +575,15 @@ Transform:
   m_Father: {fileID: 6330903067272678453}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1534611166880481402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208320727043389750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f4f91edd2b7843a13963a8cc21c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

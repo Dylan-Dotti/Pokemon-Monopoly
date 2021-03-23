@@ -61,5 +61,7 @@ MonoBehaviour:
   - RPC_ClearLog
   - RejectBid
   - RPC_ShuffleDeck
+  - RPC_StartNextTurn
+  - RPC_LeaveJail
   DisableAutoOpenWizard: 1
   ShowSettings: 1

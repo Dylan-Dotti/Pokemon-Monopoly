@@ -118,8 +118,8 @@
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonRoom.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\RegionText.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerAvatar.cs" />
-    <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />
     <Compile Include="Assets\Resources\Scripts\PropertyManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\BallPropertyData.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\EditableTextButton.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\ForceRoll.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\InputFieldCameraDisable.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\LeaveJailButton.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\MoneyText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\MultiplayerMessageLog.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\NonDraggableScrollRect.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\PlayerAvatarPanelManager.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerMoneyText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerNameText.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\PlayerUIManager.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueTextPrefixed.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\AuctionMenu.cs" />

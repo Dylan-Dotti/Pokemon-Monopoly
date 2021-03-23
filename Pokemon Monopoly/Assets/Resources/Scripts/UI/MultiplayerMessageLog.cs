@@ -22,6 +22,12 @@ public class MultiplayerMessageLog : MonoBehaviour
 
     private GameObject inputPlaceholder;
 
+    public bool InputEnabled
+    {
+        get => inputField.interactable;
+        set => inputField.interactable = value;
+    }
+
     private void Awake()
     {
         textItems = new List<Text>();
@@ -33,7 +39,7 @@ public class MultiplayerMessageLog : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (InputEnabled && Input.GetKeyDown(KeyCode.Return))
         {
             if (enterEnabled)
             {

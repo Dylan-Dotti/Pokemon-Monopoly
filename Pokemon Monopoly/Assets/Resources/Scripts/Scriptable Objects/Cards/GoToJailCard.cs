@@ -6,6 +6,6 @@ public class GoToJailCard : Card
     public override void ApplyEffect(MonopolyPlayer drawingPlayer, 
         PlayerManager pManager, MonopolyBoard board)
     {
-        drawingPlayer.GoToJail(board.GetJailSquare());
+        drawingPlayer.GoToJailLocal();
     }
 }

@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     public event UnityAction PlayersReady;
     public event UnityAction<MonopolyPlayer> ActivePlayerChanged;
 
+    private PlayerUIManager localPlayerUI;
+
     private HashSet<MonopolyPlayer> players;
     private List<MonopolyPlayer> defaultPlayerSequence;
     private Queue<MonopolyPlayer> playerTurnQueue;
@@ -20,6 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     public IEnumerable<MonopolyPlayer> PlayerTurnSequence => defaultPlayerSequence;
     public MonopolyPlayer ActivePlayer { get; private set; }
+
     public MonopolyPlayer LocalPlayer => 
         players.Where(p => p.IsLocalPlayer).FirstOrDefault();
     public IReadOnlyList<MonopolyPlayer> RemotePlayers => 
@@ -30,6 +33,7 @@ public class PlayerManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            localPlayerUI = PlayerUIManager.Instance;
             pView = GetComponent<PhotonView>();
             players = new HashSet<MonopolyPlayer>();
             MonopolyPlayer.Spawned += OnPlayerSpawned;
@@ -49,8 +53,12 @@ public class PlayerManager : MonoBehaviour
     public void SwitchNextActivePlayer()
     {
         MonopolyPlayer nextPlayer = playerTurnQueue.Dequeue();
-        ActivePlayer = nextPlayer;
         playerTurnQueue.Enqueue(nextPlayer);
+        ActivePlayer = nextPlayer;
+        if (ActivePlayer.IsLocalPlayer)
+        {
+            localPlayerUI.RollButtonInteractable = true;
+        }
         Debug.Log("Active player is now: " + ActivePlayer.PlayerName);
         ActivePlayerChanged?.Invoke(ActivePlayer);
     }

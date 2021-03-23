@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: 4024498800484593884}
   - component: {fileID: 1024959320082538996}
   - component: {fileID: 1582200363282580175}
-  - component: {fileID: -4643459114634508764}
   m_Layer: 0
   m_Name: Street Square
   m_TagString: Untagged
@@ -312,18 +311,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-4643459114634508764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3173814632203758346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6f4f91edd2b7843a13963a8cc21c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4687942100499299342
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3168759754898780076}
+  - component: {fileID: 4624632669306827808}
   m_Layer: 0
   m_Name: Player Positions Holder
   m_TagString: Untagged
@@ -465,6 +453,18 @@ Transform:
   m_Father: {fileID: 2573394688822203421}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4624632669306827808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587615803538770143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f4f91edd2b7843a13963a8cc21c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7006215254542849008
 GameObject:
   m_ObjectHideFlags: 0

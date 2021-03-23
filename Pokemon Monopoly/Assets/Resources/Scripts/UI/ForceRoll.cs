@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ForceRoll : MonoBehaviour
 {
-    [SerializeField] private PlayerController controller;
+    [SerializeField] private PlayerRollController controller;
 
     private InputField rollInput1;
     private InputField rollInput2;
