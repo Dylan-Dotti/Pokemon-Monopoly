@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MultiplayerInitController : MonoBehaviourPunCallbacks
+public class MultiplayerInitController : MonoBehaviour
 {
     [SerializeField] private PhotonRoom room;
 
@@ -34,6 +34,18 @@ public class MultiplayerInitController : MonoBehaviourPunCallbacks
         room.BelowMinPlayers -= OnBelowMinPlayers;
     }
 
+    public void StartCountdown()
+    {
+        SetWaitingAndCountdownActive(false, true);
+        timer.StartCountdown(startingTime);
+    }
+
+    public void StopCountdown()
+    {
+        SetWaitingAndCountdownActive(true, false);
+        timer.StopCountdown();
+    }
+
     public void StartGame()
     {
         Debug.Log("Starting game");
@@ -54,14 +66,12 @@ public class MultiplayerInitController : MonoBehaviourPunCallbacks
 
     private void OnReachedMinPlayers()
     {
-        SetWaitingAndCountdownActive(false, true);
-        timer.StartCountdown(startingTime);
+        StartCountdown();
     }
 
     private void OnBelowMinPlayers()
     {
-        SetWaitingAndCountdownActive(true, false);
-        timer.StopCountdown();
+        StopCountdown();
     }
 
     private void OnCountdownSecondsChanged(float secondsRemaining)
