@@ -148,6 +148,9 @@
     <Compile Include="Assets\Resources\Scripts\UI\ForceRoll.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\InputFieldCameraDisable.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\LeaveJailButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomMenu.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomMenuPlayersDisplay.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomPlayerDisplay.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\MoneyText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\MultiplayerMessageLog.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\NonDraggableScrollRect.cs" />

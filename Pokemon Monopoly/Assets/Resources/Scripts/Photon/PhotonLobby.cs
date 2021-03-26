@@ -12,6 +12,9 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     [SerializeField] private Button connectButton;
     [SerializeField] private Button cancelButton;
 
+    [SerializeField] private GameObject LobbyDisplay;
+    [SerializeField] private GameObject RoomDisplay;
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -46,6 +49,15 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
+        LobbyDisplay.SetActive(false);
+        RoomDisplay.SetActive(true);
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        RoomDisplay.SetActive(false);
+        LobbyDisplay.SetActive(true);
     }
 
     private void CreateRoom()

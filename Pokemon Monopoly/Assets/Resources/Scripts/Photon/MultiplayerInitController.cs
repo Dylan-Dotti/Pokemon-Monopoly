@@ -22,8 +22,8 @@ public class MultiplayerInitController : MonoBehaviour
         timer.CountdownCompleted += OnCountdownCompleted;
         room.LocalPlayerJoined += OnLocalPlayerJoined;
         room.LocalPlayerLeft += OnLocalPlayerLeft;
-        room.ReachedMinPlayers += OnReachedMinPlayers;
-        room.BelowMinPlayers += OnBelowMinPlayers;
+        //room.ReachedMinPlayers += OnReachedMinPlayers;
+        //room.BelowMinPlayers += OnBelowMinPlayers;
     }
 
     private void OnDestroy()

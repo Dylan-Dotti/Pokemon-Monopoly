@@ -63,5 +63,6 @@ MonoBehaviour:
   - RPC_ShuffleDeck
   - RPC_StartNextTurn
   - RPC_LeaveJail
+  - RPC_StartGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
