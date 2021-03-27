@@ -10,15 +10,14 @@ public class DiceRoller : MonoBehaviour
 {
     public static DiceRoller Instance { get; private set; }
 
-    public event UnityAction<DiceRoller> RollComplete;
+    public event UnityAction<DiceRoll> RollComplete;
 
     [SerializeField] private DiceRollPanel dicePanel;
     [SerializeField] private Button rollAndMoveButton;
 
     private PhotonView pView;
 
-    public (int roll1, int roll2) LastRoll { get; private set; }
-    public int LastRollTotal => LastRoll.roll1 + LastRoll.roll2;
+    public DiceRoll LastRoll { get; private set; }
 
     private void Awake()
     {
@@ -57,11 +56,11 @@ public class DiceRoller : MonoBehaviour
         dicePanel.Open();
         yield return new WaitForSeconds(2);
         dicePanel.StopRolling(roll1, roll2);
-        LastRoll = (roll1, roll2);
+        LastRoll = new DiceRoll(roll1, roll2);
         yield return new WaitForSeconds(2);
         dicePanel.Close();
         rollAndMoveButton.interactable = true;
-        RollComplete?.Invoke(this);
+        RollComplete?.Invoke(LastRoll);
     }
 
     [PunRPC]

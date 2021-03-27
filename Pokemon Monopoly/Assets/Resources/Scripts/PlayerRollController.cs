@@ -30,13 +30,13 @@ public class PlayerRollController : MonoBehaviour
         if (player.IsLocalPlayer) friendlyPlayer = player;
     }
 
-    private void OnRollComplete(DiceRoller roller)
+    private void OnRollComplete(DiceRoll roll)
     {
         roller.RollComplete -= OnRollComplete;
         if (friendlyPlayer != null)
         {
             friendlyPlayer.MoveAvatarSequentialAllClients(
-                roller.LastRollTotal, MoveDirection.Forward);
+                roll.RollTotal, MoveDirection.Forward);
         }
     }
 }

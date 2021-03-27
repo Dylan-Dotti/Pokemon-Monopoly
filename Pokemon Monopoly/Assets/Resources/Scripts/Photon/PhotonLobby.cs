@@ -48,7 +48,6 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
         LobbyDisplay.SetActive(false);
         RoomDisplay.SetActive(true);
     }
@@ -75,6 +74,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnConnectButtonClicked()
     {
+        PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
         connectButton.gameObject.SetActive(false);
         cancelButton.gameObject.SetActive(true);
         PhotonNetwork.JoinRandomRoom();

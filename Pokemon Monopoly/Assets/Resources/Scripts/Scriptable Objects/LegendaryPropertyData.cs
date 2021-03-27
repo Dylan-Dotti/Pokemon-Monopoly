@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "LegendaryPropertyData", menuName = "Scriptable Objects/Legendary Property Data")]
 public class LegendaryPropertyData : PropertyData
@@ -18,8 +15,8 @@ public class LegendaryPropertyData : PropertyData
         {
             if (roller == null) Debug.Log("Roller null");
             //roller = DiceRoller.Instance;
-            int rollMultiplier = roller == null || roller.LastRollTotal == 0 ?
-                1 : roller.LastRollTotal;
+            int rollMultiplier = roller == null || roller.LastRoll.RollTotal == 0 ?
+                1 : roller.LastRoll.RollTotal;
             return CurrentRentWithoutRoll * rollMultiplier;
         }
     }
