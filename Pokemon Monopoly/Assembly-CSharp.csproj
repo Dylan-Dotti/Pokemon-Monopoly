@@ -112,13 +112,14 @@
     <Compile Include="Assets\Resources\Scripts\MonopolyPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\MoveDirection.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\CountdownTimer.cs" />
-    <Compile Include="Assets\Resources\Scripts\Photon\MultiplayerInitController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Photon\GameInitializer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\MultiplayerSettings.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonLobby.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\PhotonRoom.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\RegionText.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerAvatar.cs" />
+    <Compile Include="Assets\Resources\Scripts\PlayerAvatarController.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />

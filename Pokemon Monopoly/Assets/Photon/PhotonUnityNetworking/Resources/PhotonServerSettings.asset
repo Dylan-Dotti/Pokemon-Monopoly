@@ -64,5 +64,6 @@ MonoBehaviour:
   - RPC_StartNextTurn
   - RPC_LeaveJail
   - RPC_StartGame
+  - RPC_CancelStartGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1

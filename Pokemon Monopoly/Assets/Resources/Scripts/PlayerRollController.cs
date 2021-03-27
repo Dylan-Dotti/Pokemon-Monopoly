@@ -35,6 +35,10 @@ public class PlayerRollController : MonoBehaviour
         roller.RollComplete -= OnRollComplete;
         if (friendlyPlayer != null)
         {
+            if (friendlyPlayer.InJail)
+            {
+
+            }
             friendlyPlayer.MoveAvatarSequentialAllClients(
                 roll.RollTotal, MoveDirection.Forward);
         }
