@@ -63,12 +63,12 @@ public class MonopolyBoard : MonoBehaviour
     }
 
     public IReadOnlyList<BoardSquare> GetNextSquares(
-        BoardSquare startSquare, int numSquares, bool backwards = false)
+        BoardSquare startSquare, int numSquares, bool reversed = false)
     {
         List<BoardSquare> nextSquares = new List<BoardSquare>();
         for (int i = 0, currentIndex = IndexOf(startSquare); i < numSquares; i++)
         {
-            currentIndex = GetNextSquareIndex(currentIndex, backwards);
+            currentIndex = GetNextSquareIndex(currentIndex, reversed);
             nextSquares.Add(boardSquares[currentIndex]);
         }
         return nextSquares;

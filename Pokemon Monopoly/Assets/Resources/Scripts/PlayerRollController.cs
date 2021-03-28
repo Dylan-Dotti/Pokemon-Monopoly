@@ -37,10 +37,10 @@ public class PlayerRollController : MonoBehaviour
         {
             if (friendlyPlayer.InJail)
             {
-
+                if (!roll.IsDoubleRoll) return;
+                friendlyPlayer.LeaveJailAllClients();
             }
-            friendlyPlayer.MoveAvatarSequentialAllClients(
-                roll.RollTotal, MoveDirection.Forward);
+            friendlyPlayer.MoveAvatarSequentialAllClients(roll.RollTotal);
         }
     }
 }

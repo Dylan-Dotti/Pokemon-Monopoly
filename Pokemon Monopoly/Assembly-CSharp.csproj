@@ -110,7 +110,6 @@
     <Compile Include="Assets\Resources\Scripts\Interfaces\IUpgradable.cs" />
     <Compile Include="Assets\Resources\Scripts\ListExtensions.cs" />
     <Compile Include="Assets\Resources\Scripts\MonopolyPlayer.cs" />
-    <Compile Include="Assets\Resources\Scripts\MoveDirection.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\CountdownTimer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\GameInitializer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\MultiplayerSettings.cs" />
@@ -158,6 +157,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\NonDraggableScrollRect.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerAvatarPanel.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerAvatarPanelManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\PlayerControlPanel.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerMoneyText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerNameText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerUIManager.cs" />

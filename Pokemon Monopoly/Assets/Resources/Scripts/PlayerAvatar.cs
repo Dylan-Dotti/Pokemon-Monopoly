@@ -101,6 +101,7 @@ public class PlayerAvatar : MonoBehaviour
         }
         yield return new WaitForSeconds(interval);
         MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: false);
+        yield return new WaitForSeconds(interval);
         // Invoke event before triggering square events in case of multiple sequential moves
         FinishedSequentialMove?.Invoke(this);
         MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);

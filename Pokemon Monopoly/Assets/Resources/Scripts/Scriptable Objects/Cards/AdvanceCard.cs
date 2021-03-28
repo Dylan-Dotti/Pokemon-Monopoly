@@ -9,10 +9,10 @@ public class AdvanceCard : Card
     public override void ApplyEffect(MonopolyPlayer drawingPlayer,
         PlayerManager pManager, MonopolyBoard board)
     {
-        BoardSquare startSquare = drawingPlayer.PlayerToken.OccupiedSquare;
+        BoardSquare startSquare = drawingPlayer.Avatar.OccupiedSquare;
         var paths = targetSquareIndexes.Select(
             i => board.GetPathTo(startSquare, board.GetSquareAt(i)));
         var shortestPath = paths.OrderBy(p => p.Count).First();
-        drawingPlayer.MoveAvatarSequentialLocal(shortestPath.Count, MoveDirection.Forward);
+        drawingPlayer.MoveAvatarSequentialLocal(shortestPath.Count);
     }
 }

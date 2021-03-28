@@ -6,16 +6,13 @@ using UnityEngine.Events;
 using Photon.Pun;
 
 [RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(PlayerAvatarController))]
 public class MonopolyPlayer : MonoBehaviour
 {
     public static event UnityAction<MonopolyPlayer> Spawned;
     public event UnityAction<MonopolyPlayer> Despawned;
 
-    // move to factory?
-    [SerializeField] private PlayerAvatar avatarPrefab;
-
     private PhotonView pView;
-    private MonopolyBoard board;
     private HashSet<PropertyData> properties;
     private int playerID;
     private string avatarImageName;
@@ -24,11 +21,13 @@ public class MonopolyPlayer : MonoBehaviour
     private AvatarImageFactory avatarFactory;
     private EventLogger logger;
 
+    private PlayerAvatarController avatarController;
+
     public string PlayerName { get; private set; } = "Unknown";
     public bool InJail { get; private set; }
     public int Money { get; set; } = 1500;
 
-    public PlayerAvatar PlayerToken { get; private set; }
+    public PlayerAvatar Avatar => avatarController.Avatar;
     public PlayerManager Manager { get; set; }
     public IReadOnlyCollection<PropertyData> Properties => properties;
 
@@ -47,8 +46,7 @@ public class MonopolyPlayer : MonoBehaviour
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
-        board = GameObject.FindGameObjectWithTag("Board")
-            .GetComponent<MonopolyBoard>();
+        avatarController = GetComponent<PlayerAvatarController>();
         properties = new HashSet<PropertyData>();
         avatarFactory = AvatarImageFactory.Instance;
     }
@@ -82,24 +80,18 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void SpawnAvatar()
     {
-        Debug.Log("Spawning avatar");
-        PlayerToken = Instantiate(avatarPrefab);
-        PlayerToken.Owner = this;
-        PlayerToken.SpawnAtSquare(board.GetGoSquare());
+        avatarController.SpawnAvatar(this);
     }
 
-    public Coroutine MoveAvatarSequentialLocal(int numSquares, MoveDirection direction)
+    public void MoveAvatarSequentialLocal(int numSquares, bool reversed = false)
     {
-        IReadOnlyList<BoardSquare> squareSequence = board.GetNextSquares(
-            PlayerToken.OccupiedSquare, numSquares, 
-            direction == MoveDirection.Backward);
-        return PlayerToken.MoveSequential(squareSequence, 0.5f);
+        avatarController.MoveAvatarSequentialLocal(numSquares, reversed: reversed);
     }
 
-    public void MoveAvatarSequentialAllClients(int numSquares, MoveDirection direction)
+    public void MoveAvatarSequentialAllClients(int numSquares, bool reversed = false)
     {
         pView.RPC("RPC_MoveAvatar", RpcTarget.AllBufferedViaServer,
-            numSquares, direction);
+            numSquares, reversed);
     }
 
     public void GoToJailLocal()
@@ -107,7 +99,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (!InJail)
         {
             InJail = true;
-            PlayerToken.MoveToSquare(board.GetJailSquare(), true);
+            avatarController.MoveToJailSquare();
         }
     }
 
@@ -116,7 +108,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (InJail)
         {
             InJail = false;
-            PlayerToken.MoveToSquare(PlayerToken.OccupiedSquare, true);
+            avatarController.MoveToJailSquare();
         }
     }
 
@@ -189,9 +181,9 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_MoveAvatar(int numSquares, MoveDirection direction)
+    private void RPC_MoveAvatar(int numSquares, bool reversed)
     {
-        MoveAvatarSequentialLocal(numSquares, direction);
+        MoveAvatarSequentialLocal(numSquares, reversed: reversed);
     }
 
     [PunRPC]
