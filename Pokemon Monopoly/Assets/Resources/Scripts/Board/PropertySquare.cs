@@ -11,7 +11,7 @@ public abstract class PropertySquare : BoardSquare
         popupManager = PopupManager.Instance;
     }
 
-    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
+    public override void ApplyEffects(MonopolyPlayer player, bool isLastMove)
     {
         if (isLastMove && player.IsLocalPlayer && Property != null)
         {

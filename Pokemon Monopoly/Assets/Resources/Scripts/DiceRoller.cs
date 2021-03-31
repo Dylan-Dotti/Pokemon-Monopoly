@@ -39,7 +39,7 @@ public class DiceRoller : MonoBehaviour
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            pView.RPC("RPC_RollDice", RpcTarget.AllBuffered,
+            pView.RPC("RPC_RollDice", RpcTarget.AllBufferedViaServer,
                 playerName, roll1, roll2);
         }
         else

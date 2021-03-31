@@ -66,7 +66,22 @@ public class MonopolyPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
+        DespawnAvatar();
         Despawned?.Invoke(this);
+    }
+
+    // called only on local
+    public void OnTurnStart()
+    {
+        logger.LogEventLocal("Your turn has started");
+        logger.LogEventOtherClients($"{PlayerName} started their turn");
+    }
+
+    // called only on local
+    public void OnTurnEnd()
+    {
+        logger.LogEventLocal("You ended your turn");
+        logger.LogEventOtherClients($"{PlayerName} ended their turn");
     }
 
     public PropertyData GetPropertyByName(string propertyName) =>
@@ -81,6 +96,11 @@ public class MonopolyPlayer : MonoBehaviour
     public void SpawnAvatar()
     {
         avatarController.SpawnAvatar(this);
+    }
+
+    public void DespawnAvatar()
+    {
+        avatarController.DespawnAvatar();
     }
 
     public void MoveAvatarSequentialLocal(int numSquares, bool reversed = false)
@@ -99,7 +119,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (!InJail)
         {
             InJail = true;
-            avatarController.MoveToJailSquare();
+            avatarController.LerpToJailSquare(hideDuringMove: true);
         }
     }
 
@@ -108,7 +128,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (InJail)
         {
             InJail = false;
-            avatarController.MoveToJailSquare();
+            avatarController.LerpToJailSquare();
         }
     }
 

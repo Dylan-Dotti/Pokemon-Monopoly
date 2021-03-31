@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PositionLerper))]
+[RequireComponent(typeof(Vector3Lerper))]
 public class PlayerAvatar : MonoBehaviour
 {
     public event UnityAction<PlayerAvatar> StartedSequentialMove;
@@ -11,7 +11,7 @@ public class PlayerAvatar : MonoBehaviour
     public event UnityAction<PlayerAvatar, BoardSquare> MovedToSquare;
 
     private MonopolyPlayer owner;
-    private PositionLerper lerper;
+    private Vector3Lerper lerper;
 
     public MonopolyPlayer Owner
     {
@@ -29,12 +29,23 @@ public class PlayerAvatar : MonoBehaviour
 
     private void Awake()
     {
-        lerper = GetComponent<PositionLerper>();
+        lerper = GetComponent<Vector3Lerper>();
     }
 
     public void SpawnAtSquare(BoardSquare square)
     {
         MoveToSquare(square, triggerEvents:false);
+    }
+
+    public void MoveToPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
+    public Coroutine LerpToPosition(Vector3 position)
+    {
+        return lerper.DurationLerp(transform.position, position, .165f,
+            vector => transform.position = vector);
     }
 
     public void MoveToSquare(BoardSquare square, 
@@ -44,24 +55,22 @@ public class PlayerAvatar : MonoBehaviour
         transform.position = square.GetAvatarMovePosition(this);
         transform.rotation = square.GetAvatarMoveRotation();
         if (isLastMove) MovedToSquare?.Invoke(this, square);
-        if (triggerEvents)
-        {
-            square.OnPlayerEntered(Owner, isLastMove);
-        }
+        if (triggerEvents) square.ApplyEffects(Owner, isLastMove);
+    }
+
+    public Coroutine LerpToSquare(BoardSquare square,
+        bool isLastMove = true, bool triggerEvents = true,
+        bool hideDuringMove = false)
+    {
+        AddToSquare(square);
+        return StartCoroutine(LerpToSquareCR(
+            square, .165f, isLastMove, triggerEvents, hideDuringMove));
     }
 
     public Coroutine MoveSequential(IReadOnlyList<BoardSquare> squareSequence,
         float interval, bool triggerEvents = true)
     {
-        return StartCoroutine(MoveSequentialCR(squareSequence, 0.5f));
-    }
-
-    public Coroutine LerpToSquare(BoardSquare square,
-        float speed = 2, bool isLastMove = true,
-        bool triggerEvents = true)
-    {
-        return StartCoroutine(LerpToSquareCR(
-            square, speed, isLastMove, triggerEvents));
+        return StartCoroutine(MoveSequentialCR(squareSequence, 0.335f));
     }
 
     private void SpawnAvatarImage()
@@ -76,9 +85,16 @@ public class PlayerAvatar : MonoBehaviour
 
     private void AddToSquare(BoardSquare square)
     {
-        RemoveFromSquare(OccupiedSquare);
-        OccupiedSquare = square;
-        square.AddOccupant(this);
+        if (square == OccupiedSquare)
+        {
+            square.PositionOccupants();
+        }
+        else
+        {
+            RemoveFromSquare(OccupiedSquare);
+            OccupiedSquare = square;
+            square.AddOccupant(this);
+        }
     }
 
     private void RemoveFromSquare(BoardSquare square)
@@ -94,24 +110,40 @@ public class PlayerAvatar : MonoBehaviour
         IReadOnlyList<BoardSquare> squares, float interval, bool triggerEvents = true)
     {
         StartedSequentialMove?.Invoke(this);
+        //float moveInterval = interval * .33f;
+        //float waitInterval = interval * .67f;
         for (int i = 0; i < squares.Count - 1; i++)
         {
             yield return new WaitForSeconds(interval);
-            MoveToSquare(squares[i]);
+            //MoveToSquare(squares[i]);
+            yield return LerpToSquare(
+                squares[i], false, false);
         }
         yield return new WaitForSeconds(interval);
-        MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: false);
+        //MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: false);
+        yield return LerpToSquare(
+            squares[squares.Count - 1], true, false);
         yield return new WaitForSeconds(interval);
         // Invoke event before triggering square events in case of multiple sequential moves
         FinishedSequentialMove?.Invoke(this);
-        MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);
+        //MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);
+        yield return LerpToSquare(
+            squares[squares.Count - 1], true, true);
     }
 
     private IEnumerator LerpToSquareCR(BoardSquare square,
-        float speed, bool isLastMove, bool triggerEvents)
+        float duration, bool isLastMove, bool triggerEvents,
+        bool hideDuringMove)
     {
-        yield return lerper.SpeedLerp(
-            square.GetAvatarMovePosition(this), speed);
-        MoveToSquare(square);
+        //if (hideDuringMove) gameObject.SetActive(false);
+        lerper.DurationLerp(
+            transform.eulerAngles, square.GetAvatarMoveRotation().eulerAngles,
+            duration,
+            vector => transform.rotation = Quaternion.Euler(vector));
+        yield return lerper.DurationLerp(
+            transform.position, square.GetAvatarMovePosition(this), duration,
+            vector => transform.position = vector);
+        MoveToSquare(square, isLastMove, triggerEvents);
+        gameObject.SetActive(true);
     }
 }

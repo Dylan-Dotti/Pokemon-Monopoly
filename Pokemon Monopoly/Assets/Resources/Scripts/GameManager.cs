@@ -15,25 +15,32 @@ public class GameManager : MonoBehaviour
         playerManager.PlayersReady += OnPlayersReady;
     }
 
+    // called on all clients
     private void OnPlayersReady()
     {
-        playerManager.SwitchNextActivePlayer();
+        StartNextTurnLocal();
     }
 
     // called only on local client
-    public void EndTurn()
+    public void EndTurnAllClients()
     {
         StartNextTurnAllClients();
     }
 
+    private void StartNextTurnLocal()
+    {
+        playerManager.SwitchNextActivePlayerLocal();
+    }
+
     private void StartNextTurnAllClients()
     {
+        if (pView == null) Debug.Log("pview null");
         pView.RPC("RPC_StartNextTurn", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
     private void RPC_StartNextTurn()
     {
-        playerManager.SwitchNextActivePlayer();
+        StartNextTurnLocal();
     }
 }

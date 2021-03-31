@@ -121,7 +121,6 @@
     <Compile Include="Assets\Resources\Scripts\PlayerAvatarController.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerRollController.cs" />
-    <Compile Include="Assets\Resources\Scripts\PositionLerper.cs" />
     <Compile Include="Assets\Resources\Scripts\PropertyManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\BallPropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Cards\AdvanceCard.cs" />
@@ -184,6 +183,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\UIArrow.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\UIMouseEventEmitter.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\UnselectableUIObject.cs" />
+    <Compile Include="Assets\Resources\Scripts\Vector3Lerper.cs" />
     <Compile Include="Assets\Resources\Scripts\VectorExtensions.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

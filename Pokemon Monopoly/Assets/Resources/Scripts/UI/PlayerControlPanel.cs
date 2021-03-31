@@ -37,20 +37,4 @@ public class PlayerControlPanel : MonoBehaviour
             Instance = this;
         }
     }
-
-    private void OnEnable()
-    {
-        ViewPropertiesEnabled = true;
-        RollAndMoveEnabled = true;
-        EndTurnEnabled = true;
-        LeaveJailEnabled = true;
-    }
-
-    private void OnDisable()
-    {
-        ViewPropertiesEnabled = false;
-        RollAndMoveEnabled = false;
-        EndTurnEnabled = false;
-        LeaveJailEnabled = false;
-    }
 }

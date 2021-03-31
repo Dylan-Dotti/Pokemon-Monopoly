@@ -13,20 +13,13 @@ public class LeaveJailButton : MonoBehaviour
         leaveJailButton.onClick.AddListener(OnButtonPress);
     }
 
-    private void OnEnable()
-    {
-        leaveJailButton.gameObject.SetActive(true);
-    }
-
-    private void OnDisable()
-    {
-        leaveJailButton.gameObject.SetActive(false);
-    }
-
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
-        if (player.IsLocalPlayer) friendlyPlayer = player;
-        friendlyPlayer.Despawned += OnPlayerDespawned;
+        if (player.IsLocalPlayer)
+        {
+            friendlyPlayer = player;
+            friendlyPlayer.Despawned += OnPlayerDespawned;
+        }
     }
 
     private void OnPlayerDespawned(MonopolyPlayer player)

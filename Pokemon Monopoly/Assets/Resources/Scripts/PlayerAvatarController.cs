@@ -40,4 +40,10 @@ public class PlayerAvatarController : MonoBehaviour
     {
         Avatar.MoveToSquare(board.GetJailSquare(), true);
     }
+
+    public Coroutine LerpToJailSquare(bool hideDuringMove = false)
+    {
+        return Avatar.LerpToSquare(
+            board.GetJailSquare(), hideDuringMove: hideDuringMove);
+    }
 }

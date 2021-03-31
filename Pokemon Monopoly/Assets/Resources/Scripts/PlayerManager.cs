@@ -13,18 +13,15 @@ public class PlayerManager : MonoBehaviour
     public event UnityAction PlayersReady;
     public event UnityAction<MonopolyPlayer> ActivePlayerChanged;
 
-    private PlayerUIManager localPlayerUI;
-
     private HashSet<MonopolyPlayer> players;
     private List<MonopolyPlayer> defaultPlayerSequence;
     private Queue<MonopolyPlayer> playerTurnQueue;
     private PhotonView pView;
 
-    public IEnumerable<MonopolyPlayer> PlayerTurnSequence => defaultPlayerSequence;
+    public IReadOnlyList<MonopolyPlayer> PlayerTurnSequence => defaultPlayerSequence;
     public MonopolyPlayer ActivePlayer { get; private set; }
 
-    public MonopolyPlayer LocalPlayer => 
-        players.Where(p => p.IsLocalPlayer).FirstOrDefault();
+    public MonopolyPlayer LocalPlayer => players.SingleOrDefault(p => p.IsLocalPlayer);
     public IReadOnlyList<MonopolyPlayer> RemotePlayers => 
         defaultPlayerSequence.Where(p => !p.IsLocalPlayer).ToList();
 
@@ -33,48 +30,32 @@ public class PlayerManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            localPlayerUI = PlayerUIManager.Instance;
             pView = GetComponent<PhotonView>();
             players = new HashSet<MonopolyPlayer>();
             MonopolyPlayer.Spawned += OnPlayerSpawned;
         }
     }
 
-    public MonopolyPlayer GetPlayerByID(int id)
-    {
-        return players.Single(p => p.PlayerID == id);
-    }
+    public MonopolyPlayer GetPlayerByID(int id) =>
+        players.Single(p => p.PlayerID == id);
 
-    public IReadOnlyCollection<MonopolyPlayer> GetOpponents(MonopolyPlayer player)
-    {
-        return players.Where(p => p.PlayerID != player.PlayerID).ToList();
-    }
+    public IReadOnlyCollection<MonopolyPlayer> GetOpponents(MonopolyPlayer player) =>
+        players.Where(p => p.PlayerID != player.PlayerID).ToList();
 
-    public void SwitchNextActivePlayer()
+    // called by GameManager on all clients when turn ends
+    public void SwitchNextActivePlayerLocal()
     {
+        if (ActivePlayer != null && ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnEnd();
         MonopolyPlayer nextPlayer = playerTurnQueue.Dequeue();
         playerTurnQueue.Enqueue(nextPlayer);
         ActivePlayer = nextPlayer;
-        if (ActivePlayer.IsLocalPlayer)
-        {
-            localPlayerUI.RollButtonInteractable = true;
-        }
         Debug.Log("Active player is now: " + ActivePlayer.PlayerName);
+        if (ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnStart();
         ActivePlayerChanged?.Invoke(ActivePlayer);
     }
 
-    private IReadOnlyList<int> GenerateRandomPlayerIDSequence()
-    {
-        return players.Select(p => p.PlayerID).Randomized();
-    }
-
-    private void AssignTurnsFromSequence(IEnumerable<int> idSequence)
-    {
-        playerTurnQueue = new Queue<MonopolyPlayer>();
-        idSequence.ToList().ForEach(
-            n => playerTurnQueue.Enqueue(GetPlayerByID(n)));
-        defaultPlayerSequence = new List<MonopolyPlayer>(playerTurnQueue);
-    }
+    private IReadOnlyList<int> GenerateRandomPlayerIDSequence() =>
+        players.Select(p => p.PlayerID).Randomized();
 
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
@@ -89,7 +70,7 @@ public class PlayerManager : MonoBehaviour
                 if (players.Count == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     // when all players have spawned, initialize and signal ready
-                    pView.RPC("RPC_InitPlayers", RpcTarget.AllBuffered,
+                    pView.RPC("RPC_OnAllPlayersSpawned", RpcTarget.AllBuffered,
                         GenerateRandomPlayerIDSequence().ToArray());
                 }
             }
@@ -103,9 +84,14 @@ public class PlayerManager : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_InitPlayers(int[] playerIdSequence)
+    private void RPC_OnAllPlayersSpawned(int[] playerIdSequence)
     {
-        AssignTurnsFromSequence(playerIdSequence);
+        playerTurnQueue = new Queue<MonopolyPlayer>();
+        foreach (int playerId in playerIdSequence)
+        {
+            playerTurnQueue.Enqueue(GetPlayerByID(playerId));
+        }
+        defaultPlayerSequence = playerTurnQueue.ToList();
         PlayersReady?.Invoke();
     }
 }

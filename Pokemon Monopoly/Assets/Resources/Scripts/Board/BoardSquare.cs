@@ -21,7 +21,7 @@ public abstract class BoardSquare : MonoBehaviour
             .GetComponent<BoardSquareMovePositions>();
     }
 
-    public abstract void OnPlayerEntered(MonopolyPlayer player, bool isLastMove);
+    public abstract void ApplyEffects(MonopolyPlayer player, bool isLastMove);
 
     public virtual Vector3 GetAvatarMovePosition(PlayerAvatar player, float hoverHeight = 0.5f)
     {
@@ -38,8 +38,8 @@ public abstract class BoardSquare : MonoBehaviour
         if (!occupants.Contains(newOccupant))
         {
             occupants.Add(newOccupant);
-            PositionOccupants();
         }
+        PositionOccupants(ignorePlayer: newOccupant);
     }
 
     public void RemoveOccupant(PlayerAvatar occupant)
@@ -48,12 +48,13 @@ public abstract class BoardSquare : MonoBehaviour
         PositionOccupants();
     }
 
-    protected virtual void PositionOccupants()
+    public virtual void PositionOccupants(PlayerAvatar ignorePlayer = null)
     {
-        foreach (PlayerAvatar o in Occupants)
+        var occupantsFiltered = ignorePlayer == null ?
+            Occupants : Occupants.Where(o => o != ignorePlayer);
+        foreach (PlayerAvatar o in occupantsFiltered)
         {
-            o.transform.position = MovePositions
-                .GetMovePosition(Occupants, o);
+            o.LerpToPosition(MovePositions.GetMovePosition(Occupants, o));
         }
     }
 }

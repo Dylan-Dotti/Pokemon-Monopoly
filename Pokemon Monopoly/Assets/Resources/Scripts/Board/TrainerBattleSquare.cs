@@ -1,7 +1,7 @@
 ﻿
 public class TrainerBattleSquare : CardSquare
 {
-    public override void OnPlayerEntered(MonopolyPlayer player, bool isLastMove)
+    public override void ApplyEffects(MonopolyPlayer player, bool isLastMove)
     {
         if (isLastMove)
         {

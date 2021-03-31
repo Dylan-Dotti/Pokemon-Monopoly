@@ -338,7 +338,7 @@ PrefabInstance:
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
@@ -483,7 +483,7 @@ PrefabInstance:
     - target: {fileID: 6976952488300059912, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndTurn
+      value: EndTurnAllClients
       objectReference: {fileID: 0}
     - target: {fileID: 6976952488300059912, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
@@ -5341,7 +5341,7 @@ PrefabInstance:
     - target: {fileID: 6725300772548873013, guid: e845a993be443934db4180b544e8c855,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 523
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6725300772548873013, guid: e845a993be443934db4180b544e8c855,
         type: 3}
@@ -5420,27 +5420,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e845a993be443934db4180b544e8c855, type: 3}
---- !u!1 &423863228 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6725300772548873012, guid: e845a993be443934db4180b544e8c855,
-    type: 3}
-  m_PrefabInstance: {fileID: 423863227}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &423863229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423863228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a583ad48d9e8bb4186667ecc80d58a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewPropertiesButton: {fileID: 21301758}
-  rollAndMoveButton: {fileID: 1034270434}
-  endTurnButton: {fileID: 4374213}
 --- !u!1 &446911707
 GameObject:
   m_ObjectHideFlags: 0
@@ -12844,6 +12823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1089501937}
   - component: {fileID: 1089501936}
+  - component: {fileID: 1089501938}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -12879,6 +12859,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1089501938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089501935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 3
+  InstantiationId: 3
+  isRuntimeInstantiated: 0
 --- !u!1 &1103730235
 GameObject:
   m_ObjectHideFlags: 0
@@ -13190,7 +13192,7 @@ MonoBehaviour:
   maxXPos: 10
   maxYPos: 10.5
   cameraPanSpeed: 12
-  cameraZoomSpeed: 14
+  cameraZoomSpeed: 42
   cameraRotateSpeedDegrees: 210
 --- !u!4 &1124792336
 Transform:
@@ -13531,7 +13533,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2111413737}
+    m_TransformParent: {fileID: 743191095}
     m_Modifications:
     - target: {fileID: 2062906295607927608, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
@@ -13571,27 +13573,27 @@ PrefabInstance:
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
@@ -13666,7 +13668,7 @@ PrefabInstance:
     - target: {fileID: 2062906295909450787, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
       propertyPath: m_Name
-      value: Button
+      value: Leave Jail Button
       objectReference: {fileID: 0}
     - target: {fileID: 2062906295909450787, guid: 96ec19a8802e72648bb840c81ce051f1,
         type: 3}
@@ -13715,12 +13717,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96ec19a8802e72648bb840c81ce051f1, type: 3}
---- !u!224 &1164014690 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1164014689}
+--- !u!114 &1164014691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389357703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a63b601a08fd842ae8721bdafd98ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1175843393
 GameObject:
   m_ObjectHideFlags: 0
@@ -16039,6 +16047,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2062906295909450786, guid: 96ec19a8802e72648bb840c81ce051f1,
     type: 3}
   m_PrefabInstance: {fileID: 1388984711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1389357703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2062906295909450787, guid: 96ec19a8802e72648bb840c81ce051f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1164014689}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1405506642 stripped
 RectTransform:
@@ -23481,55 +23495,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110944467}
   m_CullTransparentMesh: 0
---- !u!1 &2111413736
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2111413737}
-  - component: {fileID: 2111413738}
-  m_Layer: 5
-  m_Name: Leave Jail Button
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2111413737
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111413736}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1164014690}
-  m_Father: {fileID: 743191095}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
---- !u!114 &2111413738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111413736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a63b601a08fd842ae8721bdafd98ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2125767512
 PrefabInstance:
   m_ObjectHideFlags: 0
