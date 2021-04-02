@@ -26,15 +26,15 @@ public class JailSquare : CornerSquare
 
     public override void PositionOccupants(PlayerAvatar ignorePlayer = null)
     {
-        //refactor to lerp
-        // addtosquare not called, so no resposition happens
-        var occupantsFiltered = ignorePlayer == null ?
-            Occupants : Occupants.Where(o => o != ignorePlayer);
-        var jailOccupants = occupantsFiltered.Where(o => o.Owner.InJail).ToList();
-        var nonJailOccupants = occupantsFiltered.Where(o => !o.Owner.InJail).ToList();
-        jailOccupants.ForEach(
-            o => o.LerpToPosition(jailMovePositions.GetMovePosition(jailOccupants, o)));
-        nonJailOccupants.ForEach(
-            o => o.LerpToPosition(MovePositions.GetMovePosition(nonJailOccupants, o)));
+        var jailOccupants = Occupants.Where(o => o.Owner.InJail).ToList();
+        var nonJailOccupants = Occupants.Where(o => !o.Owner.InJail).ToList();
+        var jailOccupantsFiltered = jailOccupants.Where(
+            o => ignorePlayer == null || o != ignorePlayer).ToList();
+        var nonJailOccupantsFiltered = nonJailOccupants.Where(
+            o => ignorePlayer == null || !o.Owner.InJail).ToList();
+        jailOccupantsFiltered.ForEach(o => o.LerpToPosition(
+            jailMovePositions.GetMovePosition(jailOccupants, o)));
+        nonJailOccupantsFiltered.ForEach(o => o.LerpToPosition(
+            MovePositions.GetMovePosition(nonJailOccupants, o)));
     }
 }

@@ -122,6 +122,7 @@
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Resources\Scripts\PropertyManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\RotationNormalizer.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\BallPropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Cards\AdvanceCard.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Cards\Card.cs" />

@@ -5,31 +5,57 @@ using UnityEngine;
 
 public class Vector3Lerper : MonoBehaviour
 {
-    public Coroutine SpeedLerp(Vector3 startVector, Vector3 targetVector,
-        float speed, Action<Vector3> OnLerpChanged)
+    public Coroutine SpeedLerp(Vector3Lerp lerp, float speed)
     {
-        float distance = Vector3.Distance(startVector, targetVector);
+        float distance = Vector3.Distance(lerp.StartVector, lerp.EndVector);
         float duration = distance / speed;
-        return DurationLerp(startVector, targetVector, duration, OnLerpChanged);
+        return DurationLerp(lerp, duration);
     }
 
-    public Coroutine DurationLerp(Vector3 startVector, Vector3 targetVector,
-        float duration, Action<Vector3> OnLerpChanged)
+    public Coroutine DurationLerp(Vector3Lerp lerp, float duration)
     {
-        return StartCoroutine(DurationLerpCR(
-            startVector, targetVector, duration, OnLerpChanged));
+        return MultiDurationLerp(new List<Vector3Lerp> { lerp }, duration);
     }
 
-    private IEnumerator DurationLerpCR(Vector3 startVector, Vector3 targetVector,
-        float duration, Action<Vector3> OnLerpChanged)
+    public virtual Coroutine MultiDurationLerp(
+        IEnumerable<Vector3Lerp> lerps, float duration)
+    {
+        return StartCoroutine(MultiDurationLerpCR(lerps, duration));
+    }
+
+    private IEnumerator MultiDurationLerpCR(
+        IEnumerable<Vector3Lerp> lerps, float duration)
     {
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            float lerpPercentage = Mathf.Clamp01((Time.time - startTime) / duration);
-            OnLerpChanged(Vector3.Lerp(startVector, targetVector, lerpPercentage));
+            float lerpPercentage = Mathf.Clamp01(
+                (Time.time - startTime) / duration);
+            foreach (Vector3Lerp lerp in lerps)
+            {
+                lerp.OnLerpChanged(Vector3.Lerp(
+                    lerp.StartVector, lerp.EndVector, lerpPercentage));
+            }
             yield return null;
         }
-        OnLerpChanged(targetVector);
+        foreach (Vector3Lerp lerp in lerps)
+        {
+            lerp.OnLerpChanged(lerp.EndVector);
+        }
+    }
+}
+
+public class Vector3Lerp
+{
+    public Vector3 StartVector { get; private set; }
+    public Vector3 EndVector { get; private set; }
+    public Action<Vector3> OnLerpChanged { get; private set; }
+
+    public Vector3Lerp(Vector3 startVector, Vector3 endVector,
+        Action<Vector3> onLerpChanged)
+    {
+        StartVector = startVector;
+        EndVector = endVector;
+        OnLerpChanged = onLerpChanged;
     }
 }

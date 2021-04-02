@@ -15,6 +15,12 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject LobbyDisplay;
     [SerializeField] private GameObject RoomDisplay;
 
+    private void Awake()
+    {
+        connectButton.onClick.AddListener(OnConnectButtonClicked);
+        cancelButton.onClick.AddListener(OnCancelButtonClicked);
+    }
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();

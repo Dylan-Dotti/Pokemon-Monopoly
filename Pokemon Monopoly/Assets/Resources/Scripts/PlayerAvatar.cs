@@ -10,8 +10,10 @@ public class PlayerAvatar : MonoBehaviour
     public event UnityAction<PlayerAvatar> FinishedSequentialMove;
     public event UnityAction<PlayerAvatar, BoardSquare> MovedToSquare;
 
+    [SerializeField] private GameObject avatarGraphics;
+
     private MonopolyPlayer owner;
-    private Vector3Lerper lerper;
+    private Vector3Lerper positionLerper;
 
     public MonopolyPlayer Owner
     {
@@ -29,7 +31,7 @@ public class PlayerAvatar : MonoBehaviour
 
     private void Awake()
     {
-        lerper = GetComponent<Vector3Lerper>();
+        positionLerper = GetComponent<Vector3Lerper>();
     }
 
     public void SpawnAtSquare(BoardSquare square)
@@ -44,8 +46,9 @@ public class PlayerAvatar : MonoBehaviour
 
     public Coroutine LerpToPosition(Vector3 position)
     {
-        return lerper.DurationLerp(transform.position, position, .165f,
-            vector => transform.position = vector);
+        Vector3Lerp lerp = new Vector3Lerp(
+            transform.position, position, vector => transform.position = vector);
+        return positionLerper.DurationLerp(lerp, .165f);
     }
 
     public void MoveToSquare(BoardSquare square, 
@@ -127,23 +130,35 @@ public class PlayerAvatar : MonoBehaviour
         // Invoke event before triggering square events in case of multiple sequential moves
         FinishedSequentialMove?.Invoke(this);
         //MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);
-        yield return LerpToSquare(
-            squares[squares.Count - 1], true, true);
+        squares[squares.Count - 1].ApplyEffects(owner, true);
     }
 
     private IEnumerator LerpToSquareCR(BoardSquare square,
         float duration, bool isLastMove, bool triggerEvents,
         bool hideDuringMove)
     {
-        //if (hideDuringMove) gameObject.SetActive(false);
-        lerper.DurationLerp(
-            transform.eulerAngles, square.GetAvatarMoveRotation().eulerAngles,
-            duration,
-            vector => transform.rotation = Quaternion.Euler(vector));
-        yield return lerper.DurationLerp(
-            transform.position, square.GetAvatarMovePosition(this), duration,
-            vector => transform.position = vector);
-        MoveToSquare(square, isLastMove, triggerEvents);
-        gameObject.SetActive(true);
+        if (hideDuringMove) avatarGraphics.SetActive(false);
+        Vector3 startRotation = transform.eulerAngles;
+        Vector3 endRotation = square.GetAvatarMoveRotation().eulerAngles;
+        (float startDegrees, float endDegrees) = 
+            RotationNormalizer.Normalize(startRotation.z, endRotation.z);
+        startRotation = new Vector3(startRotation.x, startRotation.y, startDegrees);
+        endRotation = new Vector3(endRotation.x, endRotation.y, endDegrees);
+        Debug.Log("Lerping rotation from : " +
+            startRotation.ToString() + " to " +
+            endRotation.ToString());
+        var lerps = new List<Vector3Lerp>
+        {
+            new Vector3Lerp(
+                transform.position, square.GetAvatarMovePosition(this),
+                vector => transform.position = vector),
+            new Vector3Lerp(
+                startRotation, endRotation,
+                vector => transform.rotation = Quaternion.Euler(vector))
+        };
+        yield return positionLerper.MultiDurationLerp(lerps, .5f);
+        avatarGraphics.SetActive(true);
+        //MoveToSquare(square, isLastMove, triggerEvents);
+        if (triggerEvents) square.ApplyEffects(owner, isLastMove);
     }
 }
