@@ -13,7 +13,7 @@ public class DiceRoller : MonoBehaviour
     public event UnityAction<DiceRoll> RollComplete;
 
     [SerializeField] private DiceRollPanel dicePanel;
-    [SerializeField] private Button rollAndMoveButton;
+    //[SerializeField] private Button rollAndMoveButton;
 
     private PhotonView pView;
 
@@ -51,7 +51,6 @@ public class DiceRoller : MonoBehaviour
     private IEnumerator RollDiceCR(
         string playerName, int roll1, int roll2)
     {
-        rollAndMoveButton.interactable = false;
         dicePanel.RollingPlayerName = playerName;
         dicePanel.Open();
         yield return new WaitForSeconds(2);
@@ -59,7 +58,6 @@ public class DiceRoller : MonoBehaviour
         LastRoll = new DiceRoll(roll1, roll2);
         yield return new WaitForSeconds(2);
         dicePanel.Close();
-        rollAndMoveButton.interactable = true;
         RollComplete?.Invoke(LastRoll);
     }
 

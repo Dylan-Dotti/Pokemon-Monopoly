@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private PlayerUIManager uiManager;
 
     private PhotonView pView;
 
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void StartNextTurnAllClients()
     {
         if (pView == null) Debug.Log("pview null");
-        pView.RPC("RPC_StartNextTurn", RpcTarget.AllBuffered);
+        pView.RPC("RPC_StartNextTurn", RpcTarget.AllBufferedViaServer);
     }
 
     [PunRPC]

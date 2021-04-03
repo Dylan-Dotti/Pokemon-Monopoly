@@ -109,6 +109,7 @@
     <Compile Include="Assets\Resources\Scripts\Interfaces\IUIMouseEventEmitter.cs" />
     <Compile Include="Assets\Resources\Scripts\Interfaces\IUpgradable.cs" />
     <Compile Include="Assets\Resources\Scripts\ListExtensions.cs" />
+    <Compile Include="Assets\Resources\Scripts\LocalPlayerSpawnMonitor.cs" />
     <Compile Include="Assets\Resources\Scripts\MonopolyPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\CountdownTimer.cs" />
     <Compile Include="Assets\Resources\Scripts\Photon\GameInitializer.cs" />

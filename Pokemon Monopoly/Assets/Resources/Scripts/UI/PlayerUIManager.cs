@@ -6,6 +6,7 @@ public class PlayerUIManager : MonoBehaviour
     public static PlayerUIManager Instance { get; private set; }
 
     [SerializeField] private Button viewPropertiesButton;
+    [SerializeField] private Button leaveJailButton;
     [SerializeField] private Button rollButton;
     [SerializeField] private Button endTurnButton;
     [SerializeField] private MultiplayerMessageLog mainMessageLog;
@@ -14,6 +15,12 @@ public class PlayerUIManager : MonoBehaviour
     {
         get => viewPropertiesButton.interactable;
         set => viewPropertiesButton.interactable = value;
+    }
+
+    public bool LeaveJailInteractable
+    {
+        get => leaveJailButton.interactable;
+        set => leaveJailButton.interactable = value;
     }
 
     public bool RollButtonInteractable

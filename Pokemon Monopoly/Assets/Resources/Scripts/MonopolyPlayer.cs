@@ -13,6 +13,7 @@ public class MonopolyPlayer : MonoBehaviour
     public event UnityAction<MonopolyPlayer> Despawned;
 
     private PhotonView pView;
+
     private HashSet<PropertyData> properties;
     private int playerID;
     private string avatarImageName;
@@ -20,6 +21,7 @@ public class MonopolyPlayer : MonoBehaviour
     private PopupManager popupManager;
     private AvatarImageFactory avatarFactory;
     private EventLogger logger;
+    private PlayerUIManager playerUI;
 
     private PlayerAvatarController avatarController;
 
@@ -49,6 +51,7 @@ public class MonopolyPlayer : MonoBehaviour
         avatarController = GetComponent<PlayerAvatarController>();
         properties = new HashSet<PropertyData>();
         avatarFactory = AvatarImageFactory.Instance;
+        playerUI = PlayerUIManager.Instance;
     }
 
     private void Start()
@@ -71,14 +74,16 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     // called only on local
-    public void OnTurnStart()
+    public void OnTurnStartLocal()
     {
+        playerUI.EndTurnInteractable = true;
+        EnableAdditionalMove();
         logger.LogEventLocal("Your turn has started");
         logger.LogEventOtherClients($"{PlayerName} started their turn");
     }
 
     // called only on local
-    public void OnTurnEnd()
+    public void OnTurnEndLocal()
     {
         logger.LogEventLocal("You ended your turn");
         logger.LogEventOtherClients($"{PlayerName} ended their turn");
@@ -114,21 +119,18 @@ public class MonopolyPlayer : MonoBehaviour
             numSquares, reversed);
     }
 
+    public void EnableAdditionalMove()
+    {
+        playerUI.RollButtonInteractable = true;
+    }
+
     public void GoToJailLocal()
     {
         if (!InJail)
         {
             InJail = true;
             avatarController.LerpToJailSquare(hideDuringMove: true);
-        }
-    }
-
-    public void LeaveJailLocal()
-    {
-        if (InJail)
-        {
-            InJail = false;
-            avatarController.LerpToJailSquare();
+            playerUI.LeaveJailInteractable = true;
         }
     }
 
@@ -209,7 +211,11 @@ public class MonopolyPlayer : MonoBehaviour
     [PunRPC]
     private void RPC_LeaveJail()
     {
-        LeaveJailLocal();
+        if (InJail)
+        {
+            InJail = false;
+            avatarController.LerpToJailSquare();
+        }
     }
 
     [PunRPC]

@@ -113,8 +113,6 @@ public class PlayerAvatar : MonoBehaviour
         IReadOnlyList<BoardSquare> squares, float interval, bool triggerEvents = true)
     {
         StartedSequentialMove?.Invoke(this);
-        //float moveInterval = interval * .33f;
-        //float waitInterval = interval * .67f;
         for (int i = 0; i < squares.Count - 1; i++)
         {
             yield return new WaitForSeconds(interval);
@@ -144,9 +142,6 @@ public class PlayerAvatar : MonoBehaviour
             RotationNormalizer.Normalize(startRotation.z, endRotation.z);
         startRotation = new Vector3(startRotation.x, startRotation.y, startDegrees);
         endRotation = new Vector3(endRotation.x, endRotation.y, endDegrees);
-        Debug.Log("Lerping rotation from : " +
-            startRotation.ToString() + " to " +
-            endRotation.ToString());
         var lerps = new List<Vector3Lerp>
         {
             new Vector3Lerp(
@@ -156,9 +151,8 @@ public class PlayerAvatar : MonoBehaviour
                 startRotation, endRotation,
                 vector => transform.rotation = Quaternion.Euler(vector))
         };
-        yield return positionLerper.MultiDurationLerp(lerps, .5f);
+        yield return positionLerper.MultiDurationLerp(lerps, duration);
         avatarGraphics.SetActive(true);
-        //MoveToSquare(square, isLastMove, triggerEvents);
         if (triggerEvents) square.ApplyEffects(owner, isLastMove);
     }
 }

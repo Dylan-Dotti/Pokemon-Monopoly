@@ -45,12 +45,12 @@ public class PlayerManager : MonoBehaviour
     // called by GameManager on all clients when turn ends
     public void SwitchNextActivePlayerLocal()
     {
-        if (ActivePlayer != null && ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnEnd();
+        if (ActivePlayer != null && ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnEndLocal();
         MonopolyPlayer nextPlayer = playerTurnQueue.Dequeue();
         playerTurnQueue.Enqueue(nextPlayer);
         ActivePlayer = nextPlayer;
         Debug.Log("Active player is now: " + ActivePlayer.PlayerName);
-        if (ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnStart();
+        if (ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnStartLocal();
         ActivePlayerChanged?.Invoke(ActivePlayer);
     }
 
