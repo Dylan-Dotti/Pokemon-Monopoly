@@ -62,18 +62,12 @@ public class PlayerAvatar : MonoBehaviour
     }
 
     public Coroutine LerpToSquare(BoardSquare square,
-        bool isLastMove = true, bool triggerEvents = true,
+        bool isLastMove = true, bool triggerEffects = true,
         bool hideDuringMove = false)
     {
         AddToSquare(square);
         return StartCoroutine(LerpToSquareCR(
-            square, .165f, isLastMove, triggerEvents, hideDuringMove));
-    }
-
-    public Coroutine MoveSequential(IReadOnlyList<BoardSquare> squareSequence,
-        float interval, bool triggerEvents = true)
-    {
-        return StartCoroutine(MoveSequentialCR(squareSequence, 0.335f));
+            square, .165f, isLastMove, triggerEffects, hideDuringMove));
     }
 
     private void SpawnAvatarImage()
@@ -109,30 +103,8 @@ public class PlayerAvatar : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveSequentialCR(
-        IReadOnlyList<BoardSquare> squares, float interval, bool triggerEvents = true)
-    {
-        StartedSequentialMove?.Invoke(this);
-        for (int i = 0; i < squares.Count - 1; i++)
-        {
-            yield return new WaitForSeconds(interval);
-            //MoveToSquare(squares[i]);
-            yield return LerpToSquare(
-                squares[i], false, false);
-        }
-        yield return new WaitForSeconds(interval);
-        //MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: false);
-        yield return LerpToSquare(
-            squares[squares.Count - 1], true, false);
-        yield return new WaitForSeconds(interval);
-        // Invoke event before triggering square events in case of multiple sequential moves
-        FinishedSequentialMove?.Invoke(this);
-        //MoveToSquare(squares[squares.Count - 1], isLastMove: true, triggerEvents: true);
-        squares[squares.Count - 1].ApplyEffects(owner, true);
-    }
-
     private IEnumerator LerpToSquareCR(BoardSquare square,
-        float duration, bool isLastMove, bool triggerEvents,
+        float duration, bool isLastMove, bool triggerEffects,
         bool hideDuringMove)
     {
         if (hideDuringMove) avatarGraphics.SetActive(false);
@@ -153,6 +125,6 @@ public class PlayerAvatar : MonoBehaviour
         };
         yield return positionLerper.MultiDurationLerp(lerps, duration);
         avatarGraphics.SetActive(true);
-        if (triggerEvents) square.ApplyEffects(owner, isLastMove);
+        if (triggerEffects) square.ApplyEffects(owner, isLastMove);
     }
 }

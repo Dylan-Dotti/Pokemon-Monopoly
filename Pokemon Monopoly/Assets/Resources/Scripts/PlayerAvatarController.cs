@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerAvatarController : MonoBehaviour
 {
+    public event UnityAction CompletedAllActions;
+
     [SerializeField] private PlayerAvatar avatarPrefab;
 
+    private ActionQueue actionQueue;
     private MonopolyBoard board;
 
     public PlayerAvatar Avatar { get; private set; }
@@ -13,6 +19,8 @@ public class PlayerAvatarController : MonoBehaviour
     {
         board = GameObject.FindWithTag("Board")
             .GetComponent<MonopolyBoard>();
+        actionQueue = new ActionQueue(this);
+        actionQueue.CompletedAllActions += () => CompletedAllActions?.Invoke();
     }
 
     public void SpawnAvatar(MonopolyPlayer owner)
@@ -29,21 +37,48 @@ public class PlayerAvatarController : MonoBehaviour
         Destroy(Avatar);
     }
 
-    public Coroutine MoveAvatarSequentialLocal(int numSquares, bool reversed = false)
+    public void QueueSequentialMove(int numSquares, bool reversed = false)
     {
         IReadOnlyList<BoardSquare> squareSequence = board.GetNextSquares(
             Avatar.OccupiedSquare, numSquares, reversed);
-        return Avatar.MoveSequential(squareSequence, 0.5f);
+        QueueSequentialMove(squareSequence);
     }
 
-    public void MoveToJailSquare()
+    public void QueueSequentialMove(IReadOnlyList<BoardSquare> squareSequence)
     {
-        Avatar.MoveToSquare(board.GetJailSquare(), true);
+        actionQueue.QueueCoroutineAction(
+            () => StartCoroutine(MoveSequentialCR(squareSequence, 0.33f)));
     }
 
-    public Coroutine LerpToJailSquare(bool hideDuringMove = false)
+    public void QueueMoveToJailSquare()
     {
-        return Avatar.LerpToSquare(
-            board.GetJailSquare(), hideDuringMove: hideDuringMove);
+        actionQueue.QueueSynchronousAction(() => 
+        {
+            Avatar.MoveToSquare(board.GetJailSquare(), true);
+        });
+    }
+
+    public void QueueLerpToJailSquare(bool hideDuringMove = false)
+    {
+        actionQueue.QueueCoroutineAction(
+            () => StartCoroutine(MoveSequentialCR(
+            new List<BoardSquare> { board.GetJailSquare() },
+            0.5f, hideDuringMove: hideDuringMove)));
+    }
+
+    private IEnumerator MoveSequentialCR(
+        IReadOnlyList<BoardSquare> squares, float interval,
+        bool hideDuringMove = false)
+    {
+        for (int i = 0; i < squares.Count - 1; i++)
+        {
+            yield return new WaitForSeconds(interval);
+            yield return Avatar.LerpToSquare(squares[i], false, false, hideDuringMove);
+            squares[i].ApplyEffects(Avatar.Owner, false);
+        }
+        yield return new WaitForSeconds(interval);
+        yield return Avatar.LerpToSquare(squares[squares.Count - 1], true, false, hideDuringMove);
+        yield return new WaitForSeconds(interval);
+        squares[squares.Count - 1].ApplyEffects(Avatar.Owner, true);
     }
 }

@@ -49,6 +49,7 @@ public class MonopolyPlayer : MonoBehaviour
     {
         pView = GetComponent<PhotonView>();
         avatarController = GetComponent<PlayerAvatarController>();
+        avatarController.CompletedAllActions += OnAllActionsCompleted;
         properties = new HashSet<PropertyData>();
         avatarFactory = AvatarImageFactory.Instance;
         playerUI = PlayerUIManager.Instance;
@@ -76,7 +77,6 @@ public class MonopolyPlayer : MonoBehaviour
     // called only on local
     public void OnTurnStartLocal()
     {
-        playerUI.EndTurnInteractable = true;
         EnableAdditionalMove();
         logger.LogEventLocal("Your turn has started");
         logger.LogEventOtherClients($"{PlayerName} started their turn");
@@ -110,12 +110,12 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void MoveAvatarSequentialLocal(int numSquares, bool reversed = false)
     {
-        avatarController.MoveAvatarSequentialLocal(numSquares, reversed: reversed);
+        avatarController.QueueSequentialMove(numSquares, reversed: reversed);
     }
 
     public void MoveAvatarSequentialAllClients(int numSquares, bool reversed = false)
     {
-        pView.RPC("RPC_MoveAvatar", RpcTarget.AllBufferedViaServer,
+        pView.RPC("RPC_MoveAvatar", RpcTarget.AllBuffered,
             numSquares, reversed);
     }
 
@@ -129,7 +129,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (!InJail)
         {
             InJail = true;
-            avatarController.LerpToJailSquare(hideDuringMove: true);
+            avatarController.QueueLerpToJailSquare(hideDuringMove: true);
             playerUI.LeaveJailInteractable = true;
         }
     }
@@ -187,6 +187,11 @@ public class MonopolyPlayer : MonoBehaviour
             gymProperty.PropertyName);
     }
 
+    private void OnAllActionsCompleted()
+    {
+        playerUI.EndTurnInteractable = true;
+    }
+
     [PunRPC]
     private void RPC_SpawnInit(string name, string avatarImageName)
     {
@@ -214,7 +219,7 @@ public class MonopolyPlayer : MonoBehaviour
         if (InJail)
         {
             InJail = false;
-            avatarController.LerpToJailSquare();
+            avatarController.QueueLerpToJailSquare();
         }
     }
 
