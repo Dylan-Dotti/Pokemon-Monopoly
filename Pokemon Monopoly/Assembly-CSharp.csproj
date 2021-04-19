@@ -102,6 +102,7 @@
     <Compile Include="Assets\Resources\Scripts\Cards\Deck.cs" />
     <Compile Include="Assets\Resources\Scripts\Cards\DecksManager.cs" />
     <Compile Include="Assets\Resources\Scripts\DiceRoll.cs" />
+    <Compile Include="Assets\Resources\Scripts\DiceRollHistory.cs" />
     <Compile Include="Assets\Resources\Scripts\DiceRoller.cs" />
     <Compile Include="Assets\Resources\Scripts\EventLogger.cs" />
     <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Resources\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Resources\Scripts\PropertyManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\RollEventsManager.cs" />
     <Compile Include="Assets\Resources\Scripts\RotationNormalizer.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\BallPropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Cards\AdvanceCard.cs" />

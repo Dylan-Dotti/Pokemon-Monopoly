@@ -28,6 +28,7 @@ public class MonopolyPlayer : MonoBehaviour
     public string PlayerName { get; private set; } = "Unknown";
     public bool InJail { get; private set; }
     public int Money { get; set; } = 1500;
+    public int NumMovesRemaining { get; set; }
 
     public PlayerAvatar Avatar => avatarController.Avatar;
     public PlayerManager Manager { get; set; }
@@ -75,18 +76,52 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     // called only on local
-    public void OnTurnStartLocal()
+    public void OnTurnStart()
     {
-        EnableAdditionalMove();
+        OnEarnedAdditionalMove();
+        playerUI.LeaveJailInteractable = InJail;
         logger.LogEventLocal("Your turn has started");
         logger.LogEventOtherClients($"{PlayerName} started their turn");
     }
 
     // called only on local
-    public void OnTurnEndLocal()
+    public void OnTurnEnd()
     {
         logger.LogEventLocal("You ended your turn");
         logger.LogEventOtherClients($"{PlayerName} ended their turn");
+    }
+
+    public void OnStandardRoll(DiceRoll roll)
+    {
+        MoveAvatarSequentialAllClients(roll.RollTotal);
+    }
+
+    public void OnEarnedAdditionalMove()
+    {
+        Debug.Log("Adding additional move");
+        NumMovesRemaining += 1;
+        if (NumMovesRemaining == 1)
+        {
+            playerUI.EndTurnInteractable = false;
+            playerUI.RollButtonInteractable = true;
+        }
+    }
+
+    public void OnEnterJailWithDoubles()
+    {
+        GoToJailAllClients();
+    }
+
+    public void OnExitJailWithDoubles()
+    {
+        playerUI.LeaveJailInteractable = false;
+        LeaveJailAllClients();
+    }
+
+    public void OnFailExitJailWithDoubles()
+    {
+        // must pay to exit
+        //playerUI.LeaveJailInteractable = false;
     }
 
     public PropertyData GetPropertyByName(string propertyName) =>
@@ -119,19 +154,18 @@ public class MonopolyPlayer : MonoBehaviour
             numSquares, reversed);
     }
 
-    public void EnableAdditionalMove()
-    {
-        playerUI.RollButtonInteractable = true;
-    }
-
     public void GoToJailLocal()
     {
         if (!InJail)
         {
             InJail = true;
             avatarController.QueueLerpToJailSquare(hideDuringMove: true);
-            playerUI.LeaveJailInteractable = true;
         }
+    }
+
+    public void GoToJailAllClients()
+    {
+        pView.RPC("RPC_GoToJail", RpcTarget.AllBuffered);
     }
 
     public void LeaveJailAllClients()
@@ -189,8 +223,20 @@ public class MonopolyPlayer : MonoBehaviour
 
     private void OnAllActionsCompleted()
     {
-        playerUI.EndTurnInteractable = true;
+        NumMovesRemaining -= 1;
+        if (NumMovesRemaining > 0)
+        {
+            playerUI.RollButtonInteractable = true;
+        }
+        else
+        {
+            playerUI.RollButtonInteractable = false;
+            playerUI.EndTurnInteractable = true;
+        }
     }
+
+    // RPC functions
+    #region RPCs
 
     [PunRPC]
     private void RPC_SpawnInit(string name, string avatarImageName)
@@ -214,6 +260,12 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     [PunRPC]
+    private void RPC_GoToJail()
+    {
+        GoToJailLocal();
+    }
+
+    [PunRPC]
     private void RPC_LeaveJail()
     {
         if (InJail)
@@ -224,8 +276,8 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_PurchaseProperty(string purchaserName, string propertyName,
-        int? auctionPriceOverride)
+    private void RPC_PurchaseProperty(
+        string purchaserName, string propertyName, int? auctionPriceOverride)
     {
         PropertyData property = PropertyManager.Instance
             .GetPropertyByName(propertyName);
@@ -303,4 +355,6 @@ public class MonopolyPlayer : MonoBehaviour
         property.Downgrade();
         Money += property.DowngradeValue;
     }
+
+    #endregion
 }

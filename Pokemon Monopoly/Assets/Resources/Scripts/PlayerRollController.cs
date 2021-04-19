@@ -5,10 +5,12 @@ public class PlayerRollController : MonoBehaviour
     [SerializeField] private DiceRoller roller;
 
     private MonopolyPlayer friendlyPlayer;
+    private RollEventsManager rollEvents;
 
     private void Awake()
     {
-        MonopolyPlayer.Spawned += OnPlayerSpawned; 
+        rollEvents = new RollEventsManager();
+        MonopolyPlayer.Spawned += OnPlayerSpawned;
     }
 
     public void RollDice()
@@ -27,7 +29,15 @@ public class PlayerRollController : MonoBehaviour
 
     private void OnPlayerSpawned(MonopolyPlayer player)
     {
-        if (player.IsLocalPlayer) friendlyPlayer = player;
+        if (player.IsLocalPlayer)
+        {
+            friendlyPlayer = player;
+            rollEvents.StandardRoll += friendlyPlayer.OnStandardRoll;
+            rollEvents.EarnedBonusRoll += friendlyPlayer.OnEarnedAdditionalMove;
+            rollEvents.EnteredJailWithDoubles += friendlyPlayer.OnEnterJailWithDoubles;
+            rollEvents.ExitedJailWithDoubles += friendlyPlayer.OnExitJailWithDoubles;
+            rollEvents.FailedEscapeJailWithDouble += friendlyPlayer.OnFailExitJailWithDoubles;
+        }
     }
 
     private void OnRollComplete(DiceRoll roll)
@@ -35,12 +45,7 @@ public class PlayerRollController : MonoBehaviour
         roller.RollComplete -= OnRollComplete;
         if (friendlyPlayer != null)
         {
-            if (friendlyPlayer.InJail)
-            {
-                if (!roll.IsDoubleRoll) return;
-                friendlyPlayer.LeaveJailAllClients();
-            }
-            friendlyPlayer.MoveAvatarSequentialAllClients(roll.RollTotal);
+            rollEvents.AddRoll(roll, friendlyPlayer.InJail);
         }
     }
 }
