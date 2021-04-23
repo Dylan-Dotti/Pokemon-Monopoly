@@ -32,6 +32,8 @@ public class PlayerRollController : MonoBehaviour
         if (player.IsLocalPlayer)
         {
             friendlyPlayer = player;
+            player.EnteredJail += p => rollEvents.ClearRollHistory();
+            player.LeftJail += p => rollEvents.ClearRollHistory();
             rollEvents.StandardRoll += friendlyPlayer.OnStandardRoll;
             rollEvents.EarnedBonusRoll += friendlyPlayer.OnEarnedAdditionalMove;
             rollEvents.EnteredJailWithDoubles += friendlyPlayer.OnEnterJailWithDoubles;

@@ -61,12 +61,11 @@ public class PlayerManager : MonoBehaviour
     {
         if (players.Add(player))
         {
-            player.Manager = this;
             player.Despawned += OnPlayerDespawned;
             if (PhotonNetwork.IsMasterClient)
             {
-                player.PlayerID = players.Count == 1 ?
-                    1 : players.Select(p => p.PlayerID).Max() + 1;
+                player.InitPlayerIdAllClients(players.Count == 1 ?
+                    1 : players.Select(p => p.PlayerID).Max() + 1);
                 if (players.Count == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     // when all players have spawned, initialize and signal ready

@@ -74,9 +74,9 @@ public class MonopolyBoard : MonoBehaviour
         return nextSquares;
     }
 
-    private int GetNextSquareIndex(int startIndex, bool backwards = false)
+    private int GetNextSquareIndex(int startIndex, bool reversed = false)
     {
-        int index = startIndex + (backwards ? -1 : 1);
+        int index = startIndex + (reversed ? -1 : 1);
         index = index >= 0 ? index : boardSquares.Count - 1;
         return index % boardSquares.Count;
     }

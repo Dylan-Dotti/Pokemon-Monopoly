@@ -31,7 +31,7 @@ public class LeaveJailButton : MonoBehaviour
     {
         if (friendlyPlayer != null)
         {
-            friendlyPlayer.LeaveJailAllClients();
+            friendlyPlayer.LeaveJailAllClients(true);
         }
         else
         {

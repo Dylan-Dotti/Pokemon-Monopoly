@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df5b0af945471ad4b96a888fe3eb2c59, type: 3}
-  m_Name: Pokeball Prof Card
+  m_Name: Voltorb Oak Card
   m_EditorClassIdentifier: 
-  description: "Advance token to Poke Ball. If you pass go, collect \xA5200."
-  targetSquareIndexes: 05000000
-  teleport: 0
+  popupPrefab: {fileID: 0}
+  description: "Advance to Lt. Surge's Gym Voltorb. If you pass \"Go\", collect \xA5200."
+  targetSquareIndexes: 0b000000

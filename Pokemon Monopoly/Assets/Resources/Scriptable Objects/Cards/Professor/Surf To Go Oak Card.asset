@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e943a3efd5ddc7d488be2029af6a472c, type: 3}
-  m_Name: Snorlax Prof Card
+  m_Script: {fileID: 11500000, guid: df5b0af945471ad4b96a888fe3eb2c59, type: 3}
+  m_Name: Surf To Go Oak Card
   m_EditorClassIdentifier: 
-  description: "You woke up Snorlax! Collect \xA5150"
-  transferAmount: 150
-  transferMethod: 0
+  popupPrefab: {fileID: 0}
+  description: "Surf to 'Go'. (Collect \xA5200)"
+  targetSquareIndexes: 00000000

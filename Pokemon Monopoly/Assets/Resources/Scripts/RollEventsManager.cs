@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 using UnityEngine.Events;
 
 public class RollEventsManager
@@ -19,7 +18,6 @@ public class RollEventsManager
 
     public void AddRoll(DiceRoll roll, bool inJail)
     {
-        Debug.Log("RollEventsManager adding roll");
         rollHistory.AddRoll(roll);
         if (rollHistory.Count == 3) OnThreeRollsInHistory(inJail);
         else
@@ -41,9 +39,12 @@ public class RollEventsManager
             {
                 StandardRoll?.Invoke(roll);
             }
-            
         }
-        
+    }
+
+    public void ClearRollHistory()
+    {
+        rollHistory.Clear();
     }
 
     private void OnThreeRollsInHistory(bool inJail)
@@ -58,7 +59,6 @@ public class RollEventsManager
         {
             if (allDoubles)
             {
-                Debug.Log("You fucked up buddy");
                 rollHistory.Clear();
                 EnteredJailWithDoubles?.Invoke();
             }

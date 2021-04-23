@@ -11,6 +11,8 @@ public class MonopolyPlayer : MonoBehaviour
 {
     public static event UnityAction<MonopolyPlayer> Spawned;
     public event UnityAction<MonopolyPlayer> Despawned;
+    public event UnityAction<MonopolyPlayer> EnteredJail;
+    public event UnityAction<MonopolyPlayer> LeftJail;
 
     private PhotonView pView;
 
@@ -26,23 +28,15 @@ public class MonopolyPlayer : MonoBehaviour
     private PlayerAvatarController avatarController;
 
     public string PlayerName { get; private set; } = "Unknown";
-    public bool InJail { get; private set; }
     public int Money { get; set; } = 1500;
     public int NumMovesRemaining { get; set; }
+    public bool InJail { get; private set; }
+    public int GetOutOfJailFreeUses { get; set; }
 
     public PlayerAvatar Avatar => avatarController.Avatar;
-    public PlayerManager Manager { get; set; }
     public IReadOnlyCollection<PropertyData> Properties => properties;
 
-    public int PlayerID
-    {
-        get => playerID;
-        set
-        {
-            playerID = value;
-            pView.RPC("RPC_InitPlayerId", RpcTarget.AllBuffered, value);
-        }
-    }
+    public int PlayerID { get; set; }
 
     public bool IsLocalPlayer => pView.IsMine;
 
@@ -75,6 +69,11 @@ public class MonopolyPlayer : MonoBehaviour
         Despawned?.Invoke(this);
     }
 
+    public void InitPlayerIdAllClients(int id)
+    {
+        pView.RPC("RPC_InitPlayerId", RpcTarget.AllBuffered, id);
+    }
+
     // called only on local
     public void OnTurnStart()
     {
@@ -93,13 +92,20 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void OnStandardRoll(DiceRoll roll)
     {
-        MoveAvatarSequentialAllClients(roll.RollTotal);
+        if (InJail)
+        {
+            playerUI.EndTurnInteractable = true;
+        }
+        else
+        {
+            MoveAvatarSequentialAllClients(roll.RollTotal);
+        }
     }
 
     public void OnEarnedAdditionalMove()
     {
         Debug.Log("Adding additional move");
-        NumMovesRemaining += 1;
+        NumMovesRemaining = 1;
         if (NumMovesRemaining == 1)
         {
             playerUI.EndTurnInteractable = false;
@@ -120,8 +126,8 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void OnFailExitJailWithDoubles()
     {
-        // must pay to exit
-        //playerUI.LeaveJailInteractable = false;
+        LeaveJailAllClients(true);
+        playerUI.LeaveJailInteractable = false;
     }
 
     public PropertyData GetPropertyByName(string propertyName) =>
@@ -154,12 +160,19 @@ public class MonopolyPlayer : MonoBehaviour
             numSquares, reversed);
     }
 
+    public void AddGetOutOfJailFreeUse()
+    {
+        Debug.Log("Adding get out of jail free use");
+        GetOutOfJailFreeUses += 1;
+    }
+
     public void GoToJailLocal()
     {
         if (!InJail)
         {
             InJail = true;
             avatarController.QueueLerpToJailSquare(hideDuringMove: true);
+            EnteredJail?.Invoke(this);
         }
     }
 
@@ -168,9 +181,14 @@ public class MonopolyPlayer : MonoBehaviour
         pView.RPC("RPC_GoToJail", RpcTarget.AllBuffered);
     }
 
-    public void LeaveJailAllClients()
+    public void LeaveJailAllClients(bool payFine = false)
     {
-        pView.RPC("RPC_LeaveJail", RpcTarget.AllBuffered);
+        if (payFine && GetOutOfJailFreeUses > 0)
+        {
+            GetOutOfJailFreeUses -= 1;
+            payFine = false;
+        }
+        pView.RPC("RPC_LeaveJail", RpcTarget.AllBuffered, payFine);
     }
 
     public void PurchaseProperty(PropertyData property)
@@ -235,8 +253,8 @@ public class MonopolyPlayer : MonoBehaviour
         }
     }
 
-    // RPC functions
-    #region RPCs
+
+    #region RPC Functions
 
     [PunRPC]
     private void RPC_SpawnInit(string name, string avatarImageName)
@@ -266,12 +284,14 @@ public class MonopolyPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_LeaveJail()
+    private void RPC_LeaveJail(bool payFine)
     {
         if (InJail)
         {
             InJail = false;
             avatarController.QueueLerpToJailSquare();
+            if (payFine) Money -= 50;
+            LeftJail?.Invoke(this);
         }
     }
 
@@ -330,7 +350,7 @@ public class MonopolyPlayer : MonoBehaviour
     [PunRPC]
     private void RPC_PayRent(int toPlayerID, string propertyName)
     {
-        MonopolyPlayer receivingPlayer = Manager.GetPlayerByID(toPlayerID);
+        MonopolyPlayer receivingPlayer = PlayerManager.Instance.GetPlayerByID(toPlayerID);
         Debug.Log("Paying rent to " + receivingPlayer.PlayerName);
         PropertyData property = receivingPlayer.GetPropertyByName(propertyName);
         Money -= property.CurrentRent;

@@ -2,6 +2,7 @@
 
 public abstract class Card : ScriptableObject
 {
+    [SerializeField] protected Popup popupPrefab;
     [SerializeField] protected string description;
 
     public string Description => description;
