@@ -39,6 +39,12 @@ public class PlayerAvatar : MonoBehaviour
         MoveToSquare(square, triggerEvents:false);
     }
 
+    public void Despawn()
+    {
+        RemoveFromSquare();
+        gameObject.SetActive(false);
+    }
+
     public void MoveToPosition(Vector3 position)
     {
         transform.position = position;
@@ -88,13 +94,13 @@ public class PlayerAvatar : MonoBehaviour
         }
         else
         {
-            RemoveFromSquare(OccupiedSquare);
+            RemoveFromSquare();
             OccupiedSquare = square;
             square.AddOccupant(this);
         }
     }
 
-    private void RemoveFromSquare(BoardSquare square)
+    private void RemoveFromSquare()
     {
         if (OccupiedSquare != null)
         {

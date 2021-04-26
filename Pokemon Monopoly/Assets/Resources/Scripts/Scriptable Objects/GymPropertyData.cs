@@ -25,9 +25,11 @@ public sealed class GymPropertyData : PropertyData, IUpgradable
             }
             return CollectionData.PlayerHasMonopoly(Owner) ?
                 RentWithMonopoly : BaseRent;
-
         }
     }
+
+    public override int TotalDowngradeValue => DowngradeValue *
+        (UpgradeLevel == GymSquareUpgradeLevel.OneCenter ? 5 : NumMarts);
 
     public override int NumMarts => upgradeLevel < 5 ? upgradeLevel : 0;
     public override int NumCenters =>

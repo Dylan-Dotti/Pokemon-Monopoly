@@ -46,16 +46,11 @@ public class GymSquareUpgradesManager : MonoBehaviour
         float globalQuadWidth = gymColorQuad.transform.lossyScale.x;
         float localQuadWidth = gymColorQuad.transform.localScale.x;
         float globalToLocalRatio = globalQuadWidth / localQuadWidth;
-        //Debug.Log("Quad width: " + globalQuadWidth);
         localMartWidth = 
             (localQuadWidth - (2 * spacingFromWalls + 3 * spacingBetweenPoints)) / 4;
         globalMartWidth = localMartWidth * globalToLocalRatio;
-        //Debug.Log("Global mart width: " + globalMartWidth);
-        //Debug.Log("Local mart width: " + localMartWidth);
 
         positionMarkers = new List<Vector3>();
-        //Debug.Log("Left Vector: " + (Vector3.left * localQuadWidth / 2));
-        //Debug.Log("Right Vector: " + (Vector3.right * (spacingFromWalls + localMartWidth / 2)));
         Vector3 startPos = (Vector3.left * localQuadWidth / 2) +
             (Vector3.right * (spacingFromWalls + (localMartWidth / 2))) +
             (Vector3.back * 0.1f);

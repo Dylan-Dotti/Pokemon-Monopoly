@@ -48,4 +48,12 @@ public class PlayerUIManager : MonoBehaviour
             Instance = this;
         }
     }
+
+    public void DisableControlButtons()
+    {
+        ViewPropertiesInteractable = false;
+        LeaveJailInteractable = false;
+        RollButtonInteractable = false;
+        EndTurnInteractable = false;
+    }
 }

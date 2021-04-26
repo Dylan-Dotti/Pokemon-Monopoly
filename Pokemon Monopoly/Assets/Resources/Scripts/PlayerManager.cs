@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
         players.Where(p => p.PlayerID != player.PlayerID).ToList();
 
     // called by GameManager on all clients when turn ends
+    // called when player goes bankrupt on both clients
     public void SwitchNextActivePlayerLocal()
     {
         if (ActivePlayer != null && ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnEnd();
@@ -62,10 +63,13 @@ public class PlayerManager : MonoBehaviour
         if (players.Add(player))
         {
             player.Despawned += OnPlayerDespawned;
+            player.WentBankrupt += OnPlayerWentBankrupt;
             if (PhotonNetwork.IsMasterClient)
             {
-                player.InitPlayerIdAllClients(players.Count == 1 ?
-                    1 : players.Select(p => p.PlayerID).Max() + 1);
+                Debug.Log("Players count: " + players.Count);
+                int id = players.Count == 1 ?
+                    1 : players.Select(p => p.PlayerID).Max() + 1;
+                player.InitPlayerIdAllClients(id);
                 if (players.Count == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     // when all players have spawned, initialize and signal ready
@@ -75,6 +79,16 @@ public class PlayerManager : MonoBehaviour
             }
             player.SpawnAvatar();
         }
+    }
+
+    private void OnPlayerWentBankrupt(MonopolyPlayer player)
+    {
+        defaultPlayerSequence.Remove(player);
+        var playerList = playerTurnQueue.ToList();
+        playerList.Remove(player);
+        playerTurnQueue = new Queue<MonopolyPlayer>(playerList);
+        ActivePlayer = null;
+        SwitchNextActivePlayerLocal();
     }
 
     private void OnPlayerDespawned(MonopolyPlayer player)

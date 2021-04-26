@@ -7,6 +7,9 @@ public static class SpecialStrings
     public const string POKEMON_STRING = "Pokémon";
     public const string POKEBALL_STRING = "Pokéball";
 
-    public static string ToPokeMoneyString(this int money) =>
-        POKEMONEY_SYMBOL + money;
+    public static string ToPokeMoneyString(this int money)
+    {
+        if (money >= 0) return POKEMONEY_SYMBOL + money;
+        return "-" + POKEMONEY_SYMBOL + -money;
+    }
 }

@@ -14,6 +14,7 @@ public abstract class PropertyData : ScriptableObject
     public int BaseRent => baseRent;
     public int MortgageValue => PurchaseCost / 2;
     public int UnmortgageCost => MortgageValue + Mathf.RoundToInt(MortgageValue * 0.1f);
+    public virtual int TotalDowngradeValue => 0;
     public string CollectionName => CollectionData.CollectionName;
 
     public PropertyCollection CollectionData

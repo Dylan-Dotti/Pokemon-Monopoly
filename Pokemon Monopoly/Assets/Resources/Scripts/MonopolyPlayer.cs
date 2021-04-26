@@ -13,32 +13,38 @@ public class MonopolyPlayer : MonoBehaviour
     public event UnityAction<MonopolyPlayer> Despawned;
     public event UnityAction<MonopolyPlayer> EnteredJail;
     public event UnityAction<MonopolyPlayer> LeftJail;
+    public event UnityAction<MonopolyPlayer> WentBankrupt;
 
     private PhotonView pView;
-
     private HashSet<PropertyData> properties;
-    private int playerID;
+    private int money = 1500;
     private string avatarImageName;
-
     private PopupManager popupManager;
     private AvatarImageFactory avatarFactory;
     private EventLogger logger;
     private PlayerUIManager playerUI;
-
     private PlayerAvatarController avatarController;
 
     public string PlayerName { get; private set; } = "Unknown";
-    public int Money { get; set; } = 1500;
-    public int NumMovesRemaining { get; set; }
+    public int PlayerID { get; private set; }
+    public bool HasAdditionalMove { get; private set; }
     public bool InJail { get; private set; }
     public int GetOutOfJailFreeUses { get; set; }
+    public bool IsLocalPlayer => pView.IsMine;
 
     public PlayerAvatar Avatar => avatarController.Avatar;
     public IReadOnlyCollection<PropertyData> Properties => properties;
 
-    public int PlayerID { get; set; }
-
-    public bool IsLocalPlayer => pView.IsMine;
+    public int Money
+    {
+        get => money;
+        set
+        {
+            bool wentBelowZero = money >= 0 && value < 0;
+            money = value;
+            if (wentBelowZero) OnMoneyBelowZero();
+        }
+    }
 
     private void Awake()
     {
@@ -77,7 +83,7 @@ public class MonopolyPlayer : MonoBehaviour
     // called only on local
     public void OnTurnStart()
     {
-        OnEarnedAdditionalMove();
+        playerUI.RollButtonInteractable = true;
         playerUI.LeaveJailInteractable = InJail;
         logger.LogEventLocal("Your turn has started");
         logger.LogEventOtherClients($"{PlayerName} started their turn");
@@ -104,12 +110,10 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void OnEarnedAdditionalMove()
     {
-        Debug.Log("Adding additional move");
-        NumMovesRemaining = 1;
-        if (NumMovesRemaining == 1)
+        if (IsLocalPlayer)
         {
-            playerUI.EndTurnInteractable = false;
-            playerUI.RollButtonInteractable = true;
+            Debug.Log("Adding additional move");
+            HasAdditionalMove = true;
         }
     }
 
@@ -241,18 +245,42 @@ public class MonopolyPlayer : MonoBehaviour
 
     private void OnAllActionsCompleted()
     {
-        NumMovesRemaining -= 1;
-        if (NumMovesRemaining > 0)
+        if (IsLocalPlayer)
         {
-            playerUI.RollButtonInteractable = true;
-        }
-        else
-        {
-            playerUI.RollButtonInteractable = false;
-            playerUI.EndTurnInteractable = true;
+            playerUI.RollButtonInteractable = HasAdditionalMove;
+            playerUI.EndTurnInteractable = !HasAdditionalMove;
+            HasAdditionalMove = false;
         }
     }
 
+    private void OnMoneyBelowZero()
+    {
+        Debug.Log("Money dropped below 0");
+        int totalWorth = properties.Where(p => !p.IsMortgaged)
+            .Select(p => p.MortgageValue + p.TotalDowngradeValue).Sum();
+        Debug.Log("Total sellable/mortgagable worth: " + totalWorth);
+        if (money + totalWorth < 0)
+        {
+            GoBankrupt();
+        }
+        else
+        {
+            Debug.Log("You have enough funds to prevent bankruptcy");
+        }
+    }
+
+    private void GoBankrupt()
+    {
+        Debug.Log("Going bankrupt");
+        playerUI.DisableControlButtons();
+        properties.ForEach(p => p.Owner = null);
+        properties.Clear();
+        avatarController.DespawnAvatar();
+        logger.LogEventLocal(
+            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
+        playerUI.ViewPropertiesInteractable = true;
+        WentBankrupt?.Invoke(this);
+    }
 
     #region RPC Functions
 
@@ -267,7 +295,7 @@ public class MonopolyPlayer : MonoBehaviour
     [PunRPC]
     private void RPC_InitPlayerId(int id)
     {
-        playerID = id;
+        PlayerID = id;
         Debug.Log($"Player ID of {PlayerName} is now: {id}");
     }
 

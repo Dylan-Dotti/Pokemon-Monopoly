@@ -67,5 +67,6 @@ MonoBehaviour:
   - RPC_CancelStartGame
   - RPC_OnAllPlayersSpawned
   - RPC_GoToJail
+  - RPC_GoBankrupt
   DisableAutoOpenWizard: 1
   ShowSettings: 1

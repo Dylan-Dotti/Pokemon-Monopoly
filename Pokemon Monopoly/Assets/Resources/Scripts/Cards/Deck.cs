@@ -47,9 +47,5 @@ public class Deck : MonoBehaviour
     private void RPC_ShuffleDeck(int[] cardIndexSequence)
     {
         cards = cardIndexSequence.Select(i => cards[i]).ToList();
-        foreach (var card in Cards)
-        {
-            Debug.Log(card.Description);
-        }
     }
 }
