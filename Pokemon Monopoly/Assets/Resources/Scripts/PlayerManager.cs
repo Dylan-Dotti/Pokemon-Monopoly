@@ -88,7 +88,10 @@ public class PlayerManager : MonoBehaviour
         playerList.Remove(player);
         playerTurnQueue = new Queue<MonopolyPlayer>(playerList);
         ActivePlayer = null;
-        SwitchNextActivePlayerLocal();
+        if (playerTurnQueue.Count > 0)
+        {
+            SwitchNextActivePlayerLocal();
+        }
     }
 
     private void OnPlayerDespawned(MonopolyPlayer player)

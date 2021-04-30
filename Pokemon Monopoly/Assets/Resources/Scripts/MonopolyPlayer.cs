@@ -17,7 +17,7 @@ public class MonopolyPlayer : MonoBehaviour
 
     private PhotonView pView;
     private HashSet<PropertyData> properties;
-    private int money = 1500;
+    private int money = 150;
     private string avatarImageName;
     private PopupManager popupManager;
     private AvatarImageFactory avatarFactory;
@@ -265,6 +265,7 @@ public class MonopolyPlayer : MonoBehaviour
         }
         else
         {
+            popupManager.OverlayPropertyMenu();
             Debug.Log("You have enough funds to prevent bankruptcy");
         }
     }

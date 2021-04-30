@@ -13,10 +13,11 @@ public class DiceRollPanel : Popup
     private Coroutine rollingCR;
     public string RollingPlayerName { get; set; } = "Player";
 
-    public override void Open()
+    public override Coroutine Open()
     {
-        base.Open();
+        Coroutine openCoroutine = base.Open();
         StartRolling();
+        return openCoroutine;
     }
 
     public void StartRolling()

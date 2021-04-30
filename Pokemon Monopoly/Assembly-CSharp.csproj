@@ -105,6 +105,7 @@
     <Compile Include="Assets\Resources\Scripts\DiceRollHistory.cs" />
     <Compile Include="Assets\Resources\Scripts\DiceRoller.cs" />
     <Compile Include="Assets\Resources\Scripts\EventLogger.cs" />
+    <Compile Include="Assets\Resources\Scripts\GameActionQueue.cs" />
     <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Interfaces\IPropertyDisplay.cs" />
     <Compile Include="Assets\Resources\Scripts\Interfaces\IPurchasable.cs" />
