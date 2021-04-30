@@ -9301,6 +9301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propertyMenu: {fileID: 599545689}
+  auctionMenu: {fileID: 6725300772914140596}
   purchasePromptPrefab: {fileID: 1232975616, guid: d15067bfe971c694d80bd3b086836acb,
     type: 3}
   purchaseNotificationPrefab: {fileID: -5451170887683135114, guid: dee6a76666daf064ca8d5f2db32d5c32,

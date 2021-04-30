@@ -6,13 +6,15 @@ public class PopupFactory : MonoBehaviour
 {
     [Header("Scene Popups")]
     [SerializeField] private PropertyMenu propertyMenu;
+    [SerializeField] private AuctionMenu auctionMenu;
 
     [Header("Instantiated Popups")]
     [SerializeField] private PropertyPurchasePrompt purchasePromptPrefab;
     [SerializeField] private PropertyPurchasedNotification purchaseNotificationPrefab;
     [SerializeField] private RentTransferNotification rentNotificationPrefab;
 
-    public PropertyMenu GetPropertyMenu() => propertyMenu;
+    public PropertyMenu PropertyMenu => propertyMenu;
+    public AuctionMenu AuctionMenu => auctionMenu;
 
     public PropertyPurchasePrompt GetPropertyPurchasePrompt(
         MonopolyPlayer purchasingPlayer, PropertyData property)

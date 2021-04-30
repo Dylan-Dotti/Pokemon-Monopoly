@@ -81,6 +81,7 @@ public class PropertyPurchasePrompt : Popup
 
     private void OnNoClicked()
     {
+        PopupManager.Instance.OverlayAuctionMenu(displayedProperty);
         Close();
     }
 

@@ -20,11 +20,13 @@ public class AuctionMenu : Popup
 
     private List<PropertyData> propertiesToAuction;
 
+    public IReadOnlyList<PropertyData> PropertiesToAuction => propertiesToAuction;
     public PropertyData CurrentAuctioningProperty => propertiesToAuction[0];
 
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
+        propertiesToAuction = new List<PropertyData>();
         bidMenu = GetComponentInChildren<BiddingMenu>();
         bidMenu.BidSubmitted += OnBidSubmitted;
         bidMenu.AuctionComplete += OnAuctionComplete;
@@ -41,19 +43,32 @@ public class AuctionMenu : Popup
             bidMenu.LocalPlayer = playerManager.LocalPlayer;
             bidMenu.RemotePlayers = new List<MonopolyPlayer>(playerManager.RemotePlayers);
         }
-        PropertyData[] properties = new PropertyData[] 
+        /*PropertyData[] properties = new PropertyData[] 
         {
             PropertyManager.Instance.GetPropertyByName("Growlithe"),
             PropertyManager.Instance.GetPropertyByName("Ponyta"),
             PropertyManager.Instance.GetPropertyByName("Rapidash")
         };
-        StartNewAuction(properties);
+        SetAuctionData(properties);*/
     }
 
-    public void StartNewAuction(params PropertyData[] propsToAuction)
+    public override Coroutine Open()
+    {
+        Coroutine openRoutine = base.Open();
+        if (propertiesToAuction.Count > 0)
+        {
+            StartNextAuction();
+        }
+        return openRoutine;
+    }
+
+    public void SetAuctionData(IEnumerable<PropertyData> propsToAuction)
     {
         propertiesToAuction = new List<PropertyData>(propsToAuction);
-        StartNextAuction();
+        if (IsOpen)
+        {
+            StartNextAuction();
+        }
     }
 
     private void StartNextAuction()

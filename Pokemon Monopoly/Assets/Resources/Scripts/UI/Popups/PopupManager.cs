@@ -47,7 +47,14 @@ public class PopupManager : MonoBehaviour
 
     public void OverlayPropertyMenu()
     {
-        QueuePopup(Factory.GetPropertyMenu(), PopupOpenOptions.Overlay, true);
+        QueuePopup(Factory.PropertyMenu, PopupOpenOptions.Overlay, true);
+    }
+
+    public void OverlayAuctionMenu(params PropertyData[] properties)
+    {
+        AuctionMenu aMenu = Factory.AuctionMenu;
+        aMenu.SetAuctionData(properties);
+        QueuePopup(Factory.AuctionMenu, PopupOpenOptions.Overlay, true);
     }
 
     public void QueueRentNotification(
