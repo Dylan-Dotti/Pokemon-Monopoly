@@ -53,7 +53,7 @@ public class PropertyPurchasePrompt : Popup
     {
         promptText.text =
             $"You landed on an unowned property: {displayedProperty.PropertyName}" +
-            $"{System.Environment.NewLine}Do you want to purchase this property for " +
+            $"{System.Environment.NewLine}Do you want to purchase {displayedProperty.PropertyName} for " +
             $"{SpecialStrings.POKEMONEY_SYMBOL}{displayedProperty.PurchaseCost}?";
     }
 
@@ -81,7 +81,10 @@ public class PropertyPurchasePrompt : Popup
 
     private void OnNoClicked()
     {
-        PopupManager.Instance.OverlayAuctionMenu(displayedProperty);
+        if (GameConfig.Instance.AuctionPropertyOnNoBuy)
+        {
+            PopupManager.Instance.OverlayAuctionMenu(displayedProperty);
+        }
         Close();
     }
 

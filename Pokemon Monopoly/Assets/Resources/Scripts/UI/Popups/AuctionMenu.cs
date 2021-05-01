@@ -26,7 +26,7 @@ public class AuctionMenu : Popup
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
-        propertiesToAuction = new List<PropertyData>();
+        if (propertiesToAuction == null) propertiesToAuction = new List<PropertyData>();
         bidMenu = GetComponentInChildren<BiddingMenu>();
         bidMenu.BidSubmitted += OnBidSubmitted;
         bidMenu.AuctionComplete += OnAuctionComplete;
@@ -43,13 +43,6 @@ public class AuctionMenu : Popup
             bidMenu.LocalPlayer = playerManager.LocalPlayer;
             bidMenu.RemotePlayers = new List<MonopolyPlayer>(playerManager.RemotePlayers);
         }
-        /*PropertyData[] properties = new PropertyData[] 
-        {
-            PropertyManager.Instance.GetPropertyByName("Growlithe"),
-            PropertyManager.Instance.GetPropertyByName("Ponyta"),
-            PropertyManager.Instance.GetPropertyByName("Rapidash")
-        };
-        SetAuctionData(properties);*/
     }
 
     public override Coroutine Open()
@@ -64,6 +57,8 @@ public class AuctionMenu : Popup
 
     public void SetAuctionData(IEnumerable<PropertyData> propsToAuction)
     {
+        Debug.Log("Setting auction data");
+        foreach (PropertyData prop in propsToAuction) Debug.Log(prop.PropertyName);
         propertiesToAuction = new List<PropertyData>(propsToAuction);
         if (IsOpen)
         {
@@ -151,7 +146,7 @@ public class AuctionMenu : Popup
     }
 
     [PunRPC]
-    private void RejectBid(int biddingPlayerID, int bidAmout, string rejectMessage)
+    private void RPC_RejectBid(int biddingPlayerID, int bidAmout, string rejectMessage)
     {
         MonopolyPlayer bidder = playerManager.GetPlayerByID(biddingPlayerID);
         bidMenu.OnBidRejected(new Bid(bidder, bidAmout), rejectMessage);
