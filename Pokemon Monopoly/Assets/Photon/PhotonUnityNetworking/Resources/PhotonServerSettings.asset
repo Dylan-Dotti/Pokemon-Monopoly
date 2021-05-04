@@ -68,5 +68,6 @@ MonoBehaviour:
   - RPC_OnAllPlayersSpawned
   - RPC_GoToJail
   - RPC_GoBankrupt
+  - RPC_OpenAuctionMenu
   DisableAutoOpenWizard: 1
   ShowSettings: 1

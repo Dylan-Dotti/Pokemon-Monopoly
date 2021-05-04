@@ -62,9 +62,11 @@ public class BiddingMenu : MonoBehaviour
 
     public void Withdraw()
     {
+        Debug.Log("Bidding menu withdraw");
         SetControlsEnabled(false);
         PublishResultMessage("You have withdrawn from this auction");
         messageLog.LogEventLocal("You have withdrawn from this auction");
+        if (Withdrew == null) Debug.Log("Withdrew is null wtf");
         Withdrew?.Invoke(LocalPlayer);
     }
 
@@ -101,10 +103,15 @@ public class BiddingMenu : MonoBehaviour
     {
         if (remotePlayers.Contains(player))
         {
+            Debug.Log("Remote player withdrew");
             messageLog.LogEventLocal(player.PlayerName + " has withdrawn from this auction");
             remoteBidders[remotePlayers.IndexOf(player)].gameObject.SetActive(false);
             withdrawnRemotePlayers.Add(player);
             if (withdrawnRemotePlayers.Count == remotePlayers.Count) AuctionComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Remote players did not contain player");
         }
     }
 

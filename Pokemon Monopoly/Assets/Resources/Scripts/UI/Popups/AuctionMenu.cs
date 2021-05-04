@@ -32,22 +32,15 @@ public class AuctionMenu : Popup
         bidMenu.AuctionComplete += OnAuctionComplete;
         backNextControl.Back += OnPropertyIndexChanged;
         backNextControl.Next += OnPropertyIndexChanged;
-    }
-
-    private void Start()
-    {
         playerManager = PlayerManager.Instance;
-        playerManager.PlayersReady += OnPlayersReady;
-        if (playerManager.LocalPlayer != null && playerManager.RemotePlayers != null)
-        {
-            bidMenu.LocalPlayer = playerManager.LocalPlayer;
-            bidMenu.RemotePlayers = new List<MonopolyPlayer>(playerManager.RemotePlayers);
-        }
+        bidMenu.Withdrew += OnPlayerWithdrew;
     }
 
     public override Coroutine Open()
     {
         Coroutine openRoutine = base.Open();
+        bidMenu.LocalPlayer = playerManager.LocalPlayer;
+        bidMenu.RemotePlayers = playerManager.RemotePlayers;
         if (propertiesToAuction.Count > 0)
         {
             StartNextAuction();
@@ -83,13 +76,6 @@ public class AuctionMenu : Popup
     {
         highestBid = bid;
         bidMenu.OnBidAccepted(highestBid);
-    }
-
-    private void OnPlayersReady()
-    {
-        bidMenu.LocalPlayer = playerManager.LocalPlayer;
-        bidMenu.RemotePlayers = new List<MonopolyPlayer>(playerManager.RemotePlayers);
-        bidMenu.Withdrew += OnPlayerWithdrew;
     }
 
     private void OnPlayerWithdrew(MonopolyPlayer player)
@@ -155,6 +141,7 @@ public class AuctionMenu : Popup
     [PunRPC]
     private void RPC_PlayerWithdrew(int playerID)
     {
+        Debug.Log("RPC_PlayerWithdrew");
         bidMenu.OnRemotePlayerWithdrew(playerManager.GetPlayerByID(playerID));
     }
 

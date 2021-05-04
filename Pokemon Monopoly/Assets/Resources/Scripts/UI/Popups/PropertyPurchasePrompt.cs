@@ -83,7 +83,8 @@ public class PropertyPurchasePrompt : Popup
     {
         if (GameConfig.Instance.AuctionPropertyOnNoBuy)
         {
-            PopupManager.Instance.OverlayAuctionMenu(displayedProperty);
+            PopupManager.Instance.OverlayAuctionMenuAllClients(
+                new List<PropertyData> { displayedProperty });
         }
         Close();
     }

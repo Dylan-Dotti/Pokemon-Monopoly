@@ -21,10 +21,11 @@ public class PopupManager : MonoBehaviour
     {
         if (Instance == null)
         {
+            Instance = this;
+            pView = GetComponent<PhotonView>();
             popupQueue = new Queue<PopupOpenCommand>();
             displayStack = new Stack<PopupOpenCommand>();
             Factory = GetComponent<PopupFactory>();
-            Instance = this;
         }
     }
 
@@ -50,11 +51,17 @@ public class PopupManager : MonoBehaviour
         QueuePopup(Factory.PropertyMenu, PopupOpenOptions.Overlay, true);
     }
 
-    public void OverlayAuctionMenu(params PropertyData[] properties)
+    public void OverlayAuctionMenu(IEnumerable<PropertyData> properties)
     {
         AuctionMenu aMenu = Factory.AuctionMenu;
         aMenu.SetAuctionData(properties);
         QueuePopup(Factory.AuctionMenu, PopupOpenOptions.Overlay, true);
+    }
+
+    public void OverlayAuctionMenuAllClients(IEnumerable<PropertyData> properties)
+    {
+        var propNames = properties.Select(p => p.PropertyName).ToArray();
+        pView.RPC("RPC_OpenAuctionMenu", RpcTarget.AllBuffered, (object)propNames);
     }
 
     public void QueueRentNotification(
@@ -153,6 +160,16 @@ public class PopupManager : MonoBehaviour
             PopupToOpen = popupToOpen;
             BlockBackground = blockBackground;
         }
+    }
+
+    [PunRPC]
+    private void RPC_OpenAuctionMenu(string[] propNames)
+    {
+        PropertyManager propManager = PropertyManager.Instance;
+        IEnumerable<PropertyData> properties = propNames
+            .Select(p => propManager.GetPropertyByName(p));
+        OverlayAuctionMenu(properties);
+
     }
 }
 
