@@ -48,9 +48,14 @@ public class AuctionMenu : Popup
         return openRoutine;
     }
 
+    public override void Close()
+    {
+        messageLog.ClearLog();
+        base.Close();
+    }
+
     public void SetAuctionData(IEnumerable<PropertyData> propsToAuction)
     {
-        Debug.Log("Setting auction data");
         foreach (PropertyData prop in propsToAuction) Debug.Log(prop.PropertyName);
         propertiesToAuction = new List<PropertyData>(propsToAuction);
         if (IsOpen)
@@ -141,7 +146,6 @@ public class AuctionMenu : Popup
     [PunRPC]
     private void RPC_PlayerWithdrew(int playerID)
     {
-        Debug.Log("RPC_PlayerWithdrew");
         bidMenu.OnRemotePlayerWithdrew(playerManager.GetPlayerByID(playerID));
     }
 
@@ -174,11 +178,4 @@ public class Bid
     public static bool operator <(Bid a, Bid b) => a.BidAmount < b.BidAmount;
     public static bool operator >=(Bid a, Bid b) => a.BidAmount >= b.BidAmount;
     public static bool operator <=(Bid a, Bid b) => a.BidAmount <= b.BidAmount;
-
-    public int CompareTo(Bid other)
-    {
-        if (BidAmount < other.BidAmount) return -1;
-        if (BidAmount > other.BidAmount) return 1;
-        return 0;
-    }
 }

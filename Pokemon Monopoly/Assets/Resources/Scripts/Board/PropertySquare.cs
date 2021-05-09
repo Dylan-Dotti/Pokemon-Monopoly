@@ -3,12 +3,12 @@ public abstract class PropertySquare : BoardSquare
 {
     public virtual PropertyData Property { get; set; }
 
-    private PopupManager popupManager;
+    private PopupSpawner popupSpawner;
 
     protected override void Awake()
     {
         base.Awake();
-        popupManager = PopupManager.Instance;
+        popupSpawner = PopupSpawner.Instance;
     }
 
     public override void ApplyEffects(MonopolyPlayer player, bool isLastMove)
@@ -17,9 +17,7 @@ public abstract class PropertySquare : BoardSquare
         {
             if (Property.Owner == null)
             {
-                popupManager.QueuePopup(
-                    popupManager.Factory.GetPropertyPurchasePrompt(player, Property),
-                    PopupOpenOptions.Queue, true);
+                popupSpawner.QueuePropertyPurchasePrompt(player, Property);
             }
             else if (Property.Owner != player && !Property.IsMortgaged)
             {

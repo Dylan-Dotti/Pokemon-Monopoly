@@ -9,12 +9,20 @@ public class PopupFactory : MonoBehaviour
     [SerializeField] private AuctionMenu auctionMenu;
 
     [Header("Instantiated Popups")]
+    [SerializeField] private TextNotification textNotificationPrefab;
     [SerializeField] private PropertyPurchasePrompt purchasePromptPrefab;
     [SerializeField] private PropertyPurchasedNotification purchaseNotificationPrefab;
     [SerializeField] private RentTransferNotification rentNotificationPrefab;
 
     public PropertyMenu PropertyMenu => propertyMenu;
     public AuctionMenu AuctionMenu => auctionMenu;
+
+    public TextNotification GetTextNotification(string text)
+    {
+        TextNotification notification = Instantiate(textNotificationPrefab);
+        notification.NotificationText = text;
+        return notification;
+    }
 
     public PropertyPurchasePrompt GetPropertyPurchasePrompt(
         MonopolyPlayer purchasingPlayer, PropertyData property)

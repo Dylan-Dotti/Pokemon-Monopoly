@@ -172,6 +172,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\PlayerUIManager.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueText.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueTextPrefixed.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\PopupSpawner.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\AuctionMenu.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\ImageTransferNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\Popup.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\Popups\PropertyPurchasedNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\RentTransferNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\SimpleImageNotification.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Popups\TextNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\TransferDisplay.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PropertyDetailsDisplay.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PropertyMenu.cs" />

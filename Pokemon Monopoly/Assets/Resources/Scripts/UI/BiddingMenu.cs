@@ -62,11 +62,9 @@ public class BiddingMenu : MonoBehaviour
 
     public void Withdraw()
     {
-        Debug.Log("Bidding menu withdraw");
         SetControlsEnabled(false);
         PublishResultMessage("You have withdrawn from this auction");
         messageLog.LogEventLocal("You have withdrawn from this auction");
-        if (Withdrew == null) Debug.Log("Withdrew is null wtf");
         Withdrew?.Invoke(LocalPlayer);
     }
 
@@ -95,8 +93,7 @@ public class BiddingMenu : MonoBehaviour
     {
         SetControlsEnabled(true);
         bidInput.text = "";
-        PublishBidError($"Bid for {bid.BidAmount.ToPokeMoneyString()} rejected " +
-            System.Environment.NewLine + rejectReason);
+        PublishBidError(rejectReason);
     }
 
     public void OnRemotePlayerWithdrew(MonopolyPlayer player)

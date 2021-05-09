@@ -17,9 +17,9 @@ public class MonopolyPlayer : MonoBehaviour
 
     private PhotonView pView;
     private HashSet<PropertyData> properties;
-    private int money = 150;
+    private int money;
     private string avatarImageName;
-    private PopupManager popupManager;
+    private PopupSpawner popupSpawner;
     private AvatarImageFactory avatarFactory;
     private EventLogger logger;
     private PlayerUIManager playerUI;
@@ -49,6 +49,7 @@ public class MonopolyPlayer : MonoBehaviour
     private void Awake()
     {
         pView = GetComponent<PhotonView>();
+        money = GameConfig.Instance.PlayerStartingMoney;
         avatarController = GetComponent<PlayerAvatarController>();
         avatarController.CompletedAllActions += OnAllActionsCompleted;
         properties = new HashSet<PropertyData>();
@@ -60,7 +61,7 @@ public class MonopolyPlayer : MonoBehaviour
     {
         Debug.Log("Player start");
         logger = EventLogger.Instance;
-        popupManager = PopupManager.Instance;
+        popupSpawner = PopupSpawner.Instance;
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
@@ -265,21 +266,29 @@ public class MonopolyPlayer : MonoBehaviour
         }
         else
         {
-            popupManager.OverlayPropertyMenu();
-            Debug.Log("You have enough funds to prevent bankruptcy");
+            if (IsLocalPlayer)
+            {
+                popupSpawner.OverlayPropertyMenu();
+                Debug.Log("You have enough funds to prevent bankruptcy");
+            }
         }
     }
 
     private void GoBankrupt()
     {
-        Debug.Log("Going bankrupt");
-        playerUI.DisableControlButtons();
+        if (IsLocalPlayer)
+        {
+            Debug.Log("Going bankrupt");
+            playerUI.DisableControlButtons();
+            playerUI.ViewPropertiesInteractable = true;
+        }
+        logger.LogEventLocal(
+            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
+        popupSpawner.QueueTextNotification(
+            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
         properties.ForEach(p => p.Owner = null);
         properties.Clear();
         avatarController.DespawnAvatar();
-        logger.LogEventLocal(
-            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
-        playerUI.ViewPropertiesInteractable = true;
         WentBankrupt?.Invoke(this);
     }
 
@@ -346,9 +355,8 @@ public class MonopolyPlayer : MonoBehaviour
                 $" purchased {property.PropertyName} for {property.PurchaseCost.ToPokeMoneyString()}");
             if (!IsLocalPlayer)
             {
-                popupManager.QueuePopup(
-                    popupManager.Factory.GetPropertyPurchasedNotification(this, property),
-                    PopupOpenOptions.Queue, true);
+                popupSpawner.QueuePropertyPurchasedNotification(
+                    this, property);
             }
         }
     }
@@ -384,7 +392,7 @@ public class MonopolyPlayer : MonoBehaviour
         PropertyData property = receivingPlayer.GetPropertyByName(propertyName);
         Money -= property.CurrentRent;
         receivingPlayer.Money += property.CurrentRent;
-        popupManager.QueueRentNotification(this, property);
+        popupSpawner.QueueRentNotification(this, property);
     }
 
     [PunRPC]
