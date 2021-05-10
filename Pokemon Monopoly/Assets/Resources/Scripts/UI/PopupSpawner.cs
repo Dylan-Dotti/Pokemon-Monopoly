@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupSpawner : MonoBehaviour
 {
@@ -17,71 +18,96 @@ public class PopupSpawner : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            pView = GetComponent<PhotonView>();
             factory = GetComponent<PopupFactory>();
             manager = PopupManager.Instance;
         }
     }
 
-    public void OverlayPropertyMenu()
+    public void OpenPropertyMenu(
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay)
     {
-        manager.QueuePopup(factory.PropertyMenu, PopupOpenOptions.Overlay);
+        manager.QueuePopup(factory.PropertyMenu, openOptions);
     }
 
-    public void OverlayAuctionMenu(IEnumerable<PropertyData> properties)
+    public void OpenAuctionMenu(IEnumerable<PropertyData> properties,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay,
+        bool allClients = false)
     {
+        if (allClients)
+        {
+            var propNames = properties.Select(p => p.PropertyName).ToArray();
+            pView.RPC("RPC_OpenAuctionMenu", RpcTarget.AllBuffered,
+                propNames, openOptions);
+            return;
+        }
         AuctionMenu aMenu = factory.AuctionMenu;
         aMenu.SetAuctionData(properties);
-        manager.QueuePopup(factory.AuctionMenu, PopupOpenOptions.Overlay);
+        manager.QueuePopup(factory.AuctionMenu, openOptions);
     }
 
-    public void OverlayAuctionMenuAllClients(IEnumerable<PropertyData> properties)
+    public void OpenTextNotification(string text,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay,
+        RpcTarget? rpcTarget = null)
     {
-        var propNames = properties.Select(p => p.PropertyName).ToArray();
-        pView.RPC("RPC_OpenAuctionMenu", RpcTarget.AllBuffered, (object)propNames);
-    }
-
-    public TextNotification QueueTextNotification(string text)
-    {
+        if (rpcTarget.HasValue)
+        {
+            pView.RPC("RPC_OpenTextNotification", rpcTarget.Value,
+                text, openOptions);
+            return;
+        }
         TextNotification notification = factory.GetTextNotification(text);
-        manager.QueuePopup(notification, PopupOpenOptions.Queue);
-        return notification;
+        manager.QueuePopup(notification, openOptions);
     }
 
-    public RentTransferNotification QueueRentNotification(
-        MonopolyPlayer payingPlayer, PropertyData rentedProperty)
+    public void OpenImageNotification(string text, Sprite image,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay)
+    {
+        ImageNotification notification = factory.GetImageNotification(text, image);
+        manager.QueuePopup(notification, openOptions);
+    }
+
+    public void OpenRentNotification(
+        MonopolyPlayer payingPlayer, PropertyData rentedProperty,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay)
     {
         RentTransferNotification rentPopup = factory.GetRentNotification(
             payingPlayer, rentedProperty);
-        manager.QueuePopup(rentPopup, PopupOpenOptions.Queue);
-        return rentPopup;
+        manager.QueuePopup(rentPopup, openOptions);
     }
 
-    public PropertyPurchasePrompt QueuePropertyPurchasePrompt(
-        MonopolyPlayer purchasingPlayer, PropertyData property)
+    public void OpenPropertyPurchasePrompt(
+        MonopolyPlayer purchasingPlayer, PropertyData property,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay)
     {
         PropertyPurchasePrompt prompt = factory.GetPropertyPurchasePrompt(
             purchasingPlayer, property);
-        manager.QueuePopup(prompt, PopupOpenOptions.Queue);
-        return prompt;
+        manager.QueuePopup(prompt, openOptions);
     }
 
-    public PropertyPurchasedNotification QueuePropertyPurchasedNotification(
+    public void OpenPropertyPurchasedNotification(
         MonopolyPlayer purchasingPlayer, PropertyData purchasedProperty,
-        MonopolyPlayer purchasedFromPlayer = null)
+        MonopolyPlayer purchasedFromPlayer = null,
+        PopupOpenOptions openOptions = PopupOpenOptions.Overlay,
+        bool allClients = false)
     {
         PropertyPurchasedNotification popup = factory.GetPropertyPurchasedNotification(
             purchasingPlayer, purchasedProperty, purchasedFromPlayer);
-        manager.QueuePopup(popup, PopupOpenOptions.Queue, true);
-        return popup;
+        manager.QueuePopup(popup, openOptions);
     }
 
     [PunRPC]
-    private void RPC_OpenAuctionMenu(string[] propNames)
+    private void RPC_OpenAuctionMenu(string[] propNames, PopupOpenOptions openOptions)
     {
         PropertyManager propManager = PropertyManager.Instance;
         IEnumerable<PropertyData> properties = propNames
             .Select(p => propManager.GetPropertyByName(p));
-        OverlayAuctionMenu(properties);
+        OpenAuctionMenu(properties, openOptions);
+    }
 
+    [PunRPC]
+    private void RPC_OpenTextNotification(string text, PopupOpenOptions openOptions)
+    {
+        OpenTextNotification(text, openOptions);
     }
 }

@@ -111,6 +111,8 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void OnEarnedAdditionalMove()
     {
+        logger.LogEventLocal((IsLocalPlayer ? "You" : PlayerName) +
+            " rolled doubles and earned an additional move.");
         if (IsLocalPlayer)
         {
             Debug.Log("Adding additional move");
@@ -120,11 +122,18 @@ public class MonopolyPlayer : MonoBehaviour
 
     public void OnEnterJailWithDoubles()
     {
+        popupSpawner.OpenTextNotification(
+            $"{(IsLocalPlayer ? "You" : PlayerName)} rolled doubles 3 times in a row " +
+            $"and {(IsLocalPlayer ? "were" : "was")} sent to jail.",
+            PopupOpenOptions.Overlay);
         GoToJailAllClients();
     }
 
     public void OnExitJailWithDoubles()
     {
+        popupSpawner.OpenTextNotification(
+            $"{(IsLocalPlayer ? "You" : PlayerName)} rolled doubles " +
+            "and escaped from jail.", PopupOpenOptions.Overlay);
         playerUI.LeaveJailInteractable = false;
         LeaveJailAllClients();
     }
@@ -268,7 +277,7 @@ public class MonopolyPlayer : MonoBehaviour
         {
             if (IsLocalPlayer)
             {
-                popupSpawner.OverlayPropertyMenu();
+                popupSpawner.OpenPropertyMenu();
                 Debug.Log("You have enough funds to prevent bankruptcy");
             }
         }
@@ -284,7 +293,7 @@ public class MonopolyPlayer : MonoBehaviour
         }
         logger.LogEventLocal(
             $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
-        popupSpawner.QueueTextNotification(
+        popupSpawner.OpenTextNotification(
             $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
         properties.ForEach(p => p.Owner = null);
         properties.Clear();
@@ -355,7 +364,7 @@ public class MonopolyPlayer : MonoBehaviour
                 $" purchased {property.PropertyName} for {property.PurchaseCost.ToPokeMoneyString()}");
             if (!IsLocalPlayer)
             {
-                popupSpawner.QueuePropertyPurchasedNotification(
+                popupSpawner.OpenPropertyPurchasedNotification(
                     this, property);
             }
         }
@@ -392,7 +401,7 @@ public class MonopolyPlayer : MonoBehaviour
         PropertyData property = receivingPlayer.GetPropertyByName(propertyName);
         Money -= property.CurrentRent;
         receivingPlayer.Money += property.CurrentRent;
-        popupSpawner.QueueRentNotification(this, property);
+        popupSpawner.OpenRentNotification(this, property);
     }
 
     [PunRPC]

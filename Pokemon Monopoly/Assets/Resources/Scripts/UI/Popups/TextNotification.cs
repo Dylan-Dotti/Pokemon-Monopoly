@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TextNotification : Popup
 {
-    [SerializeField] private Text notificationText;
+    [SerializeField] protected Text notificationText;
 
     public string NotificationText
     {

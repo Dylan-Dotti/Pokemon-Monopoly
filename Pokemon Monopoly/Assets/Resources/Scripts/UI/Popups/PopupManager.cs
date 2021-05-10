@@ -34,7 +34,9 @@ public class PopupManager : MonoBehaviour
         switch (openOptions)
         {
             case PopupOpenOptions.Queue:
-                popupQueue.Enqueue(nextCommand);
+                //popupQueue.Enqueue(nextCommand);
+                GameActionQueue.Instance.QueueCoroutineAction(
+                    () => ExecuteOpenCommand(nextCommand));
                 OnPopupEnqueue();
                 break;
             case PopupOpenOptions.Overlay:
@@ -43,7 +45,7 @@ public class PopupManager : MonoBehaviour
         }
     }
 
-    private void ExecuteOpenCommand(PopupOpenCommand command)
+    private Coroutine ExecuteOpenCommand(PopupOpenCommand command)
     {
         if (command.BlockBackground)
         {
@@ -59,7 +61,7 @@ public class PopupManager : MonoBehaviour
         displayStack.Push(command);
         command.PopupToOpen.transform.localPosition = Vector3.zero;
         command.PopupToOpen.PopupClosed += OnCurrentPopupClosed;
-        command.PopupToOpen.Open();
+        return command.PopupToOpen.Open();
     }
 
     private void MoveBackgroundBlockerToFront()

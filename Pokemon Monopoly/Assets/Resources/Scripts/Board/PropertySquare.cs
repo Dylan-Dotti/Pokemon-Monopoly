@@ -17,7 +17,7 @@ public abstract class PropertySquare : BoardSquare
         {
             if (Property.Owner == null)
             {
-                popupSpawner.QueuePropertyPurchasePrompt(player, Property);
+                popupSpawner.OpenPropertyPurchasePrompt(player, Property);
             }
             else if (Property.Owner != player && !Property.IsMortgaged)
             {

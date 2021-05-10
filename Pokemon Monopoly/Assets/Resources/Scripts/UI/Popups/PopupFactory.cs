@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PopupFactory : MonoBehaviour
 {
-    [Header("Scene Popups")]
+    [Header("Scene Menus")]
     [SerializeField] private PropertyMenu propertyMenu;
     [SerializeField] private AuctionMenu auctionMenu;
 
     [Header("Instantiated Popups")]
     [SerializeField] private TextNotification textNotificationPrefab;
+    [SerializeField] private ImageNotification imageNotificationPrefab;
     [SerializeField] private PropertyPurchasePrompt purchasePromptPrefab;
     [SerializeField] private PropertyPurchasedNotification purchaseNotificationPrefab;
     [SerializeField] private RentTransferNotification rentNotificationPrefab;
@@ -21,6 +20,14 @@ public class PopupFactory : MonoBehaviour
     {
         TextNotification notification = Instantiate(textNotificationPrefab);
         notification.NotificationText = text;
+        return notification;
+    }
+
+    public ImageNotification GetImageNotification(string text, Sprite image)
+    {
+        ImageNotification notification = Instantiate(imageNotificationPrefab);
+        notification.NotificationText = text;
+        notification.NotificationImage = image;
         return notification;
     }
 

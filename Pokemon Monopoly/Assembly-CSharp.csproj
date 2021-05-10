@@ -140,6 +140,7 @@
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\Cards\SequentialMoveCard.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\GymData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\GymPropertyData.cs" />
+    <Compile Include="Assets\Resources\Scripts\Scriptable Objects\ImageData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\LeagueData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\LegendaryPropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\PropertyCollection.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Assets\Resources\Scripts\UI\PlayerValueTextPrefixed.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\PopupSpawner.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\AuctionMenu.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Popups\ImageNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\ImageTransferNotification.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\Popup.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Popups\PopupFactory.cs" />

@@ -2527,8 +2527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17deeb11908fcbb4ca8c85e7613b9dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStartingMoney: 50
-  auctionPropertyOnNoBuy: 0
+  playerStartingMoney: 1500
+  auctionPropertyOnNoBuy: 1
 --- !u!1001 &981338930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5375,7 +5375,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Region: none'
+  m_Text: 'Region: us'
 --- !u!222 &1858545257
 CanvasRenderer:
   m_ObjectHideFlags: 0

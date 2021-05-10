@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,14 +84,21 @@ public class PropertyPurchasePrompt : Popup
     {
         if (GameConfig.Instance.AuctionPropertyOnNoBuy)
         {
-            PopupSpawner.Instance.OverlayAuctionMenuAllClients(
-                new List<PropertyData> { displayedProperty });
+            PopupSpawner spawner = PopupSpawner.Instance;
+            spawner.OpenAuctionMenu(
+                new List<PropertyData> { displayedProperty },
+                allClients: true);
+            string suffix = $" did not purchase {displayedProperty.PropertyName}" +
+                " , so it will be auctioned to the highest bidder.";
+            spawner.OpenTextNotification("You" + suffix);
+            spawner.OpenTextNotification(purchasingPlayer.PlayerName + suffix,
+                rpcTarget: RpcTarget.OthersBuffered);
         }
         Close();
     }
 
     private void OnViewPropertiesClicked()
     {
-        PopupSpawner.Instance.OverlayPropertyMenu();
+        PopupSpawner.Instance.OpenPropertyMenu();
     }
 }
