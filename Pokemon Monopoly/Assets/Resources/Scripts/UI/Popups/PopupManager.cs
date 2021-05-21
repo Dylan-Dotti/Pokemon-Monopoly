@@ -37,7 +37,7 @@ public class PopupManager : MonoBehaviour
                 //popupQueue.Enqueue(nextCommand);
                 GameActionQueue.Instance.QueueCoroutineAction(
                     () => ExecuteOpenCommand(nextCommand));
-                OnPopupEnqueue();
+                //OnPopupEnqueue();
                 break;
             case PopupOpenOptions.Overlay:
                 ExecuteOpenCommand(nextCommand);
