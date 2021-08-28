@@ -5375,7 +5375,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Region: us'
+  m_Text: 'Region: none'
 --- !u!222 &1858545257
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -14,10 +14,11 @@ public class MultiplayerMessageLog : MonoBehaviour
     [SerializeField] private PlayerManager pManager;
     [SerializeField] private RectTransform textContainer;
     [SerializeField] private Text textPrefab;
+    [SerializeField] private int maxMessages = 1000;
 
     private bool enterEnabled;
     private bool clampScrollbar;
-    private List<Text> textItems;
+    private Queue<Text> textItems;
     private PhotonView pView;
 
     private GameObject inputPlaceholder;
@@ -30,7 +31,7 @@ public class MultiplayerMessageLog : MonoBehaviour
 
     private void Awake()
     {
-        textItems = new List<Text>();
+        textItems = new Queue<Text>();
         pView = GetComponent<PhotonView>();
         inputPlaceholder = inputField.transform.Find("Placeholder").gameObject;
         textContainer.offsetMin = new Vector2(0, textContainer.offsetMin.y);
@@ -114,6 +115,10 @@ public class MultiplayerMessageLog : MonoBehaviour
 
     private void CreateAndAddText(string message)
     {
+        if (textItems.Count >= maxMessages)
+        {
+            Destroy(textItems.Dequeue().gameObject); // destroy oldest message
+        }
         clampScrollbar = true;
         Text newMessage = Instantiate(textPrefab, textContainer);
         DateTime currTime = DateTime.Now;
@@ -122,7 +127,7 @@ public class MultiplayerMessageLog : MonoBehaviour
         string minString = currTime.Minute < 10 ?
             "0" + currTime.Minute.ToString() : currTime.Minute.ToString();
         newMessage.text = $"[{hourString}:{minString}] {message}";
-        textItems.Add(newMessage);
+        textItems.Enqueue(newMessage);
     }
 
     private void FocusInputField()

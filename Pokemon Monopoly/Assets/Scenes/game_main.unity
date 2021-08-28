@@ -972,6 +972,7 @@ MonoBehaviour:
   textContainer: {fileID: 729814223}
   textPrefab: {fileID: 2238202466535140322, guid: 25f8e3a1d471bde4b9e169d04617c471,
     type: 3}
+  maxMessages: 1000
 --- !u!114 &48051394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16800,6 +16801,7 @@ MonoBehaviour:
   textContainer: {fileID: 722664288}
   textPrefab: {fileID: 2238202466535140322, guid: 25f8e3a1d471bde4b9e169d04617c471,
     type: 3}
+  maxMessages: 1000
 --- !u!114 &1438948050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23545,6 +23547,7 @@ MonoBehaviour:
   textContainer: {fileID: 1266077933}
   textPrefab: {fileID: 2238202466535140322, guid: 25f8e3a1d471bde4b9e169d04617c471,
     type: 3}
+  maxMessages: 200
 --- !u!114 &2106121689
 MonoBehaviour:
   m_ObjectHideFlags: 0
