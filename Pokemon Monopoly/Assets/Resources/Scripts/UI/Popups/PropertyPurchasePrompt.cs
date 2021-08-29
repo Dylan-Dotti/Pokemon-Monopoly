@@ -73,28 +73,28 @@ public class PropertyPurchasePrompt : Popup
 
     private void OnYesClicked()
     {
+        Close();
         if (purchasingPlayer != null && displayedProperty != null)
         {
             purchasingPlayer.PurchaseProperty(displayedProperty);
-            Close();
         }
     }
 
     private void OnNoClicked()
     {
+        Close();
         if (GameConfig.Instance.AuctionPropertyOnNoBuy)
         {
             PopupSpawner spawner = PopupSpawner.Instance;
             spawner.OpenAuctionMenu(
                 new List<PropertyData> { displayedProperty },
                 allClients: true);
-            string suffix = $" did not purchase {displayedProperty.PropertyName}" +
-                " , so it will be auctioned to the highest bidder.";
+            string suffix = $" did not purchase {displayedProperty.PropertyName}, " +
+                "so it will be auctioned to the highest bidder.";
             spawner.OpenTextNotification("You" + suffix);
             spawner.OpenTextNotification(purchasingPlayer.PlayerName + suffix,
                 rpcTarget: RpcTarget.OthersBuffered);
         }
-        Close();
     }
 
     private void OnViewPropertiesClicked()
