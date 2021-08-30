@@ -24,10 +24,9 @@ public class PopupSpawner : MonoBehaviour
         }
     }
 
-    public void OpenPropertyMenu(
-        PopupOpenOptions openOptions = PopupOpenOptions.Overlay)
+    public void OpenPropertyMenu()
     {
-        manager.QueuePopup(factory.PropertyMenu, openOptions);
+        manager.QueuePopup(factory.PropertyMenu, PopupOpenOptions.Overlay);
     }
 
     public void OpenAuctionMenu(IEnumerable<PropertyData> properties,

@@ -11,4 +11,11 @@ public static class VectorExtensions
     {
         return new Vector3(-vector.x, vector.y, vector.z);
     }
+
+    public static float InverseLerp(this Vector3 vector, Vector3 start, Vector3 end)
+    {
+        Vector3 AB = end - start;
+        Vector3 AV = vector - start;
+        return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
+    }
 }
