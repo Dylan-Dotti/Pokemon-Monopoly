@@ -81,20 +81,23 @@ public class MonopolyPlayer : MonoBehaviour
         pView.RPC("RPC_InitPlayerId", RpcTarget.AllBuffered, id);
     }
 
-    // called only on local
+    // Called on all clients
     public void OnTurnStart()
     {
-        playerUI.RollButtonInteractable = true;
-        playerUI.LeaveJailInteractable = InJail;
-        logger.LogEventLocal("Your turn has started");
-        logger.LogEventOtherClients($"{PlayerName} started their turn");
+        if (IsLocalPlayer)
+        {
+            playerUI.RollButtonInteractable = true;
+            playerUI.LeaveJailInteractable = InJail;
+        }
+        logger.LogEventLocal(IsLocalPlayer ?
+            "Your turn has started" : $"{PlayerName} started their turn");
     }
 
-    // called only on local
+    // Called on all clients
     public void OnTurnEnd()
     {
-        logger.LogEventLocal("You ended your turn");
-        logger.LogEventOtherClients($"{PlayerName} ended their turn");
+        logger.LogEventLocal(IsLocalPlayer ?
+            "You ended your turn" : $"{PlayerName} ended their turn");
     }
 
     public void OnStandardRoll(DiceRoll roll)

@@ -36,7 +36,6 @@ public class UIMouseoverScale : MonoBehaviour,
         LeanTween.cancel(gameObject);
         float progress = transform.localScale.InverseLerp(mouseoverScale, defaultScale);
         float tweenTimeAdjusted = tweenTime * progress;
-        Debug.Log(tweenTimeAdjusted);
         transform.LeanScale(mouseoverScale, tweenTimeAdjusted);
     }
 
@@ -45,7 +44,6 @@ public class UIMouseoverScale : MonoBehaviour,
         LeanTween.cancel(gameObject);
         float progress = transform.localScale.InverseLerp(defaultScale, mouseoverScale);
         float tweenTimeAdjusted = tweenTime * progress;
-        Debug.Log(tweenTimeAdjusted);
         transform.LeanScale(defaultScale, tweenTimeAdjusted);
     }
 }

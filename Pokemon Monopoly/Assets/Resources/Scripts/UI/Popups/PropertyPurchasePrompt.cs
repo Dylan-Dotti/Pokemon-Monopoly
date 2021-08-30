@@ -53,8 +53,8 @@ public class PropertyPurchasePrompt : Popup
     private void UpdatePrompt()
     {
         promptText.text =
-            $"You landed on an unowned property: {displayedProperty.PropertyName}" +
-            $"{System.Environment.NewLine}Do you want to purchase {displayedProperty.PropertyName} for " +
+            $"You landed on an unowned {displayedProperty.PropertyName}. " +
+            $"Do you want to purchase {displayedProperty.PropertyName} for " +
             $"{SpecialStrings.POKEMONEY_SYMBOL}{displayedProperty.PurchaseCost}?";
     }
 

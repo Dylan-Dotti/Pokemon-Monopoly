@@ -43,15 +43,15 @@ public class PlayerManager : MonoBehaviour
         players.Where(p => p.PlayerID != player.PlayerID).ToList();
 
     // called by GameManager on all clients when turn ends
-    // called when player goes bankrupt on both clients
+    // called on both clients when player goes bankrupt
     public void SwitchNextActivePlayerLocal()
     {
-        if (ActivePlayer != null && ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnEnd();
+        if (ActivePlayer != null) ActivePlayer.OnTurnEnd();
         MonopolyPlayer nextPlayer = playerTurnQueue.Dequeue();
         playerTurnQueue.Enqueue(nextPlayer);
         ActivePlayer = nextPlayer;
         Debug.Log("Active player is now: " + ActivePlayer.PlayerName);
-        if (ActivePlayer.IsLocalPlayer) ActivePlayer.OnTurnStart();
+        ActivePlayer.OnTurnStart();
         ActivePlayerChanged?.Invoke(ActivePlayer);
     }
 
