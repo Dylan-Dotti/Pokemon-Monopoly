@@ -9,8 +9,16 @@ public class GameConfig : MonoBehaviour
 
     public static GameConfig Instance { get; private set; }
 
-    public int PlayerStartingMoney => playerStartingMoney;
-    public bool AuctionPropertyOnNoBuy => auctionPropertyOnNoBuy;
+    public int PlayerStartingMoney
+    {
+        get => playerStartingMoney;
+        set => playerStartingMoney = value;
+    }
+    public bool AuctionPropertyOnNoBuy
+    {
+        get => auctionPropertyOnNoBuy;
+        set => auctionPropertyOnNoBuy = value;
+    }
 
     private void Awake()
     {

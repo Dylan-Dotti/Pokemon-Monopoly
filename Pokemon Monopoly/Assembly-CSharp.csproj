@@ -187,11 +187,13 @@
     <Compile Include="Assets\Resources\Scripts\UI\BackNextMenuControl.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\BiddingMenu.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\BiddingMenuRemoteBidder.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\CheckBox.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\DiceRollPanel.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\EditableTextButton.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\ForceRoll.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\InputFieldCameraDisable.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\LeaveJailButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Main Menu\GameSettingsMenu.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomMenu.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomMenuPlayersDisplay.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Main Menu\RoomPlayerDisplay.cs" />
