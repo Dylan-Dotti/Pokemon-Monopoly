@@ -40,7 +40,8 @@ public class AuctionMenu : Popup
     {
         Coroutine openRoutine = base.Open();
         bidMenu.LocalPlayer = playerManager.LocalPlayer;
-        bidMenu.RemotePlayers = playerManager.RemotePlayers;
+        bidMenu.RemotePlayers = playerManager.RemotePlayers
+            .Where(p => !p.IsBankrupt).ToList();
         if (propertiesToAuction.Count > 0)
         {
             StartNextAuction();

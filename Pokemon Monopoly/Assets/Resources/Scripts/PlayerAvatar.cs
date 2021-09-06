@@ -42,7 +42,7 @@ public class PlayerAvatar : MonoBehaviour
     public void Despawn()
     {
         RemoveFromSquare();
-        gameObject.SetActive(false);
+        gameObject?.SetActive(false);
     }
 
     public void MoveToPosition(Vector3 position)

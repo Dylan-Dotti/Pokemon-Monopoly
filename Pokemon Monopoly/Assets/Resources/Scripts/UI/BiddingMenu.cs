@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,9 +12,9 @@ public class BiddingMenu : MonoBehaviour
     public event UnityAction AuctionComplete;
 
     [Header("Highest Bid Display")]
-    [SerializeField] private Text bidAmountText;
+    [SerializeField] private Text highestBidAmountText;
     [SerializeField] private Text bidderNameText;
-    [SerializeField] private RectTransform avatarImageHolder;
+    [SerializeField] private RectTransform bidderImageHolder;
 
     [Header("Multiplayer Events")]
     [SerializeField] private MultiplayerMessageLog messageLog;
@@ -82,10 +83,10 @@ public class BiddingMenu : MonoBehaviour
                 " bid " + bid.BidAmount.ToPokeMoneyString());
         }
         withdrawButton.interactable = bid.BiddingPlayer != LocalPlayer;
-        bidAmountText.text = bid.BidAmount.ToPokeMoneyString();
+        highestBidAmountText.text = bid.BidAmount.ToPokeMoneyString();
         bidderNameText.text = bid.BiddingPlayer.PlayerName;
-        avatarImageHolder.GetChildren().ForEach(c => Destroy(c.gameObject));
-        bid.BiddingPlayer.GetNewAvatarImage(avatarImageHolder, Vector3.one * 0.35f);
+        bidderImageHolder.GetChildren().ForEach(c => Destroy(c.gameObject));
+        bid.BiddingPlayer.GetNewAvatarImage(bidderImageHolder, Vector3.one * 0.35f);
         if (withdrawnRemotePlayers.Count == remotePlayers.Count) AuctionComplete?.Invoke();
     }
 
@@ -115,12 +116,21 @@ public class BiddingMenu : MonoBehaviour
     public void ResetMenu()
     {
         withdrawnRemotePlayers.Clear();
-        SetControlsEnabled(true);
-        withdrawButton.interactable = false;
-        bidResultText.text = "";
-        bidAmountText.text = 0.ToPokeMoneyString();
+        if (LocalPlayer.IsBankrupt)
+        {
+            PublishResultMessage("You are bankrupt");
+            SetControlsEnabled(false);
+        }
+        else
+        {
+            bidResultText.text = "";
+            SetControlsEnabled(true);
+            withdrawButton.interactable = false;
+        }
+        highestBidAmountText.text = 0.ToPokeMoneyString();
         bidderNameText.text = "None";
-        avatarImageHolder.GetChildren().ForEach(c => Destroy(c.gameObject));
+        bidderImageHolder.GetChildren().ForEach(c => Destroy(c.gameObject));
+        remotePlayers = remotePlayers.Where(p => !p.IsBankrupt).ToList();
         for (int i = 0; i < remotePlayers.Count; i++)
         {
             remoteBidders[i].gameObject.SetActive(true);

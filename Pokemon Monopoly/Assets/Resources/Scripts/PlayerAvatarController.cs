@@ -34,7 +34,7 @@ public class PlayerAvatarController : MonoBehaviour
     public void DespawnAvatar()
     {
         Debug.Log("Despawning avatar");
-        Avatar.Despawn();
+        Avatar?.Despawn();
     }
 
     public void QueueSequentialMove(int numSquares, bool reversed = false)

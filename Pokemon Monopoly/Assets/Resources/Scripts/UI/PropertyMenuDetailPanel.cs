@@ -13,6 +13,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
     private Button downgradeButton;
 
     private MonopolyPlayer localPlayer;
+    private BuildingsManager buildingsManager;
 
     private bool DefaultPanelEnabled
     {
@@ -27,7 +28,7 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
         mortgageButton = detailsPanel.Find("Mortgage Button").GetComponent<EditableTextButton>();
         upgradeButton = detailsPanel.Find("Upgrade Button").GetComponent<Button>();
         downgradeButton = detailsPanel.Find("Downgrade Button").GetComponent<Button>();
-
+        buildingsManager = BuildingsManager.Instance;
     }
 
     private void Start()
@@ -45,7 +46,8 @@ public class PropertyMenuDetailPanel : MonoBehaviour, IPropertyDisplay
         propDetailsDisplay.EnableDisplay(gymData);
 
         upgradeButton.interactable = localPlayer != null &&
-            gymData.Owner == localPlayer && gymData.Upgradable && 
+            gymData.Owner == localPlayer &&
+            gymData.IsUpgradable(buildingsManager) &&
             localPlayer.Money >= gymData.UpgradeCost;
         if (upgradeButton.interactable)
         {

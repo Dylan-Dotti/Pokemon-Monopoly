@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BuildingsFactory))]
-[RequireComponent(typeof(PhotonView))]
 public class BuildingsManager : MonoBehaviour
 {
     public static BuildingsManager Instance { get; private set; }
@@ -16,7 +15,6 @@ public class BuildingsManager : MonoBehaviour
     private List<GameObject> lentCenters;
 
     private BuildingsFactory factory;
-    private PhotonView pView;
 
     public int NumMartsRemaining => marts.Count;
     public int NumCentersRemaining => marts.Count;
@@ -33,11 +31,9 @@ public class BuildingsManager : MonoBehaviour
             centers = new Queue<GameObject>();
             lentMarts = new List<GameObject>();
             lentCenters = new List<GameObject>();
-            pView = GetComponent<PhotonView>();
             factory = GetComponent<BuildingsFactory>();
             SpawnBuildings();
         }
-        else throw new System.Exception("Can't have two instances of BuildingsManager");
     }
 
     public bool RequestMart(Vector3 scale, out GameObject mart)
@@ -88,14 +84,17 @@ public class BuildingsManager : MonoBehaviour
 
     private void SpawnBuildings()
     {
-        for (int i = 0; i < 32; i++)
+        int numMarts = GameConfig.Instance.MaxNumMarts;
+        int numCenters = GameConfig.Instance.MaxNumCenters;
+
+        for (int i = 0; i < numMarts; i++)
         {
             var newMart = factory.CreateMart();
             marts.Enqueue(newMart);
             newMart.transform.parent = transform;
             newMart.SetActive(false);
         }
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < numCenters; i++)
         {
             var newCenter = factory.CreateCenter();
             centers.Enqueue(newCenter);

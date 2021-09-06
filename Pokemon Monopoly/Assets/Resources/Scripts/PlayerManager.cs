@@ -84,9 +84,8 @@ public class PlayerManager : MonoBehaviour
     private void OnPlayerWentBankrupt(MonopolyPlayer player)
     {
         defaultPlayerSequence.Remove(player);
-        var playerList = playerTurnQueue.ToList();
-        playerList.Remove(player);
-        playerTurnQueue = new Queue<MonopolyPlayer>(playerList);
+        playerTurnQueue = new Queue<MonopolyPlayer>(
+            playerTurnQueue.Where(p => p != player));
         ActivePlayer = null;
         if (playerTurnQueue.Count > 0)
         {

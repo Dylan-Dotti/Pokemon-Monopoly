@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -29,18 +30,20 @@ public sealed class GymPropertyData : PropertyData, IUpgradable
     }
 
     public override int TotalDowngradeValue => DowngradeValue *
-        (UpgradeLevel == GymSquareUpgradeLevel.OneCenter ? 5 : NumMarts);
+        (UpgradeLevel == GymPropertyUpgradeLevel.OneCenter ? 5 : NumMarts);
 
     public override int NumMarts => upgradeLevel < 5 ? upgradeLevel : 0;
     public override int NumCenters =>
-        UpgradeLevel == GymSquareUpgradeLevel.OneCenter ? 1 : 0;
+        UpgradeLevel == GymPropertyUpgradeLevel.OneCenter ? 1 : 0;
 
     public override bool Mortgageable => base.Mortgageable && upgradeLevel == 0;
 
     public bool Upgradable => Owner != null && upgradeLevel < 5 && !IsMortgaged &&
         CollectionData.PlayerHasMonopoly(Owner);
+
     public bool Downgradable => upgradeLevel > 0 && !IsMortgaged;
-    public GymSquareUpgradeLevel UpgradeLevel => (GymSquareUpgradeLevel)upgradeLevel;
+
+    public GymPropertyUpgradeLevel UpgradeLevel => (GymPropertyUpgradeLevel)upgradeLevel;
 
     [SerializeField] private int upgradeCost;
     [SerializeField] private int[] rentWithMarts = new int[4];
@@ -65,6 +68,13 @@ public sealed class GymPropertyData : PropertyData, IUpgradable
         return rentWithMarts[martCount - 1];
     }
 
+    public bool IsUpgradable(BuildingsManager buildingManager)
+    {
+        return Owner != null && upgradeLevel < 5 && !IsMortgaged &&
+            CanTakeUpgrade(buildingManager) &&
+            CollectionData.PlayerHasMonopoly(Owner);
+    }
+
     public void Upgrade()
     {
         if (!Upgradable) return;
@@ -83,30 +93,48 @@ public sealed class GymPropertyData : PropertyData, IUpgradable
     {
         display.EnableDisplay(this);
     }
+
+    private bool CanTakeUpgrade(BuildingsManager buildingsManager)
+    {
+        switch (UpgradeLevel)
+        {
+            case GymPropertyUpgradeLevel.None:
+            case GymPropertyUpgradeLevel.OneMart:
+            case GymPropertyUpgradeLevel.TwoMarts:
+            case GymPropertyUpgradeLevel.ThreeMarts:
+                return buildingsManager.CanGetMart;
+            case GymPropertyUpgradeLevel.FourMarts:
+                return buildingsManager.CanGetCenter;
+            case GymPropertyUpgradeLevel.OneCenter:
+                return false;
+            default:
+                throw new ArgumentException("Invalid upgrade level");
+        }
+    }
 }
 
-public enum GymSquareUpgradeLevel
+public enum GymPropertyUpgradeLevel
 {
     None, OneMart, TwoMarts, ThreeMarts, FourMarts, OneCenter
 }
 
 public static class GymUpgradeLevelExtensions
 {
-    public static string ToDisplayString(this GymSquareUpgradeLevel upgradeLevel)
+    public static string ToDisplayString(this GymPropertyUpgradeLevel upgradeLevel)
     {
         switch (upgradeLevel)
         {
-            case GymSquareUpgradeLevel.None:
+            case GymPropertyUpgradeLevel.None:
                 return "None";
-            case GymSquareUpgradeLevel.OneMart:
+            case GymPropertyUpgradeLevel.OneMart:
                 return "Mart";
-            case GymSquareUpgradeLevel.TwoMarts:
+            case GymPropertyUpgradeLevel.TwoMarts:
                 return "Mart x2";
-            case GymSquareUpgradeLevel.ThreeMarts:
+            case GymPropertyUpgradeLevel.ThreeMarts:
                 return "Mart x3";
-            case GymSquareUpgradeLevel.FourMarts:
+            case GymPropertyUpgradeLevel.FourMarts:
                 return "Mart x4";
-            case GymSquareUpgradeLevel.OneCenter:
+            case GymPropertyUpgradeLevel.OneCenter:
                 return "Center";
             default:
                 throw new System.ArgumentException("Unsupported upgrade level");

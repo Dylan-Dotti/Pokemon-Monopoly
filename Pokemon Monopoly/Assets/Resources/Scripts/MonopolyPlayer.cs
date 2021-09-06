@@ -29,6 +29,7 @@ public class MonopolyPlayer : MonoBehaviour
     public int PlayerID { get; private set; }
     public bool HasAdditionalMove { get; private set; }
     public bool InJail { get; private set; }
+    public bool IsBankrupt { get; private set; }
     public int GetOutOfJailFreeUses { get; set; }
     public bool IsLocalPlayer => pView.IsMine;
 
@@ -55,13 +56,13 @@ public class MonopolyPlayer : MonoBehaviour
         properties = new HashSet<PropertyData>();
         avatarFactory = AvatarImageFactory.Instance;
         playerUI = PlayerUIManager.Instance;
+        logger = EventLogger.Instance;
+        popupSpawner = PopupSpawner.Instance;
     }
 
     private void Start()
     {
         Debug.Log("Player start");
-        logger = EventLogger.Instance;
-        popupSpawner = PopupSpawner.Instance;
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
@@ -278,27 +279,44 @@ public class MonopolyPlayer : MonoBehaviour
         }
         else
         {
+            // Player has enough assets to prevent bankruptcy
             if (IsLocalPlayer)
             {
                 popupSpawner.OpenPropertyMenu();
-                Debug.Log("You have enough funds to prevent bankruptcy");
+                popupSpawner.OpenTextNotification(
+                    $"Your money has gone below {SpecialStrings.POKEMONEY_SYMBOL}0. " +
+                    $"You must sell or mortgage assets to bring it to at least {SpecialStrings.POKEMONEY_SYMBOL}0.");
             }
         }
     }
 
     private void GoBankrupt()
     {
+        IsBankrupt = true;
         if (IsLocalPlayer)
         {
-            Debug.Log("Going bankrupt");
             playerUI.DisableControlButtons();
             playerUI.ViewPropertiesInteractable = true;
         }
+        // downgrade properties and return to the bank
+        foreach (var property in properties)
+        {
+            // downgrade property if it is a gym property
+            var gymProp = property as GymPropertyData;
+            if (gymProp != null)
+            {
+                while (gymProp.Downgradable) gymProp.Downgrade();
+            }
+            property.IsMortgaged = false;
+            property.Owner = null;
+        }
+        if (properties.Count > 0) popupSpawner.OpenAuctionMenu(properties);
+
         logger.LogEventLocal(
             $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
         popupSpawner.OpenTextNotification(
-            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt!");
-        properties.ForEach(p => p.Owner = null);
+            $"{(IsLocalPlayer ? "You" : PlayerName)} went bankrupt! " +
+            "Any owned properties will be auctioned");
         properties.Clear();
         avatarController.DespawnAvatar();
         WentBankrupt?.Invoke(this);

@@ -19,13 +19,13 @@ public class GymSquareUpgradesManager : MonoBehaviour
     public float positionMarkerSpan =>
         positionMarkers[positionMarkers.Count - 1].x - positionMarkers[0].x;
 
-    public GymSquareUpgradeLevel UpgradeLevel
+    public GymPropertyUpgradeLevel UpgradeLevel
     {
         set
         {
             Debug.Log("New upgrade level: " + value.ToString());
             ReturnAllUpgrades();
-            if (value == GymSquareUpgradeLevel.OneCenter && buildingsManager.CanGetCenter)
+            if (value == GymPropertyUpgradeLevel.OneCenter && buildingsManager.CanGetCenter)
             {
                 SpawnUpgrades(() => buildingsManager.GetCenter(Vector3.one * 0.85f),
                     GetSpawnPositions(1, Vector3.up * 0.2f));
