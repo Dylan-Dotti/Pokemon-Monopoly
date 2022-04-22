@@ -13,14 +13,12 @@ public class GameSettingsMenu : MonoBehaviour
     private void Awake()
     {
         settings = GameConfig.Instance;
+        settings.UpdatedValues += UpdateMenu;
     }
 
     private void OnEnable()
     {
-        auctionUnboughtProperties.Checked = settings.AuctionPropertyOnNoBuy;
-        maxNumMarts.text = settings.MaxNumMarts.ToString();
-        maxNumCenters.text = settings.MaxNumCenters.ToString();
-        playerStartingMoney.text = settings.PlayerStartingMoney.ToString();
+        UpdateMenu();
     }
 
     public void OnConfirm()
@@ -29,5 +27,13 @@ public class GameSettingsMenu : MonoBehaviour
         settings.MaxNumMarts = int.Parse(maxNumMarts.text);
         settings.MaxNumCenters = int.Parse(maxNumCenters.text);
         settings.PlayerStartingMoney = int.Parse(playerStartingMoney.text);
+    }
+
+    private void UpdateMenu()
+    {
+        auctionUnboughtProperties.Checked = settings.AuctionPropertyOnNoBuy;
+        maxNumMarts.text = settings.MaxNumMarts.ToString();
+        maxNumCenters.text = settings.MaxNumCenters.ToString();
+        playerStartingMoney.text = settings.PlayerStartingMoney.ToString();
     }
 }

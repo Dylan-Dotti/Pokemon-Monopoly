@@ -15,6 +15,10 @@ public class PlayerAvatar : MonoBehaviour
     private MonopolyPlayer owner;
     private Vector3Lerper positionLerper;
 
+    private AvatarImageFactory imageFactory;
+    private Transform avatarImageHolder;
+    private Transform avatarImage;
+
     public MonopolyPlayer Owner
     {
         get => owner;
@@ -23,15 +27,19 @@ public class PlayerAvatar : MonoBehaviour
             owner = value;
             if (owner != null)
             {
-                SpawnAvatarImage();
+                SpawnOwnerAvatarImage();
             }
         }
     }
+
     public BoardSquare OccupiedSquare { get; private set; }
+    public bool InJailOverride { get; set; }
 
     private void Awake()
     {
+        avatarImageHolder = transform.Find("Canvas");
         positionLerper = GetComponent<Vector3Lerper>();
+        imageFactory = AvatarImageFactory.Instance;
     }
 
     public void SpawnAtSquare(BoardSquare square)
@@ -76,14 +84,19 @@ public class PlayerAvatar : MonoBehaviour
             square, .165f, isLastMove, triggerEffects, hideDuringMove));
     }
 
-    private void SpawnAvatarImage()
+    public void SpawnAvatarImage(string avatarImageName)
     {
-        Transform canvas = transform.Find("Canvas");
-        if (canvas.childCount == 2)
+        if (avatarImageHolder.childCount == 2)
         {
-            Destroy(canvas.GetChild(1).gameObject);
+            Destroy(avatarImageHolder.GetChild(1).gameObject);
         }
-        Owner.GetNewAvatarImage(canvas, new Vector3(.005f, .005f, 1));
+        imageFactory.SpawnAvatarImage(
+            avatarImageName, avatarImageHolder, new Vector3(.005f, .005f, 1));
+    }
+
+    private void SpawnOwnerAvatarImage()
+    {
+        SpawnAvatarImage(Owner.AvatarImageName);
     }
 
     private void AddToSquare(BoardSquare square)
@@ -100,7 +113,7 @@ public class PlayerAvatar : MonoBehaviour
         }
     }
 
-    private void RemoveFromSquare()
+    public void RemoveFromSquare()
     {
         if (OccupiedSquare != null)
         {

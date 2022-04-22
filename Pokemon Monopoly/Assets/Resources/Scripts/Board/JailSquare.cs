@@ -12,29 +12,33 @@ public class JailSquare : CornerSquare
             .GetComponent<BoardSquareMovePositions>();
     }
 
-    public override void ApplyEffects(MonopolyPlayer player, bool isLastMove)
-    {
-
-    }
+    public override void ApplyEffects(MonopolyPlayer player, bool isLastMove) { }
 
     public override Vector3 GetAvatarMovePosition(PlayerAvatar player, float hoverHeight = 0.5F)
     {
-        return player.Owner.InJail ?
-            jailMovePositions.GetMovePosition(Occupants.Where(o => o.Owner.InJail).ToList(), player):
-            MovePositions.GetMovePosition(Occupants.Where(o => !o.Owner.InJail).ToList(), player);
+        return IsJailable(player) ?
+            jailMovePositions.GetMovePosition(Occupants.Where(o => IsJailable(o)).ToList(), player) :
+            MovePositions.GetMovePosition(Occupants.Where(o => !IsJailable(o)).ToList(), player);
     }
 
     public override void PositionOccupants(PlayerAvatar ignorePlayer = null)
     {
-        var jailOccupants = Occupants.Where(o => o.Owner.InJail).ToList();
-        var nonJailOccupants = Occupants.Where(o => !o.Owner.InJail).ToList();
+        var jailOccupants = Occupants.Where(o => IsJailable(o)).ToList();
+        var nonJailOccupants = Occupants.Where(o => !IsJailable(o)).ToList();
+
         var jailOccupantsFiltered = jailOccupants.Where(
-            o => ignorePlayer == null || o != ignorePlayer).ToList();
+            occ => ignorePlayer == null || occ != ignorePlayer).ToList();
         var nonJailOccupantsFiltered = nonJailOccupants.Where(
-            o => ignorePlayer == null || !o.Owner.InJail).ToList();
+            occ => ignorePlayer == null || !IsJailable(occ)).ToList();
+
         jailOccupantsFiltered.ForEach(o => o.LerpToPosition(
             jailMovePositions.GetMovePosition(jailOccupants, o)));
         nonJailOccupantsFiltered.ForEach(o => o.LerpToPosition(
             MovePositions.GetMovePosition(nonJailOccupants, o)));
+    }
+
+    private bool IsJailable(PlayerAvatar avatar)
+    {
+        return (avatar.Owner != null && avatar.Owner.InJail) || avatar.InJailOverride;
     }
 }

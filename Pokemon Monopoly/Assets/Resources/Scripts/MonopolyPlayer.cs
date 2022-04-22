@@ -18,7 +18,6 @@ public class MonopolyPlayer : MonoBehaviour
     private PhotonView pView;
     private HashSet<PropertyData> properties;
     private int money;
-    private string avatarImageName;
     private PopupSpawner popupSpawner;
     private AvatarImageFactory avatarFactory;
     private EventLogger logger;
@@ -27,6 +26,8 @@ public class MonopolyPlayer : MonoBehaviour
 
     public string PlayerName { get; private set; } = "Unknown";
     public int PlayerID { get; private set; }
+    public string AvatarImageName { get; set; }
+
     public bool HasAdditionalMove { get; private set; }
     public bool InJail { get; private set; }
     public bool IsBankrupt { get; private set; }
@@ -63,6 +64,7 @@ public class MonopolyPlayer : MonoBehaviour
     private void Start()
     {
         Debug.Log("Player start");
+        // Need to call from local player to get name
         if (IsLocalPlayer)
         {
             pView.RPC("RPC_SpawnInit", RpcTarget.AllBuffered,
@@ -154,7 +156,7 @@ public class MonopolyPlayer : MonoBehaviour
     public RectTransform GetNewAvatarImage(
         Transform parent = null, Vector3? scale = null)
     {
-        return avatarFactory.GetAvatarImage(avatarImageName, parent, scale);
+        return avatarFactory.SpawnAvatarImage(AvatarImageName, parent, scale);
     }
 
     public void SpawnAvatar()
@@ -328,7 +330,7 @@ public class MonopolyPlayer : MonoBehaviour
     private void RPC_SpawnInit(string name, string avatarImageName)
     {
         PlayerName = name;
-        this.avatarImageName = avatarImageName;
+        AvatarImageName = avatarImageName;
         Spawned?.Invoke(this);
     }
     

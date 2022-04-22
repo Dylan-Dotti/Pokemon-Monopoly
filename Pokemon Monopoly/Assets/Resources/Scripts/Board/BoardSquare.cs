@@ -12,6 +12,7 @@ public abstract class BoardSquare : MonoBehaviour
 
     public MonopolyBoard ParentBoard { get; set; }
     public IReadOnlyList<PlayerAvatar> Occupants => occupants;
+    public int MaxOccupants => MovePositions.MaxMovePositions;
     protected BoardSquareMovePositions MovePositions { get; private set; }
 
     protected virtual void Awake()

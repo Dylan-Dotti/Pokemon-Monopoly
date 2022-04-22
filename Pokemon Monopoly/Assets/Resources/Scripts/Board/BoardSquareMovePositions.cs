@@ -6,6 +6,8 @@ public class BoardSquareMovePositions : MonoBehaviour
 {
     private Vector3[][] playerMovePositions;
 
+    public int MaxMovePositions => playerMovePositions.Length;
+
     private void Awake()
     {
         playerMovePositions = new Vector3[transform.childCount][];
@@ -39,10 +41,10 @@ public class BoardSquareMovePositions : MonoBehaviour
 
     private Vector3 GetMovePosition(int numPlayers, int playerIndex)
     {
-        if (numPlayers > playerMovePositions.Length)
+        if (numPlayers > MaxMovePositions)
         {
             throw new System.IndexOutOfRangeException(
-                $"More than {playerMovePositions.Length} players are not supported");
+                $"More than {MaxMovePositions} avatars are not supported for this square");
         }
         Vector3[] movePositions = playerMovePositions[numPlayers - 1];
         return movePositions[playerIndex];

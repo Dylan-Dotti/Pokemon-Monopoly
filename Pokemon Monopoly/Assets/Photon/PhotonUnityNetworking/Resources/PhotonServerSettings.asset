@@ -70,5 +70,7 @@ MonoBehaviour:
   - RPC_GoBankrupt
   - RPC_OpenAuctionMenu
   - RPC_OpenTextNotification
+  - RPC_RequestUpdate
+  - RPC_UpdateConfig
   DisableAutoOpenWizard: 1
   ShowSettings: 1

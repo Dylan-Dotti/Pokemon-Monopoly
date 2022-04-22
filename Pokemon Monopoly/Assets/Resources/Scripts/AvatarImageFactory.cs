@@ -15,11 +15,11 @@ public class AvatarImageFactory : MonoBehaviour
         }
     }
 
-    public RectTransform GetAvatarImage(string imageName,
+    public RectTransform SpawnAvatarImage(string imageName,
         Transform parent = null, Vector3? scale = null)
     {
         RectTransform avatarImage = avatarImagePrefabs
-            .Where(p => p.gameObject.name == imageName).Single();
+            .Single(p => p.gameObject.name == imageName);
         if (avatarImage == null) throw new System.ArgumentException("Invalid image name");
         avatarImage = Instantiate(avatarImage, parent);
         if (scale.HasValue)

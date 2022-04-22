@@ -24,6 +24,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        //PhotonNetwork.OfflineMode = true;
     }
 
     public override void OnConnectedToMaster()

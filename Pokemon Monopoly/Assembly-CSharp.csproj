@@ -179,6 +179,7 @@
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\PropertyCollection.cs" />
     <Compile Include="Assets\Resources\Scripts\Scriptable Objects\PropertyData.cs" />
     <Compile Include="Assets\Resources\Scripts\SpecialStrings.cs" />
+    <Compile Include="Assets\Resources\Scripts\Testing\Square Positions\SquarePositionsTestManager.cs" />
     <Compile Include="Assets\Resources\Scripts\TransformExtensions.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\AvatarImageHolder.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\AvatarSelectionGrid.cs" />
